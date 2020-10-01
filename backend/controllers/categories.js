@@ -8,9 +8,10 @@ categoryRouter.get('/', async (req, res) => {
 
 // categoryRouter.get('/superCategories', async(req, res) => {
 //   const filter = {
-//     superCategories: undefined
+//     superCategory: undefined
 //   }
 //   const categories = await Category.find(filter)
+//     .populate('subCategories')
 //   res.status(201).json(categories);
 // })
 
@@ -62,24 +63,29 @@ categoryRouter.patch('/summary/:id', async (req, res) => {
 
 categoryRouter.patch('/superCategory/:id', async (req, res) => {
   const givenId = req.params.id
+  const newSuperCategoryId = req.body.superCategory
   
   // remove chosen category from previos superCategory
   const chosenCategory = await Category.findById(givenId);
+
+  // if given superCategory is the same as the previous return status 400
+  if (chosenCategory.superCategory.toString() === newSuperCategoryId) res.status(400).end()
+
   const previousSuperCategory = await Category.findById(chosenCategory.superCategory);
   previousSuperCategory.subCategories = previousSuperCategory.subCategories
     .filter(subCategory => {
-      return subCategory != chosenCategory
+      return subCategory.toString() != chosenCategory.id
     });
   await previousSuperCategory.save();
 
   // change superCategory
   const filter = { _id: givenId }
-  const modify = { superCategory: req.body.superCategory }
+  const modify = { superCategory: newSuperCategoryId }
   const options = { new: true }
   const returnedCategory = await Category.findOneAndUpdate(filter, modify, options);
   
   // add chosen category to new superCategory
-  const newSuperCategory = await Category.findById(req.body.superCategory);
+  const newSuperCategory = await Category.findById(newSuperCategoryId);
   newSuperCategory.subCategories = newSuperCategory.subCategories.concat(givenId);
   await newSuperCategory.save();
   
