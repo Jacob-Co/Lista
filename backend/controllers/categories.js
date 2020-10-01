@@ -6,6 +6,14 @@ categoryRouter.get('/', async (req, res) => {
   res.status(201).json(categories);
 });
 
+// categoryRouter.get('/superCategories', async(req, res) => {
+//   const filter = {
+//     superCategories: undefined
+//   }
+//   const categories = await Category.find(filter)
+//   res.status(201).json(categories);
+// })
+
 categoryRouter.get('/:id', async (req, res) => {
   const { id } = req.params;
   const returnedCategory = await Category.findById(id);
@@ -52,12 +60,30 @@ categoryRouter.patch('/summary/:id', async (req, res) => {
   res.status(201).json(returnedCategory);
 })
 
-// categoryRouter.patch('/superCategory/:id', async (req, res) => {
-//   const filter = { _id: req.params.id }
-//   const modify = { superCategory: req.body.superCategory }
-//   const options = { new: true }
-//   const returnedCategory = await Category.findOneAndUpdate(filter, modify, options);
-//   res.status(201).json(returnedCategory);
-// })
+categoryRouter.patch('/superCategory/:id', async (req, res) => {
+  const givenId = req.params.id
+  
+  // remove chosen category from previos superCategory
+  const chosenCategory = await Category.findById(givenId);
+  const previousSuperCategory = await Category.findById(chosenCategory.superCategory);
+  previousSuperCategory.subCategories = previousSuperCategory.subCategories
+    .filter(subCategory => {
+      return subCategory != chosenCategory
+    });
+  await previousSuperCategory.save();
+
+  // change superCategory
+  const filter = { _id: givenId }
+  const modify = { superCategory: req.body.superCategory }
+  const options = { new: true }
+  const returnedCategory = await Category.findOneAndUpdate(filter, modify, options);
+  
+  // add chosen category to new superCategory
+  const newSuperCategory = await Category.findById(req.body.superCategory);
+  newSuperCategory.subCategories = newSuperCategory.subCategories.concat(givenId);
+  await newSuperCategory.save();
+  
+  res.status(201).json(returnedCategory);
+})
 
 module.exports = categoryRouter
