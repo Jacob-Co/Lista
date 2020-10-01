@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
+const categoryRouter = require('./controllers/categories')
 const config = require('./utils/config');
 
 const mongoUrl = config.MONGODB_URI;
@@ -16,5 +17,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use('/api/categories', categoryRouter)
 
 module.exports = app;
