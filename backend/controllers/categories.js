@@ -19,6 +19,11 @@ categoryRouter.post('/', async (req, res) => {
   res.status(201).json(returnedCategory);
 })
 
+categoryRouter.delete('/:id', async (req, res) => {
+  await Category.findByIdAndDelete(req.params.id)
+  res.status(204).end();
+})
+
 categoryRouter.patch('/name/:id', async (req, res) => {
   const filter = { _id: req.params.id }
   const modify = { name: req.body.name }
