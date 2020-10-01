@@ -15,6 +15,14 @@ const categorySchema = new mongoose.Schema({
       ref: 'Task',
     },
   ],
+  superCategory: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category'
+  },
+  subCategories: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
+  }],
 });
 
 categorySchema.set('toJSON', {
