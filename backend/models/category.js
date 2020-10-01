@@ -1,12 +1,10 @@
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
 
 const categorySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
     minlength: 1,
-    unique: true,
   },
   summary: String,
   tasks: [
@@ -36,8 +34,6 @@ categorySchema.set('toJSON', {
 categorySchema.pre('find', function() {
   this.populate('subCategories');
 })
-
-categorySchema.plugin(uniqueValidator);
 
 const Category = mongoose.model('Category', categorySchema);
 
