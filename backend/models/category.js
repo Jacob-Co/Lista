@@ -32,8 +32,9 @@ categorySchema.set('toJSON', {
   }
 });
 
-categorySchema.pre('find', function() {
+categorySchema.pre('find', function (next) {
   this.populate('subCategories');
+  next()
 })
 
 const Category = mongoose.model('Category', categorySchema);
