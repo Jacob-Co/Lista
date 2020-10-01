@@ -6,14 +6,13 @@ categoryRouter.get('/', async (req, res) => {
   res.status(201).json(categories);
 });
 
-// categoryRouter.get('/superCategories', async(req, res) => {
-//   const filter = {
-//     superCategory: undefined
-//   }
-//   const categories = await Category.find(filter)
-//     .populate('subCategories')
-//   res.status(201).json(categories);
-// })
+categoryRouter.get('/superCategories', async(req, res) => {
+  const filter = {
+    superCategory: undefined
+  }
+  const categories = await Category.find(filter)
+  res.status(201).json(categories);
+})
 
 categoryRouter.get('/:id', async (req, res) => {
   const { id } = req.params;
