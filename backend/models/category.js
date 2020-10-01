@@ -33,6 +33,10 @@ categorySchema.set('toJSON', {
   }
 });
 
+categorySchema.pre('find', function() {
+  this.populate('subCategories');
+})
+
 categorySchema.plugin(uniqueValidator);
 
 const Category = mongoose.model('Category', categorySchema);
