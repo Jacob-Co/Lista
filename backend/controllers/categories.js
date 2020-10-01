@@ -13,9 +13,21 @@ categoryRouter.get('/:id', async (req, res) => {
 })
 
 categoryRouter.post('/', async (req, res) => {
+  // Create a new Category
   const { body } = req;
   const newCategory = new Category({ ...body });
   const returnedCategory = await newCategory.save();
+
+  // Add to new Cateogry to is superCateogy's subCategory
+  if ( body.superCategory ) {
+    const parentCategory = await Category.findById(body.superCategory);
+    console.log(parentCategory.id)
+    const parentSubCategories = parentCategory.subCategories;
+    console.log(parentSubCategories)
+    const modify = { subCategories: parentSubCategories.concat(returnedCategory.id)}
+    await Category.findByIdAndUpdate(body.superCategory, modify)
+  }
+
   res.status(201).json(returnedCategory);
 })
 
@@ -39,5 +51,13 @@ categoryRouter.patch('/summary/:id', async (req, res) => {
   const returnedCategory = await Category.findOneAndUpdate(filter, modify, options);
   res.status(201).json(returnedCategory);
 })
+
+// categoryRouter.patch('/superCategory/:id', async (req, res) => {
+//   const filter = { _id: req.params.id }
+//   const modify = { superCategory: req.body.superCategory }
+//   const options = { new: true }
+//   const returnedCategory = await Category.findOneAndUpdate(filter, modify, options);
+//   res.status(201).json(returnedCategory);
+// })
 
 module.exports = categoryRouter
