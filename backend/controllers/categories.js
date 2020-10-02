@@ -22,18 +22,18 @@ categoryRouter.get('/:id', async (req, res) => {
 
 categoryRouter.post('/', async (req, res) => {
   // Create a new Category
-  const { body } = req;
-  const newCategory = new Category({ ...body });
+  const { name, summary, superCategory } = req.body;
+  const newCategory = new Category({ name, summary, superCategory });
   const returnedCategory = await newCategory.save();
 
   // Add to new Cateogry to is superCateogy's subCategory
-  if ( body.superCategory ) {
-    const parentCategory = await Category.findById(body.superCategory);
+  if ( superCategory ) {
+    const parentCategory = await Category.findById(superCategory);
     console.log(parentCategory.id)
     const parentSubCategories = parentCategory.subCategories;
     console.log(parentSubCategories)
     const modify = { subCategories: parentSubCategories.concat(returnedCategory.id)}
-    await Category.findByIdAndUpdate(body.superCategory, modify)
+    await Category.findByIdAndUpdate(superCategory, modify)
   }
 
   res.status(201).json(returnedCategory);
