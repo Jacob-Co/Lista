@@ -29,12 +29,12 @@ taskRouter.patch('/endDate/:id', async (req, res) => {
   res.status(202).json(updatedTask)
 })
 
-// taskRouter.patch('/recurring/:id', async(req, res) => {
-//   const filter = { _id: req.params.id }
-//   const modifier = { recurring: req.body.recurring }
-//   const options = { new: true }
-//   const updatedTask = await Task.findOneAndUpdate(filter, modifier, options)
-//   res.status(202).json(updatedTask)
-// })
+taskRouter.patch('/recurring/:id', async(req, res) => {
+  const filter = { _id: req.params.id }
+  const modifier = { recurring: req.body.recurring }
+  const options = { new: true }
+  const updatedTask = await Task.findOneAndUpdate(filter, modifier, options)
+  res.status(202).json(updatedTask)
+})
 
 module.exports = taskRouter
