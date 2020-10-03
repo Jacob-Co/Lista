@@ -10,40 +10,41 @@ const taskSchema = new mongoose.Schema({
   accomplished: {
     type: Boolean,
     default: false,
-    required: true,
   },
   overdue: {
     type: Boolean,
     default: false,
-    required: true,
+  },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
+    default: null
   },
   startDate: {
     type: Date,
     default: Date.now(),
-    required: true,
   },
-  endDate: Date,
-  content: String,
-  reminderAvailable: {
-    type: Boolean,
-    default: false,
+  endDate: {
+    type: Date,
+    default: null,
   },
-  reminder_time: Date,
-  recurringDateAvailable: {
-    type: Boolean,
-    default: false,
-  },
-  recurringInstructionsAvailable: {
-    type: Boolean,
-    default: false,
-  },
-  recurringValue: [{
-    type: Number
-  }],
-  updateNotes: {
+  recurring: new mongoose.Schema({
+    isDate: {
+      type: Boolean,
+      default: null
+    },
+    isInstructional: {
+      type: Boolean,
+      default: null
+    },
+    value: [{
+      type: Number // if isDate [date], if is Instructional [day, week, month]
+    }],
+  }),
+  updateNotes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'UpdateNote'
-  }
+  }]
 })
 
 taskSchema.set('toJSON', {
