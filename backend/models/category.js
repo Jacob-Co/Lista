@@ -34,6 +34,7 @@ categorySchema.set('toJSON', {
 
 categorySchema.pre('find', function (next) {
   this.populate('subCategories');
+  this.populate('tasks')
   next()
 })
 
