@@ -3,6 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 const categoryRouter = require('./controllers/categories')
+const taskRouter = require('./controllers/tasks')
 const config = require('./utils/config');
 
 const mongoUrl = config.MONGODB_URI;
@@ -18,5 +19,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/api/categories', categoryRouter)
+app.use('/api/tasks', taskRouter)
 
 module.exports = app;
