@@ -95,13 +95,17 @@ taskRouter.patch('/category/:id', async (req, res) => {
   res.status(202).json(updatedTask)
 })
 
-// taskRouter.delete('/:id', async (req, res) => {
-//   // const taskToDelete = await Task.findById(req.params.id);
-//   // if (taskToDelete.category) {
+taskRouter.delete('/:id', async (req, res) => {
+  const taskToDelete = await Task.findById(req.params.id);
+  
+  if (taskToDelete.category) {
+    const category = await Category.findById(taskToDelete.category)
+    category.tasks = category.tasks.filter(task => task.toString() != taskToDelete.id)
+    await category.save()
+  }
 
-//   // }
-//   await Task.findByIdAndRemove(req.params.id);
-//   res.sendStatus(204).end()
-// })
+  await Task.findByIdAndRemove(req.params.id);
+  res.sendStatus(204).end()
+})
 
 module.exports = taskRouter
