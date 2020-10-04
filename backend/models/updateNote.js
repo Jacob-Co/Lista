@@ -9,6 +9,11 @@ const updateNoteSchema = mongoose.Schema({
   date: {
     type: Date,
     required: true,
+    default: Date.now()
+  },
+  task: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Task',
   }
 });
 
