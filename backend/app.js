@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 const categoryRouter = require('./controllers/categories')
 const taskRouter = require('./controllers/tasks')
 const updateNoteRouter = require('./controllers/updateNotes')
-const config = require('./utils/config');
+const config = require('./utils/config')
+const { errorHandler } = require('./utils/middleware');
 
 const mongoUrl = config.MONGODB_URI;
 mongoose.connect(mongoUrl, {
@@ -22,5 +23,6 @@ app.use(express.json());
 app.use('/api/categories', categoryRouter)
 app.use('/api/tasks', taskRouter)
 app.use('/api/updateNotes', updateNoteRouter)
+app.use(errorHandler)
 
 module.exports = app;
