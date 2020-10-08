@@ -27,14 +27,32 @@ categoryRouter.post('/', async (req, res) => {
   // Add to new Cateogry to is superCateogy's subCategory
   if ( superCategory ) {
     const parentCategory = await Category.findById(superCategory);
-    if (parentCategory.depth >= 2) throw Error("Category depth exceeds 2");
+    if (parentCategory.level >= 2) throw Error("Category level exceeds 2");
 
-    depth = parentCategory.depth + 1
+    level = parentCategory.level + 1
     const parentSubCategories = parentCategory.subCategories;
-    const newCategory = new Category({ name, summary, superCategory, depth });
+    const newCategory = new Category({ name, summary, superCategory, level });
     returnedCategory = await newCategory.save();
-    const modify = { subCategories: parentSubCategories.concat(returnedCategory.id)};
+
+    const modify = { 
+      subCategories: parentSubCategories.concat(returnedCategory.id),
+      depth: parentSubCategories.length <= 0 
+        ? parentCategory.depth + 1
+        : parentCategory.depth
+    };
+
     await Category.findByIdAndUpdate(superCategory, modify)
+
+    if (returnedCategory.level >= 2) {
+      const topCategory = await Category.findById(parentCategory.superCategory);
+      if (topCategory.subCategories.length <= 0) {
+        const modify = {
+          depth: topCategory.depth + 1
+        }
+
+        await Category.findByIdAndUpdate(parentCategory.superCategory, modify)
+      }
+    }
   } else {
     const newCategory = new Category({ name, summary, superCategory });
     returnedCategory = await newCategory.save();
