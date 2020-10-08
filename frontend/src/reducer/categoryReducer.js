@@ -5,7 +5,7 @@ export const initializeCategories = () => {
     const allCategories = await categories.getAll()
     const allCategoriesHash = {}
     allCategories.forEach(category => {
-      allCategories[category.id] = category
+      allCategoriesHash[category.id] = category
     })
     dispatch({
       type: 'INIT_CATEGORIES',
