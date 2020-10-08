@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+require('express-async-errors');
 
 const categoryRouter = require('./controllers/categories')
 const taskRouter = require('./controllers/tasks')
