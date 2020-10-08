@@ -6,6 +6,10 @@ const categorySchema = new mongoose.Schema({
     required: true,
     minlength: 1,
   },
+  depth: {
+    type: Number,
+    default: 0
+  },
   summary: String,
   tasks: [
     {
