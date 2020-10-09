@@ -21,44 +21,11 @@ categoryRouter.get('/:id', async (req, res) => {
 })
 
 categoryRouter.post('/', async (req, res) => {
-  const { name, summary, superCategory } = req.body;
-  let returnedCategory
+  const { name, summary } = req.body;
   
-  // Add to new Cateogry to is superCateogy's subCategory
-  if ( superCategory ) {
-    const parentCategory = await Category.findById(superCategory);
-    if (parentCategory.level >= 2) throw Error("Category level exceeds 2");
+  const newCategory = new Category({ name, summary });
+  const returnedCategory = await newCategory.save();
 
-    level = parentCategory.level + 1
-    const parentSubCategories = parentCategory.subCategories;
-    const newCategory = new Category({ name, summary, superCategory, level });
-    returnedCategory = await newCategory.save();
-
-    const modify = { 
-      subCategories: parentSubCategories.concat(returnedCategory.id),
-      depth: parentSubCategories.length <= 0 
-        ? parentCategory.depth + 1
-        : parentCategory.depth
-    };
-
-    await Category.findByIdAndUpdate(superCategory, modify)
-
-    if (returnedCategory.level >= 2) {
-      const topCategory = await Category.findById(parentCategory.superCategory);
-      if (topCategory.subCategories.length <= 0) {
-        const modify = {
-          depth: topCategory.depth + 1
-        }
-
-        await Category.findByIdAndUpdate(parentCategory.superCategory, modify)
-      }
-    }
-  } else {
-    const newCategory = new Category({ name, summary, superCategory });
-    returnedCategory = await newCategory.save();
-  }
-
-  
   res.status(201).json(returnedCategory);
 })
 
