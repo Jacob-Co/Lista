@@ -31,7 +31,7 @@ categoryRouter.patch('/name/:id', async (req, res) => {
   const modify = { name: req.body.name }
   const options = { new: true }
   const returnedCategory = await Category.findOneAndUpdate(filter, modify, options);
-  res.status(201).json(returnedCategory);
+  res.status(202).json(returnedCategory);
 })
 
 categoryRouter.patch('/summary/:id', async (req, res) => {
