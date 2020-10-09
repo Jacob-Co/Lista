@@ -6,4 +6,9 @@ const getAll = async () => {
   return res.data
 }
 
-export default { getAll }
+const postNewCategory = async (category) => {
+  const res = await axios.post(baseUrl, category)
+  return res.data
+}
+
+export default { getAll, postNewCategory }
