@@ -1,9 +1,11 @@
-import React from 'react';
+import React from 'react'
+
+import CategoryList from './components/CategoryList'
 
 function App() {
   return (
     <div>
-      Initial
+      <CategoryList />
     </div>
   );
 }
