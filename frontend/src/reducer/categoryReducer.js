@@ -10,9 +10,8 @@ export const initializeCategories = () => {
   }
 }
 
-export const createNewCategory = (name, summary) => {
+export const createNewCategory = (category) => {
   return async (dispatch) => {
-    const category = {name, summary}
     const newCategory = await categories.postNewCategory(category)
     dispatch({
       type: 'NEW_CATEGORY',
