@@ -83,44 +83,4 @@ categoryRouter.patch('/summary/:id', async (req, res) => {
   res.status(201).json(returnedCategory);
 })
 
-categoryRouter.patch('/superCategory/:id', async (req, res) => {
-  const givenId = req.params.id
-  const newSuperCategoryId = req.body.superCategory
-
-  // cannot be assigned to self
-  if (givenId === newSuperCategoryId) return res.status(400).end()
-  
-  // if chosen superCategory is the same as the previous return status 400
-  const chosenCategory = await Category.findById(givenId);
-  if (chosenCategory.superCategory && chosenCategory.superCategory.toString() === newSuperCategoryId) return res.status(400).end()
-
-  // if new superCategory has the chosen Category as a subCategory return 400
-  const newSuperCategory = await Category.findById(newSuperCategoryId);
-  console.log('*******' + !!chosenCategory.subCategories.find(id => id.toString() === newSuperCategory.id))
-  if (chosenCategory.subCategories.find(id => id.toString() === newSuperCategory.id)) return res.status(400).end()
-
-  // remove given category from previos superCategory if it contains a superCategory
-  if (chosenCategory.superCategory) {
-    const previousSuperCategory = await Category.findById(chosenCategory.superCategory);
-    previousSuperCategory.subCategories = previousSuperCategory.subCategories
-      .filter(subCategory => {
-        return subCategory.toString() != chosenCategory.id
-      });
-    await previousSuperCategory.save();
-  }
-
-  // change superCategory
-  const filter = { _id: givenId }
-  const modify = { superCategory: newSuperCategoryId }
-  const options = { new: true }
-  const returnedCategory = await Category.findOneAndUpdate(filter, modify, options);
-  
-  // add chosen category to new superCategory
-  newSuperCategory.subCategories = newSuperCategory.subCategories.concat(givenId);
-  await newSuperCategory.save();
-  
-  console.log('***********')
-  res.status(201).json(returnedCategory);
-})
-
 module.exports = categoryRouter
