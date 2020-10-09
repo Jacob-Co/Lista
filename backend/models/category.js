@@ -6,26 +6,13 @@ const categorySchema = new mongoose.Schema({
     required: true,
     minlength: 1,
   },
-  depth: {
-    type: Number,
-    default: 0
-  },
   summary: String,
   tasks: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Task',
     },
-  ],
-  superCategory: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category',
-    default: null
-  },
-  subCategories: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category',
-  }],
+  ]
 });
 
 categorySchema.set('toJSON', {
@@ -37,7 +24,6 @@ categorySchema.set('toJSON', {
 });
 
 categorySchema.pre('find', function (next) {
-  this.populate('subCategories');
   this.populate('tasks')
   next()
 })
