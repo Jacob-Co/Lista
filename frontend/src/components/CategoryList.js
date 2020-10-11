@@ -34,7 +34,7 @@ const CategoryList = () => {
             <button onClick={() => {deleteCategory(category)}}>X</button>
           </div>
           <TaskDiv className="tasks">
-            {category.tasks.map(task => <p key={task.id}>> {task.name}</p>)}
+            {category.tasks.map(task => <p key={task.id}>&gt; {task.name}</p>)}
           </TaskDiv>
         </div>
       })}
