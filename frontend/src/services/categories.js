@@ -11,4 +11,8 @@ const postNewCategory = async (category) => {
   return res.data
 }
 
-export default { getAll, postNewCategory }
+const deleteCategory = async (id) => {
+  await axios.delete(baseUrl + `/${id}`);
+}
+
+export default { getAll, postNewCategory, deleteCategory }
