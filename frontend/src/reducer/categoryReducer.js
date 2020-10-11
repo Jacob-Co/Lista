@@ -1,4 +1,5 @@
 import categories from '../services/categories'
+import tasks from '../services/tasks'
 
 export const initializeCategories = () => {
   return async (dispatch) => {
@@ -25,7 +26,19 @@ export const removeCategory = (id) => {
     await categories.deleteCategory(id);
     dispatch({
       type: 'REMOVE_CATEGORY',
-      id,
+      data: { id },
+    })
+  }
+}
+
+export const newTask = (task) => {
+  return async(dispatch) => {
+    const newTask = await tasks.createTask(task);
+    dispatch({
+      type: 'NEW_TASK',
+      data: {
+        task: newTask,
+      }
     })
   }
 }
@@ -37,7 +50,12 @@ const categoryReducer = (state = [], action) => {
     case 'NEW_CATEGORY':
       return state.concat(action.data)
     case 'REMOVE_CATEGORY':
-      return state.filter(category => category.id !== action.id);
+      return state.filter(category => category.id !== action.data.id);
+    case 'NEW_TASK':
+      return state.map(category => {
+        if (category.id === action.data.task.superCategory) category.tasks.concat(action.data.task);
+        return category;
+      });
     default:
       return state
   }
