@@ -31,7 +31,7 @@ export const removeCategory = (id) => {
   }
 }
 
-export const newTask = (task) => {
+export const createNewTask = (task) => {
   return async(dispatch) => {
     const newTask = await tasks.createTask(task);
     dispatch({
