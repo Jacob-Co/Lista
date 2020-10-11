@@ -6,8 +6,11 @@ import { createNewCategory } from '../reducer/categoryReducer'
 const CategoryForm = () => {
   const dispatch = useDispatch();
 
+  const [visible, setVisible] = useState(false);
   const [name, setName] = useState('');
   const [summary, setSummary] = useState('');
+
+  const visibility = {display: visible ? '' : 'none'};
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -15,13 +18,14 @@ const CategoryForm = () => {
       dispatch(createNewCategory({name, summary}))
       setName('')
       setSummary('')
+      setVisible(false)
     }
   }
 
   return (
     <div>
-      <h3 onClick={() => alert('clicked')}>Click to Add New Category</h3>
-      <form onSubmit={handleSubmit}>
+      <h3 onClick={() => setVisible(!visible)}>Click to Add New Category</h3>
+      <form onSubmit={handleSubmit} style={visibility}>
         <div>
           name:
           <input
