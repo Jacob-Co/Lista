@@ -6,6 +6,7 @@ require('express-async-errors');
 const categoryRouter = require('./controllers/categories')
 const taskRouter = require('./controllers/tasks')
 const updateNoteRouter = require('./controllers/updateNotes')
+const dateRouter = require('./controllers/dates');
 const config = require('./utils/config')
 const { errorHandler } = require('./utils/middleware');
 
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use('/api/categories', categoryRouter)
 app.use('/api/tasks', taskRouter)
 app.use('/api/updateNotes', updateNoteRouter)
+app.use('/api/dates', dateRouter)
 app.use(errorHandler)
 
 module.exports = app;
