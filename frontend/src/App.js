@@ -2,6 +2,7 @@ import React from 'react'
 import styled from "styled-components";
 
 import CategoryList from './components/CategoryList'
+import HomeClock from './components/HomeClock'
 
 const TwoColumn = styled.div`
   display: flex;
@@ -26,7 +27,7 @@ function App() {
         <CategoryList />
       </LeftColumn>
       <RightColumn>
-        Right
+        <HomeClock />
       </RightColumn>
     </TwoColumn>
   );
