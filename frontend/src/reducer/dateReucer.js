@@ -10,7 +10,7 @@ export const setDate = () => {
   }
 }
 
-const dateReducer = (state, action) => {
+const dateReducer = (state = null, action) => {
   switch (action.type) {
     case "SET_DATE":
       return action.data;
