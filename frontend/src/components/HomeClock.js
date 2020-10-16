@@ -5,16 +5,18 @@ import { setDate } from '../reducer/dateReucer';
 
 const HomeClock = () => {
   const dispatch = useDispatch()
-  const date = useSelector(state => state.date);
+  const dateUNIX = useSelector(state => state.date);
+  const date = new Date(dateUNIX).toString();
 
   useEffect(() => {
     dispatch(setDate());
   }, [dispatch])
 
-  retrun (
+  return (
     <div>
       1/1/2020
-      00:00:00
+      00:00:00 <br/>
+      {date}
     </div>
   )
 }
