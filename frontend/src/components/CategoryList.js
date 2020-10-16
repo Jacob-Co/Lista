@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { initializeCategories, removeCategory } from '../reducer/categoryReducer'
 import CategoryForm from './CategoryForm'
+import TaskForm from './TaskForm'
 
 const TaskDiv = styled.div`
   margin-left: 1.5rem;
@@ -36,6 +37,7 @@ const CategoryList = () => {
           <TaskDiv className="tasks">
             {category.tasks.map(task => <p key={task.id}>&gt; {task.name}</p>)}
           </TaskDiv>
+          <TaskForm category={category}/>
         </div>
       })}
     </div>
