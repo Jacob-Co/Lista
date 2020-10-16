@@ -53,7 +53,9 @@ const categoryReducer = (state = [], action) => {
       return state.filter(category => category.id !== action.data.id);
     case 'NEW_TASK':
       return state.map(category => {
-        if (category.id === action.data.task.superCategory) category.tasks.concat(action.data.task);
+        if (category.id === action.data.task.category) {
+          category.tasks = category.tasks.concat(action.data.task);
+        }
         return category;
       });
     default:
