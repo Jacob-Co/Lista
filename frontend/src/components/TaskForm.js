@@ -12,7 +12,7 @@ const TaskForm = ({category}) => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     if (name && content) {
-      dispatch(createNewTask({name, content}));
+      dispatch(createNewTask({name, content, category: category.id}));
       setName('');
       setContent('');
     }
@@ -21,7 +21,7 @@ const TaskForm = ({category}) => {
   return(
     <div>
       <h3>Creating a new task for {category.name}</h3>
-      <form>
+      <form onSubmit={handleFormSubmit}>
         <div>
           name
           <input
@@ -29,7 +29,7 @@ const TaskForm = ({category}) => {
             id="name"
             name="Name"
             value={name}
-            onChange={(target) => {setName(target.value)}}
+            onChange={({target}) => setName(target.value)}
           />
         </div>
 
@@ -40,7 +40,7 @@ const TaskForm = ({category}) => {
             id="content"
             name="Content"
             value={content}
-            onChange={(target) => {setContent(target.value)}}
+            onChange={({target}) => setContent(target.value)}
           />
         </div>
         <button>create</button>
