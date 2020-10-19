@@ -14,8 +14,8 @@ const validPassword = (password) => {
 userRouter.post('/', async (req, res) => {
   const { body } = req;
 
-  if (!validPassword) {
-    return res.status(400).json({ error: 'invalid password length' });
+  if (!validPassword(body.password)) {
+    return res.status(400).json({ error: 'invalid password, must be 6 characters, with a number and no space' });
   }
 
   const saltRounds = 10;
