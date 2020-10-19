@@ -10,7 +10,7 @@ const dateRouter = require('./controllers/dates');
 const loginRouter = require('./controllers/login');
 const userRouter = require('./controllers/users');
 const config = require('./utils/config')
-const { errorHandler } = require('./utils/middleware');
+const { errorHandler, tokenExtractor } = require('./utils/middleware');
 
 const mongoUrl = config.MONGODB_URI;
 mongoose.connect(mongoUrl, {
@@ -24,6 +24,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(tokenExtractor);
 app.use('/api/categories', categoryRouter)
 app.use('/api/tasks', taskRouter)
 app.use('/api/updateNotes', updateNoteRouter)
