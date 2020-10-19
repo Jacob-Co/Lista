@@ -8,6 +8,7 @@ const taskRouter = require('./controllers/tasks')
 const updateNoteRouter = require('./controllers/updateNotes')
 const dateRouter = require('./controllers/dates');
 const loginRouter = require('./controllers/login');
+const userRouter = require('./controllers/users');
 const config = require('./utils/config')
 const { errorHandler } = require('./utils/middleware');
 
@@ -28,6 +29,7 @@ app.use('/api/tasks', taskRouter)
 app.use('/api/updateNotes', updateNoteRouter)
 app.use('/api/dates', dateRouter)
 app.use('/api/login', loginRouter);
+app.use('/api/user', userRouter)
 app.use(errorHandler)
 
 module.exports = app;
