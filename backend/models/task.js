@@ -44,7 +44,11 @@ const taskSchema = new mongoose.Schema({
   updateNotes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'UpdateNote'
-  }]
+  }],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  }
 })
 
 taskSchema.set('toJSON', {
