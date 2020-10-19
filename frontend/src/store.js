@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 
 import categoryReducer from './reducer/categoryReducer'
-import dateReducer from './reducer/dateReucer'
+import dateReducer from './reducer/dateReducer'
 
 const reducer = combineReducers({
   categories: categoryReducer,
