@@ -3,7 +3,7 @@ import React, { useState, useImperativeHandle } from 'react';
 const Toggable = React.forwardRef(({children}, ref) => {
   const [visible, setVisible] = useState(false);
 
-  const showIfVisibile = {diplay: visible ? '' : "none"}
+  const showIfVisibile = {display: visible ? '' : "none"}
 
   const toggleVisibility = () => {
     setVisible(!visible);
