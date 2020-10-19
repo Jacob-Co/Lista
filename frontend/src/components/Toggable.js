@@ -1,5 +1,3 @@
-const { useState } = require("react");
-
 import React, { useState, useImperativeHandle } from 'react';
 
 const Toggable = React.forwardRef(({children}, ref) => {
@@ -8,7 +6,7 @@ const Toggable = React.forwardRef(({children}, ref) => {
   const showIfVisibile = {diplay: visible ? '' : "none"}
 
   const toggleVisibility = () => {
-    setVisible(!visibile);
+    setVisible(!visible);
   }
 
   useImperativeHandle(ref, () => {
