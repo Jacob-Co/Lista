@@ -19,7 +19,7 @@ const getTokenFrom = (req) => {
 
 const tokenExtractor = (req, res) => {
   const encodedToken = getTokenFrom(req)
-  if (!encodedToken) next();
+  if (!encodedToken) return next();
   const decodedToken = jsonwebtoken.verify(encodedToken, process.env.SECRET);
   req.token = decodedToken;
   next();
