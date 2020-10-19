@@ -17,7 +17,7 @@ const getTokenFrom = (req) => {
   return null
 }
 
-const tokenExtractor = (req, res) => {
+const tokenExtractor = (req, res, next) => {
   const encodedToken = getTokenFrom(req)
   if (!encodedToken) return next();
   const decodedToken = jsonwebtoken.verify(encodedToken, process.env.SECRET);
