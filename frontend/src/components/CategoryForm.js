@@ -24,7 +24,9 @@ const CategoryForm = () => {
 
   return (
     <div>
-      <h3 onClick={() => setVisible(!visible)}>Click to Add New Category</h3>
+      <button onClick={() => setVisible(!visible)}>
+        Click to Add New Category
+      </button>
       <form onSubmit={handleSubmit} style={visibility}>
         <div>
           name:
