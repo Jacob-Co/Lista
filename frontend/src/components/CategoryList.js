@@ -1,14 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import styled from "styled-components";
 
 import { initializeCategories, removeCategory } from '../reducer/categoryReducer'
 import CategoryForm from './CategoryForm'
-import TaskForm from './TaskForm'
+import CategorySide from './CategorySide'
 
-const TaskDiv = styled.div`
-  margin-left: 1.5rem;
-`
 
 const CategoryList = () => {
   const dispatch = useDispatch()
@@ -29,16 +25,8 @@ const CategoryList = () => {
       <h2>Categories:</h2>
       <CategoryForm />
       {categoryList.map(category => {
-        return <div className="category" key={category.id}>
-          <div>
-            {category.name}----
-            <button onClick={() => {deleteCategory(category)}}>X</button>
-          </div>
-          <TaskDiv className="tasks">
-            {category.tasks.map(task => <p key={task.id}>&gt; {task.name}</p>)}
-          </TaskDiv>
-          <TaskForm category={category}/>
-        </div>
+        return <CategorySide className="category" key={category.id} category={category} deleteCategory={deleteCategory}>
+        </CategorySide>
       })}
     </div>
   )
