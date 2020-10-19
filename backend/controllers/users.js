@@ -30,3 +30,5 @@ userRouter.post('/', async (req, res) => {
   const savedUser = await newUser.save();
   res.json(savedUser);
 })
+
+module.exports = userRouter;
