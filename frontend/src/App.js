@@ -10,12 +10,13 @@ const TwoColumn = styled.div`
 `
 
 const LeftColumn = styled.div`
-  width: 30%;
+  width: 31%;
   box-sizing: border-box;
+  margin-left: 1rem;
 `
 
 const RightColumn = styled.div`
-  width: 70%;
+  width: 69%;
   box-sizing: border-box;
   border-left: 2px solid;
 `
