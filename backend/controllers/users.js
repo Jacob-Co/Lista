@@ -31,4 +31,22 @@ userRouter.post('/', async (req, res) => {
   res.json(savedUser);
 })
 
+userRouter.post('/addFriend', async (req, res) => {
+  const { body } = req;
+  const { token } = req;
+  if (!token) return res.status(401).json({ error: 'Invalid or missing token'});
+
+  const friendUser = await User.findOne({username: body.username});
+  if (!friendUser) return res.status(401).json({ error: 'No user found with that username'});
+
+  const user = await User.findById(token.id);
+  if (user.friends.includes(friendUser.id)) return res.status(401).json({ error: 'Already friends with that user'})
+  user.friends = user.friends.concat(friendUser.id);
+  friendUser.friends = friendUser.friends.concat(user.id);
+  await user.save();
+  await friendUser.save();
+
+  res.json({ message: `${body.username} was successfully added`});
+})
+
 module.exports = userRouter;
