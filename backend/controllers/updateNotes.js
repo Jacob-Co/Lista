@@ -4,9 +4,13 @@ const Task = require('../models/task')
 const updateNote = require('../models/updateNote')
 
 updateNoteRouter.post('/', async (req, res) => {
+  const { token } = req;
+
+  if (!token) return res.status(401).json({ error: "Requires a token"})
+
   const { body } = req
 
-  const newNote = new UpdateNote({ ...body });
+  const newNote = new UpdateNote({ ...body, user: token.id });
   const returnedNote = await newNote.save();
 
   if (body.task) {
