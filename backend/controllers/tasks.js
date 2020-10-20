@@ -5,7 +5,7 @@ const Category = require('../models/category');
 
 taskRouter.post('/', async (req, res) => {
   const { token } = req;
-  if (!token) res.status(401).json({ error: 'Requires Token'});
+  if (!token) return res.status(401).json({ error: 'Requires Token'});
 
   const { name, content, category, endDate, recurring } = req.body;
   const newTask = new Task({ name, content, category, endDate, recurring, user: token.id });
