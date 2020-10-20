@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
   updateNotes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'UpdateNote',
+  }],
+  friends: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Users'
   }]
 })
 
