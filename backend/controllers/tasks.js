@@ -1,10 +1,14 @@
 const taskRouter = require('express').Router();
 const Task = require('../models/task');
+const User = require('../models/users');
 const Category = require('../models/category');
 
 taskRouter.post('/', async (req, res) => {
+  const { token } = req;
+  if (!token) res.status(401).json({ error: 'Requires Token'});
+
   const { name, content, category, endDate, recurring } = req.body;
-  const newTask = new Task({ name, content, category, endDate, recurring });
+  const newTask = new Task({ name, content, category, endDate, recurring, user: token.id });
   const returnedTask = await newTask.save();
 
   if (category) {
@@ -12,6 +16,10 @@ taskRouter.post('/', async (req, res) => {
     categoryToUpdate.tasks = categoryToUpdate.tasks.concat(returnedTask.id);
     await categoryToUpdate.save();
   }
+
+  // const user = await User.findById(token.id);
+  // user.tasks = user.tasks.concat(returnedTask.id);
+  // await user.save();
 
   res.status(201).json(returnedTask);
 })
