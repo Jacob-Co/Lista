@@ -10,8 +10,8 @@ const errorHandler = (e, req, res, next) => {
 
 const getTokenFrom = (req) => {
   const authorization = req.get('authorization');
-  if (authorization && authorization.lowerCase().startWith('bearer ')) {
-    return authorization.subString(7);
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    return authorization.substring(7);
   }
 
   return null
