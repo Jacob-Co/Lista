@@ -6,7 +6,7 @@ export const login = (credentials) => {
   return async (dispatch) => {
     try {
       const user = await loginService.login(credentials);
-      window.localStorage.setItem(localStorageKey, user.token);
+      window.localStorage.setItem(localStorageKey, JSON.stringify(user));
       dispatch({
         type: 'LOGIN',
         data: user
@@ -20,13 +20,13 @@ export const login = (credentials) => {
 export const logout = () => {
   window.localStorage.removeItem(localStorageKey)
   return {
-    action: 'LOGOUT'
+    type: 'LOGOUT'
   }
 }
 
 export const setUser = (user) => {
   return {
-    action: 'LOGIN',
+    type: 'LOGIN',
     data: user
   }
 }
