@@ -61,7 +61,7 @@ userRouter.get('/friends', async (req, res) => {
 
   const user = await User.findById(token.id)
     .populate('friends', {username: 1});
-  res.json({ friends: user.friends})
+  res.json(user.friends)
 })
 
 module.exports = userRouter;
