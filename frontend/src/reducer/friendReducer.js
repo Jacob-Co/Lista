@@ -1,4 +1,3 @@
-import user from '../services/user';
 import userService from '../services/user';
 
 export const initializeFriends = () => {
