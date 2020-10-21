@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from "styled-components";
 
+import { setUser } from './reducer/tokenReducer'
 import CategoryList from './components/CategoryList'
 import HomeClock from './components/HomeClock'
+import Login from './components/Login'
 
 const TwoColumn = styled.div`
   display: flex;
@@ -22,15 +25,33 @@ const RightColumn = styled.div`
 `
 
 function App() {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.token);
+
+  useEffect(() => {
+    const localUser = window.localStorage.getItem('localTicketUser');
+    if (localUser) {
+      const transformedUser = JSON.parse(localUser);
+      dispatch(setUser(transformedUser));
+    }
+  }, [dispatch]);
+
+
   return (
-    <TwoColumn>
-      <LeftColumn>
-        <CategoryList />
-      </LeftColumn>
-      <RightColumn>
-        <HomeClock />
-      </RightColumn>
-    </TwoColumn>
+    <>
+    { 
+      user !== null
+      ? <TwoColumn>
+          <LeftColumn>
+            <CategoryList />
+          </LeftColumn>
+          <RightColumn>
+            <HomeClock />
+          </RightColumn>
+        </TwoColumn>
+      : <Login/>
+    }
+    </>
   );
 }
 
