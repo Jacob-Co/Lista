@@ -22,6 +22,13 @@ export const logout = () => {
   }
 }
 
+export const setUser = (user) => {
+  return {
+    action: 'LOGIN',
+    data: user
+  }
+}
+
 const tokenReducer = (state = null, action) => {
   switch (action.type) {
     case 'LOGIN':
