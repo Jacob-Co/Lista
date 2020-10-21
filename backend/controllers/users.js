@@ -55,4 +55,13 @@ userRouter.post('/addFriend', async (req, res) => {
   res.json({ message: `${body.username} was successfully added`});
 })
 
+userRouter.get('/friends', async (req, res) => {
+  const { token } = req;
+  if (!token) return res.status(401).json({ error: 'Invalid or missing token'});
+
+  const user = await User.findById(token.id)
+    .populate('friends', {username: 1});
+  res.json({ friends: user.friends})
+})
+
 module.exports = userRouter;
