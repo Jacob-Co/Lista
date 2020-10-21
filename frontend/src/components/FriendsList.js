@@ -15,7 +15,7 @@ const FriendsList = () => {
   const friends = useSelector(state => state.friends);
 
   useEffect(() => {
-    useDispatch(initializeFriends());
+    dispatch(initializeFriends());
   }, [dispatch])
 
   return (
