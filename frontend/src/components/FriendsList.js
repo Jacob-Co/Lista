@@ -20,7 +20,7 @@ const FriendsList = () => {
 
   return (
     <FriendListDiv>
-      {friends.map(friend => <div id={friend.id}>{friend.username}</div>)}
+      {friends.map(friend => <div key={friend.id}>{friend.username}</div>)}
     </FriendListDiv>
   )
 }
