@@ -11,11 +11,17 @@ const validPassword = (password) => {
   )
 }
 
+const validUsername = (username) => {
+  return !username.match(/\s/)
+}
+
 userRouter.post('/', async (req, res) => {
   const { body } = req;
 
   if (!validPassword(body.password)) {
     return res.status(400).json({ error: 'invalid password, must be 6 characters, with a number and no space' });
+  } else if (!validUsername(body.username)) {
+    return res.status(400).json({ error: 'invalid username, must be unique and have no whitespaces'});
   }
 
   const saltRounds = 10;
