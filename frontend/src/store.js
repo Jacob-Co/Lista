@@ -5,11 +5,14 @@ import thunk from 'redux-thunk'
 import categoryReducer from './reducer/categoryReducer'
 import dateReducer from './reducer/dateReducer'
 import tokenReducer from './reducer/tokenReducer'
+import friendReducer from './reducer/friendReducer'
+
 
 const reducer = combineReducers({
   categories: categoryReducer,
   date: dateReducer,
-  token: tokenReducer
+  token: tokenReducer,
+  friends: friendReducer
 })
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)))
