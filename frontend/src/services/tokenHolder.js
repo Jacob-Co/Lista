@@ -4,4 +4,6 @@ export const setToken = (givenToken) => {
   token = `bearer ${givenToken}`;
 }
 
-export default token;
+export const getToken = () => {
+  return token;
+}
