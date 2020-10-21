@@ -19,8 +19,8 @@ const Login = () => {
   return (
     <div>
       <h1>Login to Ticket Book</h1>
-      <form>
-        <div onSubmit={handleLogin}>
+      <form onSubmit={handleLogin}>
+        <div>
           Username: 
           <input
             type="text"
