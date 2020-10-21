@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from "styled-components";
+import { Route, Switch } from 'react-router-dom';
 
 import { setUser } from './reducer/tokenReducer'
 import CategoryList from './components/CategoryList'
@@ -31,6 +32,7 @@ function App() {
   useEffect(() => {
     const localUser = window.localStorage.getItem('localTicketUser');
     if (localUser) {
+      console.log(localUser);
       const transformedUser = JSON.parse(localUser);
       dispatch(setUser(transformedUser));
     }
@@ -43,10 +45,18 @@ function App() {
       user !== null
       ? <TwoColumn>
           <LeftColumn>
-            <CategoryList />
+            <Switch>
+              <Route path="/">
+                <CategoryList />
+              </Route>
+            </Switch>
           </LeftColumn>
           <RightColumn>
-            <HomeClock />
+            <Switch>
+              <Route path="/">
+                <HomeClock />
+              </Route>
+            </Switch>
           </RightColumn>
         </TwoColumn>
       : <Login/>
