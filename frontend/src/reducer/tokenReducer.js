@@ -1,4 +1,5 @@
 import loginService from '../services/login';
+import { setToken } from '../services/tokenHolder'
 
 const localStorageKey = 'localTicketUser'
 
@@ -6,6 +7,7 @@ export const login = (credentials) => {
   return async (dispatch) => {
     try {
       const user = await loginService.login(credentials);
+      setToken(user.token);
       window.localStorage.setItem(localStorageKey, JSON.stringify(user));
       dispatch({
         type: 'LOGIN',
