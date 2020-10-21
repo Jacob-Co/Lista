@@ -27,6 +27,7 @@ export const logout = () => {
 }
 
 export const setUser = (user) => {
+  setToken(user.token);
   return {
     type: 'LOGIN',
     data: user
