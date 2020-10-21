@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { initializeFriends } from '../reducer/friendReducer';
 
 const FriendListDiv = styled.div`
-  position: absoulte;
+  position: absolute;
   bottom: 1rem;
   right: 1rem;
 `
