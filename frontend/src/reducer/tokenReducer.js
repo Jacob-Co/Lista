@@ -15,14 +15,21 @@ export const login = (credentials) => {
   }
 }
 
-// export const logout = () => {
-//   window.localStorage.removeItem(localStorageKey)
-// }
+export const logout = () => {
+  window.localStorage.removeItem(localStorageKey)
+  return {
+    action: 'LOGOUT'
+  }
+}
 
 const tokenReducer = (state = null, action) => {
   switch (action.type) {
     case 'LOGIN':
       return action.data;
+    case 'LOGOUT':
+      return null;
+    default:
+      return state;
   }
 }
 
