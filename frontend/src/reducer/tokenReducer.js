@@ -1,5 +1,7 @@
 import loginService from '../services/login';
 
+const localStorageKey = 'localTicketUser'
+
 export const login = (credentials) => {
   return async (dispatch) => {
     try {
