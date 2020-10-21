@@ -7,8 +7,8 @@ import { logout } from '../reducer/tokenReducer'
 
 const LogoutDiv = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 1rem;
+  right: 1rem;
 `
 
 const Logout = () => {
