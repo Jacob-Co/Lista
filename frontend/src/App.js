@@ -7,6 +7,7 @@ import { setUser } from './reducer/tokenReducer'
 import CategoryList from './components/CategoryList'
 import HomeClock from './components/HomeClock'
 import Login from './components/Login'
+import Logout from './components/Logout'
 
 const TwoColumn = styled.div`
   display: flex;
@@ -52,6 +53,7 @@ function App() {
             </Switch>
           </LeftColumn>
           <RightColumn>
+            <Logout />
             <Switch>
               <Route path="/">
                 <HomeClock />
