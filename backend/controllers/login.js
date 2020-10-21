@@ -16,7 +16,7 @@ loginRouter.post('/', async (req, res) => {
   }
 
   const userToken = {
-    username: user.name,
+    username: user.username,
     id: user.id,
   }
 
