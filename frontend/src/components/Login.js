@@ -20,7 +20,7 @@ const Login = () => {
     <div>
       <h1>Login to Ticket Book</h1>
       <form>
-        <div onSubmit={}>
+        <div onSubmit={handleLogin}>
           Username: 
           <input
             type="text"
