@@ -1,8 +1,10 @@
 import axios from 'axios'
+import { getToken } from './tokenHolder'
 const baseUrl = '/api/categories'
 
 const getAll = async () => {
-  const res = await axios.get(baseUrl)
+  const config = { headers: { Authorization: getToken() }}
+  const res = await axios.get(baseUrl, config);
   return res.data
 }
 
