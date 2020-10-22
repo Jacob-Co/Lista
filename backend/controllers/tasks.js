@@ -25,7 +25,10 @@ taskRouter.post('/', async (req, res) => {
 })
 
 taskRouter.get('/', async (req, res) => {
-  const allTasks = await Task.find({});
+  const { token } = req;
+  if (!token) return res.status(400).json({error: 'Requires token'});
+
+  const allTasks = await Task.find({user: token.id});
   res.status(200).json(allTasks)
 })
 
