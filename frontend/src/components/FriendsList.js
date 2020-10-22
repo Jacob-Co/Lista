@@ -7,7 +7,7 @@ import { initializeFriends } from '../reducer/friendReducer';
 const FriendListDiv = styled.div`
   position: absolute;
   bottom: 1rem;
-  right: 1rem;
+  right: 3rem;
 `
 
 const FriendsList = () => {
@@ -20,6 +20,7 @@ const FriendsList = () => {
 
   return (
     <FriendListDiv>
+      <h3>Friends: </h3>
       {friends.map(friend => <div key={friend.id}>{friend.username}</div>)}
     </FriendListDiv>
   )
