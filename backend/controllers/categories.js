@@ -2,8 +2,11 @@ const categoryRouter = require('express').Router();
 const Category = require('../models/category');
 
 categoryRouter.get('/', async (req, res) => {
-  const categories = await Category.find({})
-  res.status(201).json(categories);
+  const { token } = req;
+  if (!token) return res.status(400).json({error: 'Requires token'});
+
+  const categories = await Category.find({ user: token.id})
+  res.status(200).json(categories);
 });
 
 categoryRouter.get('/:id', async (req, res) => {
