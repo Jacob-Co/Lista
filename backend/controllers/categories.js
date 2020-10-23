@@ -49,4 +49,18 @@ categoryRouter.patch('/summary/:id', async (req, res) => {
   res.status(201).json(returnedCategory);
 })
 
+categoryRouter.patch('/index/:id', async (req, res) => {
+  const { token } = req;
+  if (!token) return res.status(401).json({ error: "Requires a token"});
+
+  const categoryId = req.params.id;
+  const newIndex = req.body.index;
+  const filter = { user: token.id, _id: categoryId };
+  const modify = { index: newIndex };
+  const options = { new: true };
+  const updatedCategory = await Category.findOneAndUpdate(filter, modify, options);
+  if (!updatedCategory) return res.status(401).json({ error: "No category found"});
+  return res.json(updatedCategory);
+})
+
 module.exports = categoryRouter
