@@ -21,6 +21,10 @@ const categorySchema = new mongoose.Schema({
     type: Number,
     default: null,
   },
+  workingOn: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 categorySchema.set('toJSON', {
