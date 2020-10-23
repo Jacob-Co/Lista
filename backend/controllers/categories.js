@@ -9,7 +9,7 @@ categoryRouter.get('/', async (req, res) => {
   categories = categories.sort((category1, category2) => {
     return category1.index - category2.index
   });
-  
+
   if (!categories[0].workingOn) categories = [null].concat(categories);
   res.status(200).json(categories);
 });
@@ -71,16 +71,17 @@ categoryRouter.patch('/index/:id', async (req, res) => {
 categoryRouter.patch('/workingOn/:id', async (req, res) => {
   const { token } = req;
   if (!token) return res.status(401).json({ error: "Requires a token"});
+  
+  const filter2 = { user: token.id, workingOn: true };
+  const modify2 = { index: newIndex, workingOn: false };
+  const options = { new: true };
+  const oldWorkingOn = await Category.findOneAndUpdate(filter2, modify2, options);
 
   const newIndex = req.body.index;
   const filter = { user: token.id, _id: req.params.id };
   const modify = { index: 0, workingOn: true };
-  const options = { new: true };
   const newWorkingOn = await Category.findOneAndUpdate(filter, modify, options);
 
-  const filter2 = { user: token.id, workingOn: true };
-  const modify2 = { index: newIndex, workingOn: false };
-  const oldWorkingOn = await Category.findOneAndUpdate(filter2, modify2, options);
   res.json({ newWorkingOn, oldWorkingOn });
 })
 
