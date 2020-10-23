@@ -5,7 +5,10 @@ categoryRouter.get('/', async (req, res) => {
   const { token } = req;
   if (!token) return res.status(400).json({error: 'Requires token'});
 
-  const categories = await Category.find({ user: token.id})
+  let categories = await Category.find({ user: token.id})
+  categories = categories.sort((category1, category2) => {
+    return category1.index - category2.index
+  });
   res.status(200).json(categories);
 });
 
