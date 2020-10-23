@@ -9,6 +9,8 @@ categoryRouter.get('/', async (req, res) => {
   categories = categories.sort((category1, category2) => {
     return category1.index - category2.index
   });
+  
+  if (!categories[0].workingOn) categories = [null].concat(categories);
   res.status(200).json(categories);
 });
 
