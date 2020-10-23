@@ -20,9 +20,9 @@ categoryRouter.post('/', async (req, res) => {
 
   if (!token) return res.status(401).json({ error: "Requires a token"})
 
-  const { name, summary } = req.body;
+  const { name, summary, index } = req.body;
   
-  const newCategory = new Category({ name, summary, user: token.id });
+  const newCategory = new Category({ name, summary, user: token.id, index });
   const returnedCategory = await newCategory.save();
 
   res.status(201).json(returnedCategory);
