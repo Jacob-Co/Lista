@@ -10,7 +10,7 @@ categoryRouter.get('/', async (req, res) => {
     return category1.index - category2.index
   });
 
-  if (!categories[0].workingOn) categories = [null].concat(categories);
+  if (!categories[0] || !categories[0].workingOn) categories = [null].concat(categories);
   res.status(200).json(categories);
 });
 
