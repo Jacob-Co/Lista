@@ -16,7 +16,9 @@ const CategoryForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (name) {
-      const index = categories.pop().index + 1;
+      const index = categories.pop() 
+        ? categories.pop().index + 1
+        : 1;
       dispatch(createNewCategory({name, summary, index}))
       setName('')
       setSummary('')
