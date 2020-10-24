@@ -53,21 +53,25 @@ const quickSwitch = (categorySource, categoryDestination, categoryList) => {
 export const switchIndexes = (categorySource, categoryDestination, categoryList) => {
   return async(dispatch) => {
 
+    const quickUpdatedCategoryList = quickSwitch(categorySource, categoryDestination, categoryList);
     dispatch({
       type: 'SWITCH_INDEXES',
-      data: quickSwitch(categorySource, categoryDestination, categoryList)
+      data: quickUpdatedCategoryList
     })
 
-    const sourceIndex = categorySource.index;
-    const destinationIndex = categoryDestination.index;
-    const newCategorySource = await categories.patchIndex(categorySource.id, destinationIndex);
-    const newCategoryDestination = await categories.patchIndex(categoryDestination.id, sourceIndex);
+    let counter = 0;
+    let updatedCategoryList = [];
 
-    const updatedCategoryList = categoryList.map(category => {
-      if (category.index === sourceIndex) return newCategoryDestination;
-      if (category.index === destinationIndex) return newCategorySource;
-      return category;
-    })
+    for (const category of quickUpdatedCategoryList) {
+      if (category.index !== counter) {
+        const updatedCategory = await categories.patchIndex(category.id, counter);
+        counter += 1;
+        updatedCategoryList = updatedCategoryList.concat(updatedCategory);
+      } else {
+        counter += 1;
+        updatedCategoryList = updatedCategoryList.concat(category);
+      }
+    }
 
     dispatch({
       type: 'SWITCH_INDEXES',
