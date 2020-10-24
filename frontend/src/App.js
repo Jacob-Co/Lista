@@ -34,7 +34,6 @@ function App() {
   useEffect(() => {
     const localUser = window.localStorage.getItem('localTicketUser');
     if (localUser) {
-      console.log(localUser);
       const transformedUser = JSON.parse(localUser);
       dispatch(setUser(transformedUser));
     }
