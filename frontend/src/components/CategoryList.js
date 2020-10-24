@@ -33,6 +33,9 @@ const CategoryList = () => {
               {...provided.droppableProps}
             >
               {categoryList.map(category => {
+                if (category === null || category.index === 0) {
+                  return (<h1 key={0}>Currently Working On:</h1>)
+                }
                 return <CategorySide className="category" key={category.id} category={category} deleteCategory={deleteCategory} />
               })}
               {provided.placeholder}
