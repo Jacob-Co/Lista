@@ -87,7 +87,7 @@ categoryRouter.patch('/workingOn/:id', async (req, res) => {
   const modify = { index: 0, workingOn: true };
   const newWorkingOn = await Category.findOneAndUpdate(filter, modify, options);
 
-  res.json({ newWorkingOn, oldWorkingOn });
+  res.json(newWorkingOn);
 })
 
 module.exports = categoryRouter
