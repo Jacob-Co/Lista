@@ -18,4 +18,10 @@ const deleteCategory = async (id) => {
   await axios.delete(baseUrl + `/${id}`);
 }
 
-export default { getAll, postNewCategory, deleteCategory }
+const patchIndex = async (id, index) => {
+  const config = { headers: { Authorization: getToken() }}
+  const res = await axios.patch(`${baseUrl}/index/${id}`, { index }, config);
+  return res.data;
+}
+
+export default { getAll, postNewCategory, deleteCategory, patchIndex }
