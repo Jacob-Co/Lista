@@ -73,11 +73,11 @@ categoryRouter.patch('/workingOn/:id', async (req, res) => {
   if (!token) return res.status(401).json({ error: "Requires a token"});
   
   const filter2 = { user: token.id, workingOn: true };
+  const newIndex = req.body.index;
   const modify2 = { index: newIndex, workingOn: false };
   const options = { new: true };
   const oldWorkingOn = await Category.findOneAndUpdate(filter2, modify2, options);
 
-  const newIndex = req.body.index;
   const filter = { user: token.id, _id: req.params.id };
   const modify = { index: 0, workingOn: true };
   const newWorkingOn = await Category.findOneAndUpdate(filter, modify, options);
