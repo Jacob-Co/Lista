@@ -64,6 +64,12 @@ export const switchIndexes = (categorySource, categoryDestination, categoryList)
 
     for (const category of quickUpdatedCategoryList) {
       if (category.index !== counter) {
+        if (counter === 0) {
+          const updatedWorkingOn = await categories.patchWorkingOn(category.id);
+          counter += 1;
+          updatedCategoryList = updatedCategoryList.concat(updatedWorkingOn.newWorkingOn);
+          continue;
+        }
         const updatedCategory = await categories.patchIndex(category.id, counter);
         counter += 1;
         updatedCategoryList = updatedCategoryList.concat(updatedCategory);
