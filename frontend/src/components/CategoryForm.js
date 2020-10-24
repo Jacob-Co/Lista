@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { createNewCategory } from '../reducer/categoryReducer'
 
-const CategoryForm = ({greatestIndex}) => {
+const CategoryForm = () => {
   const dispatch = useDispatch();
+  const categories = useSelector(state => state.categories);
 
   const [visible, setVisible] = useState(false);
   const [name, setName] = useState('');
@@ -15,7 +16,8 @@ const CategoryForm = ({greatestIndex}) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (name && summary) {
-      dispatch(createNewCategory({name, summary, greatestIndex}))
+      const index = categories.pop.index + 1;
+      dispatch(createNewCategory({name, summary, index}))
       setName('')
       setSummary('')
       setVisible(false)
