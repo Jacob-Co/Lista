@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { createNewCategory } from '../reducer/categoryReducer'
 
-const CategoryForm = () => {
+const CategoryForm = ({greatestIndex}) => {
   const dispatch = useDispatch();
 
   const [visible, setVisible] = useState(false);
@@ -15,7 +15,7 @@ const CategoryForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (name && summary) {
-      dispatch(createNewCategory({name, summary}))
+      dispatch(createNewCategory({name, summary, greatestIndex}))
       setName('')
       setSummary('')
       setVisible(false)
