@@ -11,7 +11,7 @@ const TaskForm = ({category}) => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    if (name && content) {
+    if (name) {
       dispatch(createNewTask({name, content, category: category.id}));
       setName('');
       setContent('');
