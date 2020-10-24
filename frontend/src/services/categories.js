@@ -24,4 +24,10 @@ const patchIndex = async (id, index) => {
   return res.data;
 }
 
-export default { getAll, postNewCategory, deleteCategory, patchIndex }
+const patchWorkingOn = async (id) => {
+  const config = { headers: { Authorization: getToken() }}
+  const res = await axios.patch(`${baseUrl}/workingOn/${id}`, {}, config);
+  return res.data;
+}
+
+export default { getAll, postNewCategory, deleteCategory, patchIndex, patchWorkingOn }
