@@ -43,20 +43,35 @@ export const createNewTask = (task) => {
   }
 }
 
-export const switchIndexes = (category1, category2) => {
+const quickSwitch = (categorySource, categoryDestination, categoryList) => {
+  let newCategoryList = categoryList.slice();
+  newCategoryList.splice(categorySource.index, 1);
+  newCategoryList.splice(categoryDestination.index, 0, categorySource);
+  return newCategoryList
+}
+
+export const switchIndexes = (categorySource, categoryDestination, categoryList) => {
   return async(dispatch) => {
-    const newCategoryIndex1 = category2.index;
-    const newCategoryIndex2 = category1.index;
-    const newCategory1 = await categories.patchIndex(category1.id, newCategoryIndex1);
-    const newCategory2 = await categories.patchIndex(category2.id, newCategoryIndex2);
-    const newCategoryKey1 = category2.id; // used to find category2 in state and change it with category1
-    const newCategoryKey2 = category1.id;
-    const data = {};
-    data[newCategoryKey1] = newCategory1;
-    data[newCategoryKey2] = newCategory2; 
+
     dispatch({
       type: 'SWITCH_INDEXES',
-      data
+      data: quickSwitch(categorySource, categoryDestination, categoryList)
+    })
+
+    const sourceIndex = categorySource.index;
+    const destinationIndex = categoryDestination.index;
+    const newCategorySource = await categories.patchIndex(categorySource.id, destinationIndex);
+    const newCategoryDestination = await categories.patchIndex(categoryDestination.id, sourceIndex);
+
+    const updatedCategoryList = categoryList.map(category => {
+      if (category.index === sourceIndex) return newCategoryDestination;
+      if (category.index === destinationIndex) return newCategorySource;
+      return category;
+    })
+
+    dispatch({
+      type: 'SWITCH_INDEXES',
+      data: updatedCategoryList
     })
   }
 }
@@ -77,12 +92,7 @@ const categoryReducer = (state = [], action) => {
         return category;
       });
     case 'SWITCH_INDEXES':
-      return state.map(category => {
-        if (action.data[category.id]) {
-          return action.data[category.id];
-        }
-        return category;
-      });
+      return action.data;
     default:
       return state
   }
