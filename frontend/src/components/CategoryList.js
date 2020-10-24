@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 import { initializeCategories, removeCategory } from '../reducer/categoryReducer'
 import CategoryForm from './CategoryForm'
@@ -24,10 +25,12 @@ const CategoryList = () => {
     <div>
       <h2>Categories:</h2>
       <CategoryForm />
-      {categoryList.map(category => {
-        return <CategorySide className="category" key={category.id} category={category} deleteCategory={deleteCategory}>
-        </CategorySide>
-      })}
+      <DragDropContext>
+        {categoryList.map(category => {
+          return <CategorySide className="category" key={category.id} category={category} deleteCategory={deleteCategory}>
+          </CategorySide>
+        })}
+      </DragDropContext>
     </div>
   )
 }
