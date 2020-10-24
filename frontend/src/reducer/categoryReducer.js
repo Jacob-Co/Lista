@@ -43,6 +43,24 @@ export const createNewTask = (task) => {
   }
 }
 
+export const switchIndexes = (category1, category2) => {
+  return async(dispatch) => {
+    const newCategoryIndex1 = category2.index;
+    const newCategoryIndex2 = category1.index;
+    const newCategory1 = await categories.patchIndex(category1.id, newCategoryIndex1);
+    const newCategory2 = await categories.patchIndex(category2.id, newCategoryIndex2);
+    const newCategoryKey1 = category2.id; // used to find category2 in state and change it with category1
+    const newCategoryKey2 = category1.id;
+    const data = {};
+    data[newCategoryKey1] = newCategory1;
+    data[newCategoryKey2] = newCategory2; 
+    dispatch({
+      type: 'SWITCH_INDEXES',
+      data
+    })
+  }
+}
+
 const categoryReducer = (state = [], action) => {
   switch (action.type) {
     case 'INIT_CATEGORIES':
@@ -55,6 +73,13 @@ const categoryReducer = (state = [], action) => {
       return state.map(category => {
         if (category.id === action.data.task.category) {
           category.tasks = category.tasks.concat(action.data.task);
+        }
+        return category;
+      });
+    case 'SWITCH_INDEXES':
+      return state.map(category => {
+        if (action.data[category.id]) {
+          return action.data[category.id];
         }
         return category;
       });
