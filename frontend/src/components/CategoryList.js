@@ -1,10 +1,17 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
 
 import { initializeCategories, removeCategory, switchIndexes } from '../reducer/categoryReducer'
 import CategoryForm from './CategoryForm'
 import CategorySide from './CategorySide'
+
+const StyledDroppable = styled.div`
+  margin-right: 1rem;
+  padding-bottom: .5rem;
+  border-bottom: .15rem solid;
+`
 
 const CategoryList = () => {
   const dispatch = useDispatch()
@@ -36,7 +43,7 @@ const CategoryList = () => {
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId={'1'}>
           {provided => (
-            <div
+            <StyledDroppable
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
@@ -47,7 +54,7 @@ const CategoryList = () => {
                 return <CategorySide className="category" key={category.id} category={category} deleteCategory={deleteCategory} />
               })}
               {provided.placeholder}
-            </div>
+            </StyledDroppable>
           )}
         </Droppable>
       </DragDropContext>
