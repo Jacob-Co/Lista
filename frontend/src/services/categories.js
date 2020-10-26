@@ -32,7 +32,7 @@ const patchWorkingOn = async (id) => {
 
 const getFriendCategories = async (id) => {
   const config = { headers: { Authorization: getToken() }};
-  const res = await axios.patch(`${baseUrl}/friend/${id}`, config);
+  const res = await axios.get(`${baseUrl}/friend/${id}`, config);
   return res.data;
 }
 
