@@ -57,11 +57,11 @@ function App() {
             <Logout />
             <FriendsList />
             <Switch>
-              <Route path="/">
-                <HomeClock />
-              </Route>
               <Route path="/friend/categories">
                 <FriendCategoriesView />
+              </Route>
+              <Route path="/">
+                <HomeClock />
               </Route>
             </Switch>
           </RightColumn>
