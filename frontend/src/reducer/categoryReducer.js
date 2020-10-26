@@ -24,9 +24,15 @@ export const createNewCategory = (category) => {
 export const removeCategory = (id, categoryList) => {
   return async (dispatch) => {
     let updatedCategoryList = [];
+    let categoriesToBeUpdated = [];
     let counter = 0;
+
     categoryList.forEach(category => {
       if (category.id === id) return;
+      if (category.index !== counter) {
+        category.index = counter;
+        categoriesToBeUpdated = categoriesToBeUpdated.concat(category);
+      }
       updatedCategoryList = updatedCategoryList.concat(category);
       counter += 1;
     });
@@ -37,14 +43,9 @@ export const removeCategory = (id, categoryList) => {
     });
 
     await categories.deleteCategory(id);
-
-    for (const category of updatedCategoryList) {
+    for (const category of categoriesToBeUpdated) {
       await categories.patchIndex(category.id, category.index);
     }
-    // dispatch({
-    //   type: 'REMOVE_CATEGORY',
-    //   data: { id },
-    // })
   }
 }
 
