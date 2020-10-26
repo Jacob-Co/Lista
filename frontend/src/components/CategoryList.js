@@ -24,7 +24,7 @@ const CategoryList = () => {
 
   const deleteCategory = ({name, id}) => {
     if (window.confirm(`Do you really want to delete category ${name}?`)) {
-      dispatch(removeCategory(id))
+      dispatch(removeCategory(id, categoryList))
     }
   }
 
