@@ -28,7 +28,7 @@ const CategorySide = ({category, deleteCategory}) => {
           <h3>
             {category.name}----
             <button onClick={() => {deleteCategory(category)}}>X</button>
-            ----
+            {/* ---- */}
             {/* <button onClick={() => {toggleTask.current.toggleVisibility()}}>&or;</button> */}
           </h3>
           {/* <Toggable ref={toggleTask}>
