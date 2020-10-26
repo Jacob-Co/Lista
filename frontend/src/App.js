@@ -9,6 +9,7 @@ import HomeClock from './components/HomeClock'
 import Login from './components/Login'
 import Logout from './components/Logout'
 import FriendsList from './components/FriendsList'
+import FriendCategoriesView from './components/FriendCategoriesView'
 
 const TwoColumn = styled.div`
   display: flex;
@@ -58,6 +59,9 @@ function App() {
             <Switch>
               <Route path="/">
                 <HomeClock />
+              </Route>
+              <Route path="/friend/categories">
+                <FriendCategoriesView />
               </Route>
             </Switch>
           </RightColumn>
