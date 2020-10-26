@@ -14,7 +14,8 @@ const WorkingOn = ({ category, categoryList }) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
-    dispatch(switchIndexes(0, 1, categoryList))
+    if (!category.workingOn && category.extraInfo !== null) return;
+    dispatch(switchIndexes(0, 0, categoryList))
   }
 
   return(
