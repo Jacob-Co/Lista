@@ -78,7 +78,7 @@ export const switchIndexes = (categorySource, categoryDestination, categoryList)
         if (counter === 0) {
           const updatedWorkingOn = await categories.patchWorkingOn(category.id);
           counter += 1;
-          updatedCategoryList = updatedCategoryList.concat(updatedWorkingOn.newWorkingOn);
+          updatedCategoryList = updatedCategoryList.concat(updatedWorkingOn);
           continue;
         }
         const updatedCategory = await categories.patchIndex(category.id, counter);
