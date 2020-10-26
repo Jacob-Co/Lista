@@ -14,6 +14,7 @@ categoryRouter.get('/', async (req, res) => {
     const nullCategory = new Category({ 
       name: 'Place category that you are currently working on here',
       index: 0,
+      extraInfo: 'placeHolder'
     });
     categories = [nullCategory].concat(categories)
   };
