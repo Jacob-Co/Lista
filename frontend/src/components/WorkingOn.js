@@ -11,25 +11,16 @@ const WorkingOnDiv = styled.div`
 const WorkingOn = ({ category }) => {
   return(
     <WorkingOnDiv>
-      <h2>Category currently working on:</h2>
       <Draggable draggableId={category.id} index={category.index}>
-        {provided => {
-          return category.extraInfo === 'placeHolder'
-            ? <div
-                ref={provided.innerRef}
-                // no draggable props
-                {...provided.dragHandleProps}
-              >
-                <h3>{category.name}</h3>
-              </div>
-            : <div
-                ref={provided.innerRef}
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-              >
-                <h3>{category.name}</h3>
-              </div>
-          }
+        {provided => 
+          <div
+            ref={provided.innerRef}
+            // no draggable props
+            // style={{ userSelect: 'none' }}
+            // {...provided.dragHandleProps}
+          >
+            <h3>{category.name}</h3>
+          </div>
         }
       </Draggable>
   </WorkingOnDiv>
