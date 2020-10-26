@@ -51,7 +51,7 @@ const CategoryList = () => {
               <h2>Category currently working on:</h2>
               {categoryList.map(category => {
                 if (category === null || category.index === 0) {
-                  return <WorkingOn key={category.id} category={category}/>
+                  return <WorkingOn key={category.id} category={category} categoryList={categoryList}/>
                 }
                 return <CategorySide className="category" key={category.id} category={category} deleteCategory={deleteCategory} />
               })}
