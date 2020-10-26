@@ -1,8 +1,8 @@
 import categoryService from '../services/categories';
 
-export const initializeFriendCategories = () => {
+export const initializeFriendCategories = (id) => {
   return async (dispatch) => {
-    const friendCategories = await categoryService.getFriendCategories();
+    const friendCategories = await categoryService.getFriendCategories(id);
     dispatch({
       type: 'INIT_F_CATEGORIES',
       data: friendCategories
