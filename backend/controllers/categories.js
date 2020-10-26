@@ -12,7 +12,7 @@ categoryRouter.get('/', async (req, res) => {
 
   if (!categories[0] || !categories[0].workingOn) {
     const nullCategory = new Category({ 
-      name: '--none--',
+      name: '--Drag Here--',
       index: 0,
       extraInfo: 'placeHolder'
     });
