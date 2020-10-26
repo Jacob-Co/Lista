@@ -1,11 +1,8 @@
 const categoryRouter = require('express').Router();
 const Category = require('../models/category');
+const User = require('../models/users');
 
-categoryRouter.get('/', async (req, res) => {
-  const { token } = req;
-  if (!token) return res.status(400).json({error: 'Requires token'});
-
-  let categories = await Category.find({ user: token.id})
+const fixDisplayedCategories = (categories) => {
   categories = categories.sort((category1, category2) => {
     return category1.index - category2.index
   });
@@ -18,8 +15,30 @@ categoryRouter.get('/', async (req, res) => {
     });
     categories = [nullCategory].concat(categories)
   };
+
+  return categories;
+}
+
+categoryRouter.get('/', async (req, res) => {
+  const { token } = req;
+  if (!token) return res.status(400).json({error: 'Requires token'});
+
+  let categories = await Category.find({ user: token.id})
+  categories = fixDisplayedCategories(categories);
   res.status(200).json(categories);
 });
+
+categoryRouter.get('/friend/:id', async (req,res) => {
+  const { token } = req;
+  if (!token) return res.status(400).json({error: 'Requires token'});
+  
+  const friend = await User.findById(req.params.id);
+  if (!friend.friends.some(id => id.toString() === token.id)) return res.status(400).json({ error: 'You are not friends' });
+  
+  let friendCategories = await Category.find({_id: friend.id});
+  friendCategories = fixDisplayedCategories(friendCategories);
+  res.status(200).json(friendCategories)
+})
 
 categoryRouter.get('/:id', async (req, res) => {
   const { id } = req.params;
