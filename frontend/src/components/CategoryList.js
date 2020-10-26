@@ -48,6 +48,7 @@ const CategoryList = () => {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
+              <h2>Category currently working on:</h2>
               {categoryList.map(category => {
                 if (category === null || category.index === 0) {
                   return <WorkingOn key={category.id} category={category}/>
