@@ -2,14 +2,14 @@ const categoryRouter = require('express').Router();
 const Category = require('../models/category');
 const User = require('../models/users');
 
-const fixDisplayedCategories = (categories) => {
+const fixDisplayedCategories = (categories, message) => {
   categories = categories.sort((category1, category2) => {
     return category1.index - category2.index
   });
 
   if (!categories[0] || !categories[0].workingOn || categories[0].index != 0) {
     const nullCategory = new Category({ 
-      name: '--Drag Here--',
+      name: `--${message}--`,
       index: 0,
       extraInfo: 'placeHolder'
     });
@@ -24,7 +24,7 @@ categoryRouter.get('/', async (req, res) => {
   if (!token) return res.status(400).json({error: 'Requires token'});
 
   let categories = await Category.find({ user: token.id})
-  categories = fixDisplayedCategories(categories);
+  categories = fixDisplayedCategories(categories, 'Drag Here');
   res.status(200).json(categories);
 });
 
@@ -36,7 +36,7 @@ categoryRouter.get('/friend/:id', async (req,res) => {
   if (!friend.friends.some(id => id.toString() === token.id)) return res.status(400).json({ error: 'You are not friends' });
   
   let friendCategories = await Category.find({ user: friend._id});
-  friendCategories = fixDisplayedCategories(friendCategories);
+  friendCategories = fixDisplayedCategories(friendCategories, 'none');
   res.status(200).json(friendCategories)
 })
 
