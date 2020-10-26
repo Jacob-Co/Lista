@@ -29,14 +29,14 @@ const CategorySide = ({category, deleteCategory}) => {
             {category.name}----
             <button onClick={() => {deleteCategory(category)}}>X</button>
             ----
-            <button onClick={() => {toggleTask.current.toggleVisibility()}}>&or;</button>
+            {/* <button onClick={() => {toggleTask.current.toggleVisibility()}}>&or;</button> */}
           </h3>
-          <Toggable ref={toggleTask}>
+          {/* <Toggable ref={toggleTask}>
                 <TaskDiv className="tasks">
                   {category.tasks.map(task => <p key={task.id}>&gt; {task.name}</p>)}
                 </TaskDiv>
                 <TaskForm category={category}/>
-          </Toggable>
+          </Toggable> */}
         </DropDown>
       )}
     </Draggable>
