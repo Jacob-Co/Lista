@@ -24,6 +24,10 @@ const categorySchema = new mongoose.Schema({
   workingOn: {
     type: Boolean,
     default: false,
+  },
+  extraInfo: {
+    type: String,
+    default: null
   }
 });
 
