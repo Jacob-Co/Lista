@@ -57,7 +57,7 @@ function App() {
             <Logout />
             <FriendsList />
             <Switch>
-              <Route path="/friend/categories">
+              <Route path="/friend/categories/:id">
                 <FriendCategoriesView />
               </Route>
               <Route path="/">
