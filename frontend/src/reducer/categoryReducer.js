@@ -21,13 +21,30 @@ export const createNewCategory = (category) => {
   }
 }
 
-export const removeCategory = (id) => {
+export const removeCategory = (id, categoryList) => {
   return async (dispatch) => {
-    await categories.deleteCategory(id);
+    let updatedCategoryList = [];
+    let counter = 0;
+    categoryList.forEach(category => {
+      if (category.id === id) return;
+      updatedCategoryList = updatedCategoryList.concat(category);
+      counter += 1;
+    });
+
     dispatch({
-      type: 'REMOVE_CATEGORY',
-      data: { id },
-    })
+      type: 'UPDATE_CATEGORY',
+      data: updatedCategoryList
+    });
+
+    await categories.deleteCategory(id);
+
+    for (const category of updatedCategoryList) {
+      await categories.patchIndex(category.id, category.index);
+    }
+    // dispatch({
+    //   type: 'REMOVE_CATEGORY',
+    //   data: { id },
+    // })
   }
 }
 
@@ -65,7 +82,7 @@ export const switchIndexes = (categorySource, categoryDestination, categoryList)
 
     const quickUpdatedCategoryList = quickSwitch(categorySource, categoryDestination, categoryList);
     dispatch({
-      type: 'SWITCH_INDEXES',
+      type: 'UPDATE_CATEGORY',
       data: quickUpdatedCategoryList
     })
 
@@ -91,7 +108,7 @@ export const switchIndexes = (categorySource, categoryDestination, categoryList)
     }
 
     dispatch({
-      type: 'SWITCH_INDEXES',
+      type: 'UPDATE_CATEGORY',
       data: updatedCategoryList
     })
   }
@@ -112,7 +129,7 @@ const categoryReducer = (state = [], action) => {
         }
         return category;
       });
-    case 'SWITCH_INDEXES':
+    case 'UPDATE_CATEGORY':
       return action.data;
     default:
       return state
