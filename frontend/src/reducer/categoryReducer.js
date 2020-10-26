@@ -47,6 +47,16 @@ const quickSwitch = (categorySource, categoryDestination, categoryList) => {
   let newCategoryList = categoryList.slice();
   newCategoryList.splice(categorySource.index, 1);
   newCategoryList.splice(categoryDestination.index, 0, categorySource);
+  if (categorySource.index === 0) {
+    const placeHolderCategory = {
+      id: 'placeHolder',
+      name: '--none--',
+      index: 0,
+      workingOn: false,
+      extraInfo: 'placeHolder'
+    };
+    newCategoryList.splice(0, 0, placeHolderCategory);
+  }
   return newCategoryList
 }
 
@@ -64,6 +74,7 @@ export const switchIndexes = (categorySource, categoryDestination, categoryList)
 
     for (const category of quickUpdatedCategoryList) {
       if (category.index !== counter) {
+        if (category.extraInfo) continue;
         if (counter === 0) {
           const updatedWorkingOn = await categories.patchWorkingOn(category.id);
           counter += 1;
