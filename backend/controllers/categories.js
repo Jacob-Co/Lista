@@ -10,7 +10,7 @@ categoryRouter.get('/', async (req, res) => {
     return category1.index - category2.index
   });
 
-  if (!categories[0] || !categories[0].workingOn) {
+  if (!categories[0] || !categories[0].workingOn || categories[0].index != 0) {
     const nullCategory = new Category({ 
       name: '--Drag Here--',
       index: 0,
