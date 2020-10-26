@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { initializeCategories, removeCategory, switchIndexes } from '../reducer/categoryReducer'
 import CategoryForm from './CategoryForm'
 import CategorySide from './CategorySide'
+import WorkingOn from './WorkingOn';
 
 const StyledDroppable = styled.div`
   margin-right: 1rem;
@@ -49,7 +50,7 @@ const CategoryList = () => {
             >
               {categoryList.map(category => {
                 if (category === null || category.index === 0) {
-                  return (<h1 key={0}>Currently Working On:</h1>)
+                  return <WorkingOn key={category.id} category={category}/>
                 }
                 return <CategorySide className="category" key={category.id} category={category} deleteCategory={deleteCategory} />
               })}
