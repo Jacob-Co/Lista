@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { switchIndexes } from '../reducer/categoryReducer';
 
 const WorkingOnDiv = styled.div`
-  margin-right: 1rem;
   padding-bottom: .5rem;
   border-bottom: .15rem solid;
 `
