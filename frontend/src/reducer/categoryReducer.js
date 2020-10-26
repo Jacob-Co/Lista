@@ -61,11 +61,11 @@ export const createNewTask = (task) => {
   }
 }
 
-const quickSwitch = (categorySource, categoryDestination, categoryList) => {
+const quickSwitch = (sourceIdx, desitnationIdx, categoryList) => {
   let newCategoryList = categoryList.slice();
-  newCategoryList.splice(categorySource.index, 1);
-  newCategoryList.splice(categoryDestination.index, 0, categorySource);
-  if (categorySource.index === 0) {
+  newCategoryList.splice(sourceIdx, 1);
+  newCategoryList.splice(desitnationIdx, 0, categoryList[sourceIdx]);
+  if (sourceIdx === 0) {
     const placeHolderCategory = {
       id: 'placeHolder',
       name: '--none--',
@@ -80,11 +80,7 @@ const quickSwitch = (categorySource, categoryDestination, categoryList) => {
 
 export const switchIndexes = (sourceIdx, desitnationIdx, categoryList) => {
   return async(dispatch) => {
-
-    const categorySource = categoryList[sourceIdx];
-    const categoryDestination = categoryList[desitnationIdx];
-
-    const quickUpdatedCategoryList = quickSwitch(categorySource, categoryDestination, categoryList);
+    const quickUpdatedCategoryList = quickSwitch(sourceIdx, desitnationIdx, categoryList);
     dispatch({
       type: 'UPDATE_CATEGORY',
       data: quickUpdatedCategoryList
