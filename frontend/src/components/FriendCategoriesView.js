@@ -1,15 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { initializeFriendCategories } from '../reducer/friendCategoryReducer';
-
 const FriendCategoriesView = () => {
-  const dispatch = useDispatch();
   const friendCategories = useSelector(state => state.friendCategories);
-
-  useEffect(() => {
-    dispatch(initializeFriendCategories());
-  }, [dispatch]);
 
   return (
     <div>
