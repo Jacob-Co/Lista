@@ -78,8 +78,11 @@ const quickSwitch = (categorySource, categoryDestination, categoryList) => {
   return newCategoryList
 }
 
-export const switchIndexes = (categorySource, categoryDestination, categoryList) => {
+export const switchIndexes = (sourceIdx, desitnationIdx, categoryList) => {
   return async(dispatch) => {
+
+    const categorySource = categoryList[sourceIdx];
+    const categoryDestination = categoryList[desitnationIdx];
 
     const quickUpdatedCategoryList = quickSwitch(categorySource, categoryDestination, categoryList);
     dispatch({
