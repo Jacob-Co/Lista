@@ -14,7 +14,7 @@ const FriendCategoriesView = () => {
   return (
     <div>
       <h2>Currently Working On:</h2>
-      <p>{friendCategories[0]}</p>
+      <p>{friendCategories[0].name}</p>
       <h2>Other Categories</h2>
       {friendCategories.slice(1).map(category => <p key={category.id}>{category.name}</p>)}
     </div>
