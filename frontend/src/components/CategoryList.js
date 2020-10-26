@@ -34,7 +34,7 @@ const CategoryList = () => {
     let sourceIdx = parseInt(result.source.index)
     let destIdx = parseInt(result.destination.index)
     console.log(`source: ${sourceIdx}, dest: ${destIdx}`)
-    dispatch(switchIndexes(categoryList[sourceIdx], categoryList[destIdx], categoryList));
+    dispatch(switchIndexes(sourceIdx, destIdx, categoryList));
   }
 
   return (
