@@ -1,8 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 
 import { useParams } from 'react-router-dom';
 import { initializeFriendCategories } from '../reducer/friendCategoryReducer';
+
+const FriendCategories = styled.div`
+  margin-left: 1rem;
+`
 
 const FriendCategoriesView = () => {
   const { id } = useParams();
@@ -14,7 +19,7 @@ const FriendCategoriesView = () => {
   }, [dispatch])
 
   return (
-    <div>
+    <FriendCategories>
       <h2>Currently Working On:</h2>
       <p>{friendCategories.length > 0 
         ? friendCategories[0].name
@@ -24,7 +29,7 @@ const FriendCategoriesView = () => {
       {friendCategories.length > 0 
         ? friendCategories.slice(1).map(category => <p key={category.id}>{category.name}</p>)
         : 'Loading'}
-    </div>
+    </FriendCategories>
   );
 };
 
