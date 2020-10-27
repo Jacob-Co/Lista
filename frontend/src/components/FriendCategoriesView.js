@@ -18,7 +18,7 @@ const FriendCategoriesView = () => {
     .find(friend => friend.id === id))
 
   useEffect(() => {
-    dispatch(initializeFriendCategories(id));
+    if (friendCategories.length <= 0) dispatch(initializeFriendCategories(id));
   }, [dispatch])
 
   const handleRefresh = () => {
