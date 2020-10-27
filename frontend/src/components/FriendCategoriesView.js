@@ -14,6 +14,8 @@ const FriendCategoriesView = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const friendCategories = useSelector(state => state.friendCategories);
+  const friend = useSelector(state => state.FriendCategories
+    .find(friend => friend.id === id))
 
   useEffect(() => {
     dispatch(initializeFriendCategories(id));
@@ -25,12 +27,13 @@ const FriendCategoriesView = () => {
 
   return (
     <FriendCategories>
+      <h1>{friend.username} Categories: </h1>
       <h2>Currently Working On:</h2>
       <p>{friendCategories.length > 0 
         ? friendCategories[0].name
         : 'Loading'}
       </p>
-      <h2>Other Categories</h2>
+      <h2>Other Categories:</h2>
       {friendCategories.length > 0 
         ? friendCategories.slice(1).map(category => <p key={category.id}>{category.name}</p>)
         : 'Loading'}
