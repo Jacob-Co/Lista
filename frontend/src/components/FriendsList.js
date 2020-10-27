@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom'
 
 import { initializeFriends } from '../reducer/friendReducer';
+import { initializeFriendCategories } from '../reducer/friendCategoryReducer';
 
 const FriendListDiv = styled.div`
   position: absolute;
@@ -25,7 +26,7 @@ const FriendsList = () => {
       {friends.map(friend =>
         <div key={friend.id}>{friend.username}
             <Link to={`/friend/categories/${friend.id}`}>
-              <button>view</button>
+              <button onClick={() => dispatch(initializeFriendCategories(friend.id))}>view</button>
             </Link>
         </div>)}
     </FriendListDiv>
