@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getToken } from './tokenHolder';
 
-const baseUrl = 'api/user';
+const baseUrl = '/api/user';
 
 const getFriends = async () => {
   const config = { headers: {Authorization: getToken()}};
