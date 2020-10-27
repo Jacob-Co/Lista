@@ -19,6 +19,10 @@ const FriendCategoriesView = () => {
     dispatch(initializeFriendCategories(id));
   }, [dispatch])
 
+  const handleRefresh = () => {
+    dispatch(initializeFriendCategories(id))
+  }
+
   return (
     <FriendCategories>
       <h2>Currently Working On:</h2>
@@ -31,6 +35,7 @@ const FriendCategoriesView = () => {
         ? friendCategories.slice(1).map(category => <p key={category.id}>{category.name}</p>)
         : 'Loading'}
       <Link to="/"><button>back</button></Link>
+      <button onClick={handleRefresh}>refresh</button>
     </FriendCategories>
   );
 };
