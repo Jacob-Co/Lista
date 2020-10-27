@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { createNewCategory } from '../reducer/categoryReducer'
@@ -6,6 +6,7 @@ import { createNewCategory } from '../reducer/categoryReducer'
 const CategoryForm = () => {
   const dispatch = useDispatch();
   const categories = useSelector(state => state.categories);
+  const nameInput = useRef();
 
   const [visible, setVisible] = useState(false);
   const [name, setName] = useState('');
@@ -24,15 +25,23 @@ const CategoryForm = () => {
     }
   }
 
+  const expandForm = () => {
+    setTimeout(() => {
+      nameInput.current.focus();
+    }, 100);
+    setVisible(!visible);
+  }
+
   return (
     <div>
-      <button onClick={() => setVisible(!visible)}>
+      <button onClick={expandForm}>
         Click to Add New Category
       </button>
       <form onSubmit={handleSubmit} style={visibility}>
         <div>
           name:
           <input
+            ref={nameInput}
             type="text"
             name="Name"
             id="name"
