@@ -39,7 +39,7 @@ const CategoryList = () => {
 
   return (
     <div>
-      <h2>Categories:</h2>
+      <h2>Your Categories:</h2>
       <CategoryForm />
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId={'1'}>
