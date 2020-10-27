@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { useParams } from 'react-router-dom';
 import { initializeFriendCategories } from '../reducer/friendCategoryReducer';
 
 const FriendCategories = styled.div`
-  margin-left: 1rem;
+  margin-left: .75rem;
 `
 
 const FriendCategoriesView = () => {
@@ -29,6 +30,7 @@ const FriendCategoriesView = () => {
       {friendCategories.length > 0 
         ? friendCategories.slice(1).map(category => <p key={category.id}>{category.name}</p>)
         : 'Loading'}
+      <Link to="/"><button>back</button></Link>
     </FriendCategories>
   );
 };
