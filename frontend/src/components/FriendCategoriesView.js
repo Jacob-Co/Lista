@@ -14,7 +14,7 @@ const FriendCategoriesView = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const friendCategories = useSelector(state => state.friendCategories);
-  const friend = useSelector(state => state.FriendCategories
+  const friend = useSelector(state => state.friends
     .find(friend => friend.id === id))
 
   useEffect(() => {
@@ -25,9 +25,13 @@ const FriendCategoriesView = () => {
     dispatch(initializeFriendCategories(id))
   }
 
+  const capitalize = (string) => {
+    return string[0].toUpperCase() + string.slice(1);
+  }
+
   return (
     <FriendCategories>
-      <h1>{friend.username} Categories: </h1>
+      <h1>{friend ? capitalize(friend.username) : ""} Categories: </h1>
       <h2>Currently Working On:</h2>
       <p>{friendCategories.length > 0 
         ? friendCategories[0].name
