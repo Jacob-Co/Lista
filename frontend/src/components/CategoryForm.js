@@ -41,7 +41,7 @@ const CategoryForm = () => {
           />
         </div>
         
-        <div>
+        {/* <div>
           summary:
           <input
             type="text"
@@ -50,7 +50,7 @@ const CategoryForm = () => {
             value={summary}
             onChange={({target}) => setSummary(target.value)}
           />
-        </div>
+        </div> */}
         <button>send</button>
       </form>
     </div>
