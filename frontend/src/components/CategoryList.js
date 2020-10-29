@@ -61,7 +61,7 @@ const CategoryList = () => {
                   key={category.id}
                   category={category}
                   deleteCategory={deleteCategory}
-                  // onDoubleClick={() => alert('Double Clicked')}
+                  makeWorkingOn={makeWorkingOn}
                 />
               })}
               {provided.placeholder}
