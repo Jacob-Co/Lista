@@ -33,22 +33,20 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
           {...provided.dragHandleProps}
         >
           <h3>
-            <span onDoubleClick={() => makeWorkingOn(category.index)}>{category.name}</span>--
+            <span onDoubleClick={() => makeWorkingOn(category.index)}>{category.name}</span>
             <button onClick={() => {deleteCategory(category)}}>X</button>
-            --
             <button onClick={() => toggleCreateTask.current.toggleVisibility()}>+</button>
-            --
             <button onClick={showTasks}>&or;</button>
           </h3>
           <Toggable ref={toggleCreateTask}>
             <TaskDiv><TaskForm category={category} showTasks={showTasks}/></TaskDiv>
           </Toggable>
-          <Toggable ref={toggleTask}>
-                <TaskDiv className="tasks">
-                  <h4>Tasks:</h4>
-                  {category.tasks.map(task => <Task task={task} key={task.id} category={category}/>)}
-                </TaskDiv>
-          </Toggable>
+            <Toggable ref={toggleTask}>
+              <TaskDiv className="tasks">
+                <h4>Tasks:</h4>
+                {category.tasks.map(task => <Task task={task} key={task.id} category={category}/>)}
+              </TaskDiv>
+            </Toggable>
         </DropDown>
       )}
     </Draggable>
