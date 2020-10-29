@@ -44,7 +44,7 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
           </Toggable>
           <Toggable ref={toggleTask}>
                 <TaskDiv className="tasks">
-                  {category.tasks.map(task => <Task task={task} key={task.id}/>)}
+                  {category.tasks.map(task => <Task task={task} key={task.id} category={category}/>)}
                 </TaskDiv>
           </Toggable>
         </DropDown>
