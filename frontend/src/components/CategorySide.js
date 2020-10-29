@@ -17,6 +17,10 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
   const toggleTask = useRef();
   const toggleCreateTask = useRef();
 
+  const showTasks = () => {
+    toggleTask.current.toggleVisibility();
+  }
+
   return (
     <Draggable draggableId={category.id} index={category.index}>
       {provided => (
@@ -32,10 +36,10 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
             --
             <button onClick={() => toggleCreateTask.current.toggleVisibility()}>+</button>
             --
-            <button onClick={() => {toggleTask.current.toggleVisibility()}}>&or;</button>
+            <button onClick={showTasks}>&or;</button>
           </h3>
           <Toggable ref={toggleCreateTask}>
-            <TaskDiv><TaskForm category={category}/></TaskDiv>
+            <TaskDiv><TaskForm category={category} showTasks={showTasks}/></TaskDiv>
           </Toggable>
           <Toggable ref={toggleTask}>
                 <TaskDiv className="tasks">
