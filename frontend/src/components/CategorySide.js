@@ -8,6 +8,7 @@ import Task from './Task';
 
 const TaskDiv = styled.div`
   margin-left: 1.5rem;
+  margin-bottom: 1rem;
 `
 
 const DropDown = styled.div`
@@ -44,6 +45,7 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
           </Toggable>
           <Toggable ref={toggleTask}>
                 <TaskDiv className="tasks">
+                  <h4>Tasks:</h4>
                   {category.tasks.map(task => <Task task={task} key={task.id} category={category}/>)}
                 </TaskDiv>
           </Toggable>
