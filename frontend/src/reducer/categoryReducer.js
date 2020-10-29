@@ -118,18 +118,14 @@ export const switchIndexes = (sourceIdx, desitnationIdx, categoryList) => {
   }
 }
 
-export const removeTask = (taskId, categoryId, categoryList) => {
+export const removeTask = (taskId, category) => {
   return async (dispatch) => {
-    const updatedCategoryList = categoryList.map(category => {
-      if (category.id === categoryId) {
-        category.tasks = category.tasks.filter(task => task.id !== taskId);
-      }
-      return category;
-    })
+    const updatedCategory = category;
+    updatedCategory.tasks = category.tasks.filter(task => task.id != taskId);
 
     dispatch({
-      type: 'UPDATE_CATEGOY',
-      data: updatedCategoryList
+      type: 'REMOVE_TASK',
+      data: updatedCategory
     })
 
     await tasks.deleteTask(taskId);
@@ -148,6 +144,13 @@ const categoryReducer = (state = [], action) => {
       return state.map(category => {
         if (category.id === action.data.task.category) {
           category.tasks = category.tasks.concat(action.data.task);
+        }
+        return category;
+      });
+    case 'REMOVE_TASK':
+      return state.map(category => {
+        if (category.id === action.data.id) {
+          return action.data;
         }
         return category;
       });
