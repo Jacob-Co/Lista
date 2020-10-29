@@ -91,7 +91,8 @@ categoryRouter.patch('/index/:id', async (req, res) => {
   const options = { new: true };
   const updatedCategory = await Category.findOneAndUpdate(filter, modify, options);
   if (!updatedCategory) return res.status(401).json({ error: "No category found"});
-  return res.json(updatedCategory);
+  const returnCategory = await updatedCategory.populate('tasks').execPopulate();
+  return res.json(returnCategory);
 })
 
 categoryRouter.patch('/workingOn/:id', async (req, res) => {
