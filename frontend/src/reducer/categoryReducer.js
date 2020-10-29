@@ -64,7 +64,11 @@ export const createNewTask = (task) => {
 const quickSwitch = (sourceIdx, desitnationIdx, categoryList) => {
   let newCategoryList = categoryList.slice();
   newCategoryList.splice(sourceIdx, 1);
-  newCategoryList.splice(desitnationIdx, 0, categoryList[sourceIdx]);
+  if (desitnationIdx === 0 && categoryList[0].extraInfo) {
+    newCategoryList.splice(desitnationIdx, 1, categoryList[sourceIdx]);
+  } else {
+    newCategoryList.splice(desitnationIdx, 0, categoryList[sourceIdx]);
+  }
   if (sourceIdx === 0) {
     const placeHolderCategory = {
       id: 'placeHolder',
