@@ -18,9 +18,12 @@ const WorkingOn = ({ category, categoryList }) => {
   }
 
   return(
-    <div>
-        <WorkingOnDiv>
-          <Draggable draggableId={category.id} index={category.index}>
+    <WorkingOnDiv>
+      <h2>Currently Working On:</h2>
+      <h3>{category.name}</h3>
+      { category.extraInfo === null ? <button onClick={handleRemove}>remove</button> : ''}
+        {/* <WorkingOnDiv> */}
+          {/* <Draggable draggableId={category.id} index={category.index}>
             {provided => 
               <div
                 ref={provided.innerRef}
@@ -33,8 +36,8 @@ const WorkingOn = ({ category, categoryList }) => {
               </div>
             }
           </Draggable>
-      </WorkingOnDiv>
-    </div>
+      </WorkingOnDiv> */}
+    </WorkingOnDiv>
       );
 };
 
