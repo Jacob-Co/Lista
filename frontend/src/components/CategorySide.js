@@ -35,7 +35,7 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
                 <TaskDiv className="tasks">
                   {category.tasks.map(task => <p key={task.id}>&gt; {task.name}</p>)}
                 </TaskDiv>
-                <TaskForm category={category}/>
+                <TaskDiv><TaskForm category={category}/></TaskDiv>
           </Toggable>
         </DropDown>
       )}
