@@ -18,6 +18,7 @@ const WorkingOn = ({ category, categoryList }) => {
   }
 
   return(
+    <>
     <WorkingOnDiv>
       <h2>Currently Working On:</h2>
       <h3>{category.name}</h3>
@@ -38,6 +39,8 @@ const WorkingOn = ({ category, categoryList }) => {
           </Draggable>
       </WorkingOnDiv> */}
     </WorkingOnDiv>
+    <h2>Other Categories:</h2>
+    </>
       );
 };
 
