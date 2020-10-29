@@ -37,6 +37,10 @@ const CategoryList = () => {
     dispatch(switchIndexes(sourceIdx, destIdx, categoryList));
   }
 
+  const makeWorkingOn = (index) => {
+    dispatch(switchIndexes(index, 0, categoryList));
+  }
+
   return (
     <div>
       <h2>Your Categories:</h2>
@@ -52,7 +56,13 @@ const CategoryList = () => {
                 if (category === null || category === categoryList[0]) {
                   return <WorkingOn key={category.id} category={category} categoryList={categoryList}/>
                 }
-                return <CategorySide className="category" key={category.id} category={category} deleteCategory={deleteCategory} />
+                return <CategorySide 
+                  className="category"
+                  key={category.id}
+                  category={category}
+                  deleteCategory={deleteCategory}
+                  // onDoubleClick={() => alert('Double Clicked')}
+                />
               })}
               {provided.placeholder}
             </StyledDroppable>
