@@ -25,8 +25,8 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <h3 onDoubleClick={() => makeWorkingOn(category.index)}>
-            {category.name}----
+          <h3>
+            <span onDoubleClick={() => makeWorkingOn(category.index)}>{category.name}</span>----
             <button onClick={() => {deleteCategory(category)}}>X</button>
             ----
             <button onClick={() => {toggleTask.current.toggleVisibility()}}>&or;</button>
