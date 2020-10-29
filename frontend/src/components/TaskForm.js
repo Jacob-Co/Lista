@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import { createNewTask } from '../reducer/categoryReducer'
 
-const TaskForm = ({category}) => {
+const TaskForm = ({category, showTasks}) => {
   const dispatch = useDispatch();
 
   const [name, setName] = useState('')
@@ -15,6 +15,7 @@ const TaskForm = ({category}) => {
       dispatch(createNewTask({name, content, category: category.id}));
       setName('');
       setContent('');
+      showTasks();
     }
   }
 
