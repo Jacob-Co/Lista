@@ -13,7 +13,7 @@ const DropDown = styled.div`
   margin-bottom: 1.5rem;
 `
 
-const CategorySide = ({category, deleteCategory}) => {
+const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
   const toggleTask = useRef();
 
   return (
@@ -25,7 +25,7 @@ const CategorySide = ({category, deleteCategory}) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <h3>
+          <h3 onDoubleClick={() => makeWorkingOn(category.index)}>
             {category.name}----
             <button onClick={() => {deleteCategory(category)}}>X</button>
             {/* ---- */}
