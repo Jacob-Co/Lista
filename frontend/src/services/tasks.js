@@ -8,4 +8,9 @@ const createTask = async (task) => {
   return res.data;
 };
 
-export default { createTask }
+const deleteTask = async (id) => {
+  const config = { headers: { Authorization: getToken() }};
+  await axios.delete(`${baseUrl}/${id}`, config);
+}
+
+export default { createTask, deleteTask }
