@@ -1,5 +1,6 @@
 const categoryRouter = require('express').Router();
 const Category = require('../models/category');
+const Task = require('../models/task');
 const User = require('../models/users');
 
 const fixDisplayedCategories = (categories, message) => {
@@ -60,7 +61,11 @@ categoryRouter.post('/', async (req, res) => {
 })
 
 categoryRouter.delete('/:id', async (req, res) => {
-  await Category.findByIdAndDelete(req.params.id)
+  const categoryToDelete = await Category.findById(req.params.id);
+  for (const taskId of categoryToDelete.tasks) {
+    await Task.findByIdAndDelete(taskId);
+  }
+  await categoryToDelete.delete();
   res.status(204).end();
 })
 
