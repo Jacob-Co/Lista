@@ -33,7 +33,7 @@ const TaskForm = ({category}) => {
           />
         </div>
 
-        <div>
+        {/* <div>
           content
           <input
             type="text"
@@ -42,7 +42,7 @@ const TaskForm = ({category}) => {
             value={content}
             onChange={({target}) => setContent(target.value)}
           />
-        </div>
+        </div> */}
         <button>create</button>
       </form>
     </div>
