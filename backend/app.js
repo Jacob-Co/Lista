@@ -25,6 +25,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(tokenExtractor);
+app.use(express.static('build'))
 app.use('/api/categories', categoryRouter)
 app.use('/api/tasks', taskRouter)
 app.use('/api/updateNotes', updateNoteRouter)
