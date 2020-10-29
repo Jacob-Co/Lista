@@ -24,7 +24,7 @@ categoryRouter.get('/', async (req, res) => {
   if (!token) return res.status(400).json({error: 'Requires token'});
 
   let categories = await Category.find({ user: token.id})
-  categories = fixDisplayedCategories(categories, 'Drag Here');
+  categories = fixDisplayedCategories(categories, 'Double click an item to place here');
   res.status(200).json(categories);
 });
 
