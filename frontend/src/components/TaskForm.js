@@ -20,7 +20,7 @@ const TaskForm = ({category}) => {
 
   return(
     <div>
-      <h3>Creating a new task for {category.name}</h3>
+      <h3>Creating a new task</h3>
       <form onSubmit={handleFormSubmit}>
         <div>
           name
