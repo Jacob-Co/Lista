@@ -15,6 +15,7 @@ const DropDown = styled.div`
 
 const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
   const toggleTask = useRef();
+  const toggleCreateTask = useRef();
 
   return (
     <Draggable draggableId={category.id} index={category.index}>
@@ -26,16 +27,20 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
           {...provided.dragHandleProps}
         >
           <h3>
-            <span onDoubleClick={() => makeWorkingOn(category.index)}>{category.name}</span>----
+            <span onDoubleClick={() => makeWorkingOn(category.index)}>{category.name}</span>--
             <button onClick={() => {deleteCategory(category)}}>X</button>
-            ----
+            --
+            <button onClick={() => toggleCreateTask.current.toggleVisibility()}>+</button>
+            --
             <button onClick={() => {toggleTask.current.toggleVisibility()}}>&or;</button>
           </h3>
+          <Toggable ref={toggleCreateTask}>
+            <TaskDiv><TaskForm category={category}/></TaskDiv>
+          </Toggable>
           <Toggable ref={toggleTask}>
                 <TaskDiv className="tasks">
                   {category.tasks.map(task => <p key={task.id}>&gt; {task.name}</p>)}
                 </TaskDiv>
-                <TaskDiv><TaskForm category={category}/></TaskDiv>
           </Toggable>
         </DropDown>
       )}
