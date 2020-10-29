@@ -4,6 +4,7 @@ import { Draggable } from 'react-beautiful-dnd';
 
 import TaskForm from './TaskForm'
 import Toggable from './Toggable'
+import Task from './Task';
 
 const TaskDiv = styled.div`
   margin-left: 1.5rem;
@@ -43,7 +44,7 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
           </Toggable>
           <Toggable ref={toggleTask}>
                 <TaskDiv className="tasks">
-                  {category.tasks.map(task => <p key={task.id}>&gt; {task.name}</p>)}
+                  {category.tasks.map(task => <Task task={task} key={task.id}/>)}
                 </TaskDiv>
           </Toggable>
         </DropDown>
