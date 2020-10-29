@@ -118,6 +118,24 @@ export const switchIndexes = (sourceIdx, desitnationIdx, categoryList) => {
   }
 }
 
+export const removeTask = (taskId, categoryId, categoryList) => {
+  return async (dispatch) => {
+    const updatedCategoryList = categoryList.map(category => {
+      if (category.id === categoryId) {
+        category.tasks = category.tasks.filter(task => task.id !== taskId);
+      }
+      return category;
+    })
+
+    dispatch({
+      type: 'UPDATE_CATEGOY',
+      data: updatedCategoryList
+    })
+
+    await tasks.deleteTask(taskId);
+  }
+}
+
 const categoryReducer = (state = [], action) => {
   switch (action.type) {
     case 'INIT_CATEGORIES':
