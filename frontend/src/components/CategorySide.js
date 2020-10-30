@@ -20,6 +20,10 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
   const toggleCreateTask = useRef();
 
   const showTasks = () => {
+    toggleTask.current.toggleVisibility(true);
+  }
+
+  const toggleTasks = () => {
     toggleTask.current.toggleVisibility();
   }
 
@@ -36,7 +40,7 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
             <span onDoubleClick={() => makeWorkingOn(category.index)}>{category.name}</span>
             <button onClick={() => {deleteCategory(category)}}>X</button>
             <button onClick={() => toggleCreateTask.current.toggleVisibility()}>+</button>
-            <button onClick={showTasks}>&or;</button>
+            <button onClick={toggleTasks}>&or;</button>
           </h3>
           <Toggable ref={toggleCreateTask}>
             <TaskDiv><TaskForm category={category} showTasks={showTasks}/></TaskDiv>
