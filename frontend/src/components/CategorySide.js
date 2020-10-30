@@ -4,6 +4,11 @@ import { Draggable } from 'react-beautiful-dnd';
 
 import TaskList from './TaskList'
 
+const CategoryName = styled.span`
+  font-size: 1.07em;
+  font-weight: bold;
+`
+
 const DropDown = styled.div`
   margin-bottom: 1.5rem;
 `
@@ -19,7 +24,7 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
           {...provided.dragHandleProps}
         >
           <div>
-            <span onDoubleClick={() => makeWorkingOn(category.index)}>{category.name}</span>
+            <CategoryName onDoubleClick={() => makeWorkingOn(category.index)}>{category.name}</CategoryName>
             <TaskList category={category} deleteCategory={deleteCategory}/>
           </div>
         </DropDown>
