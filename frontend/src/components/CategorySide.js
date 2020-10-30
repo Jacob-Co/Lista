@@ -18,10 +18,10 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <h3>
+          <div>
             <span onDoubleClick={() => makeWorkingOn(category.index)}>{category.name}</span>
-          </h3>
-          <TaskList category={category} deleteCategory={deleteCategory}/>
+            <TaskList category={category} deleteCategory={deleteCategory}/>
+          </div>
         </DropDown>
       )}
     </Draggable>

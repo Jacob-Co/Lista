@@ -23,7 +23,7 @@ const TaskList = ({category, deleteCategory}) => {
   }
 
   return (
-    <div>
+    <>
         <button onClick={() => {deleteCategory(category)}}>X</button>
         <button onClick={() => toggleCreateTask.current.toggleVisibility()}>+</button>
         { category.tasks.length > 0 ? <button onClick={toggleTasks}>&or;</button> : ''}
@@ -39,7 +39,7 @@ const TaskList = ({category, deleteCategory}) => {
           : ''
         }
         </Toggable>
-    </div>
+    </>
   )
 }
 
