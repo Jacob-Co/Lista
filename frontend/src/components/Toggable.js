@@ -5,8 +5,12 @@ const Toggable = React.forwardRef(({children}, ref) => {
 
   const showIfVisibile = {display: visible ? '' : "none"}
 
-  const toggleVisibility = () => {
-    setVisible(!visible);
+  const toggleVisibility = (forceBoolean) => {
+    if (forceBoolean) {
+      setVisible(forceBoolean);
+    } else {
+      setVisible(!visible);
+    }
   }
 
   useImperativeHandle(ref, () => {
