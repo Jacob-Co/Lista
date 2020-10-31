@@ -26,6 +26,10 @@ categoryRouter.get('/', async (req, res) => {
 
   let categories = await Category.find({ user: token.id})
   categories = fixDisplayedCategories(categories, 'Double click an item to place here');
+  categories = categories.map(category => {
+    category.tasks = category.tasks.sort((task1, task2) => task1.index - task2.index);
+    return category
+  });
   res.status(200).json(categories);
 });
 
