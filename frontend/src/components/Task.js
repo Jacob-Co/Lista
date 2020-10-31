@@ -6,6 +6,7 @@ import { removeTask } from '../reducer/categoryReducer';
 
 const Task = ({ task, category }) => {
   const dispatch = useDispatch();
+  const indexSupplement = (category.index + 1) * 1000000;
 
   const handleDeleteTask = () => {
     if (window.confirm(`Delete ${task.name}?`)) {
