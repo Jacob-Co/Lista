@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 import TaskForm from './TaskForm';
 import Toggable from './Toggable';
 import Task from './Task';
+
 
 const TaskDiv = styled.div`
   margin-left: 1.5rem;
@@ -23,7 +25,7 @@ const TaskList = ({category, deleteCategory}) => {
   }
 
   return (
-    <>
+    <DragDropContext>
         <button onClick={() => {deleteCategory(category)}}>X</button>
         <button onClick={() => toggleCreateTask.current.toggleVisibility()}>+</button>
         { category.tasks.length > 0 ? <button onClick={toggleTasks}>&or;</button> : ''}
@@ -39,7 +41,7 @@ const TaskList = ({category, deleteCategory}) => {
           : ''
         }
         </Toggable>
-    </>
+    </DragDropContext>
   )
 }
 
