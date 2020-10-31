@@ -25,33 +25,35 @@ const TaskList = ({category, deleteCategory}) => {
   }
 
   return (
-    <DragDropContext>
-      <Droppable droppableId={'tasks'}>
-        {provided => (
-          <div 
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
-            <button onClick={() => {deleteCategory(category)}}>X</button>
-            <button onClick={() => toggleCreateTask.current.toggleVisibility()}>+</button>
-            { category.tasks.length > 0 ? <button onClick={toggleTasks}>&or;</button> : ''}
-            <Toggable ref={toggleCreateTask}>
-              <TaskDiv><TaskForm category={category} showTasks={showTasks}/></TaskDiv>
-            </Toggable>
-            <Toggable ref={toggleTask}>
-            { category.tasks.length > 0 
-              ? <TaskDiv className="tasks">
-                  <h4>Tasks:</h4>
-                  {category.tasks.map(task => <Task task={task} key={task.id} category={category}/>)}
-                </TaskDiv>
-              : ''
-            }
-            </Toggable>
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+    <>
+      <button onClick={() => {deleteCategory(category)}}>X</button>
+      <button onClick={() => toggleCreateTask.current.toggleVisibility()}>+</button>
+      {category.tasks.length > 0 ? <button onClick={toggleTasks}>&or;</button> : ''}
+      <DragDropContext>
+        <Droppable droppableId={'tasks'}>
+          {provided => (
+            <div 
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              <Toggable ref={toggleCreateTask}>
+                <TaskDiv><TaskForm category={category} showTasks={showTasks}/></TaskDiv>
+              </Toggable>
+              <Toggable ref={toggleTask}>
+              { category.tasks.length > 0 
+                ? <TaskDiv className="tasks">
+                    <h4>Tasks:</h4>
+                    {category.tasks.map(task => <Task task={task} key={task.id} category={category}/>)}
+                  </TaskDiv>
+                : ''
+              }
+              </Toggable>
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </>
   )
 }
 
