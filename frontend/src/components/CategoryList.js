@@ -46,7 +46,7 @@ const CategoryList = () => {
       <h2>Your Categories:</h2>
       <CategoryForm />
       <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId={'1'}>
+        <Droppable droppableId={'categories'}>
           {provided => (
             <StyledDroppable
               ref={provided.innerRef}
