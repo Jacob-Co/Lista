@@ -21,10 +21,11 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
           ref={provided.innerRef}
           // isDragging={snapshot.isDragging}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
         >
           <div>
-            <CategoryName onDoubleClick={() => makeWorkingOn(category.index)}>{category.name}</CategoryName>
+            <span {...provided.dragHandleProps}>
+              <CategoryName onDoubleClick={() => makeWorkingOn(category.index)}>{category.name}</CategoryName>
+            </span>
             <TaskList category={category} deleteCategory={deleteCategory}/>
           </div>
         </DropDown>
