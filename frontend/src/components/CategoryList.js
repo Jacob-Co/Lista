@@ -29,7 +29,11 @@ const CategoryList = () => {
   }
 
   const handleDragEnd = (result) => {
-    if (result.source.droppableId !== 'categories') return;
+    // console.log(`source idx: ${result.source.index} || destination id: ${result.destination.index}`)
+    // if (result.source.index >= 1000000 || result.destination.index >= 1000000) {
+    //   return console.log(`Task`)
+    // };
+    return;
     if (!result.destination) return;
     if (result.destination.index === result.source.index) return;
     let sourceIdx = parseInt(result.source.index)
