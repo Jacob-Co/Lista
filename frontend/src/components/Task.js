@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Draggable } from 'react-beautiful-dnd';
 
 import { removeTask } from '../reducer/categoryReducer';
 
@@ -13,10 +14,18 @@ const Task = ({ task, category }) => {
   }
 
   return(
-    <div>
-      &gt; {task.name}
-      --<button onClick={handleDeleteTask}>X</button>
-    </div>
+    <Draggable draggableId={task.id} >
+      {provided => (
+        <div
+        ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          &gt; {task.name}
+          --<button onClick={handleDeleteTask}>X</button>
+        </div>
+      )}
+    </Draggable>
   )
 }
 
