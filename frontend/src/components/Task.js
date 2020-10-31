@@ -20,9 +20,9 @@ const Task = ({ task, category }) => {
         <div
         ref={provided.innerRef}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
+          
         >
-          &gt; {task.name}
+          <span {...provided.dragHandleProps}>&gt; {task.name}</span>
           --<button onClick={handleDeleteTask}>X</button>
         </div>
       )}
