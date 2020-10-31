@@ -14,7 +14,7 @@ const Task = ({ task, category }) => {
   }
 
   return(
-    <Draggable draggableId={task.id} >
+    <Draggable draggableId={task.id} index={task.index}>
       {provided => (
         <div
         ref={provided.innerRef}
