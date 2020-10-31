@@ -32,6 +32,18 @@ taskRouter.get('/', async (req, res) => {
   res.status(200).json(allTasks)
 })
 
+taskRouter.patch('/index/:id', async (req, res) => {
+  const { token } = req;
+  if (!token) return res.status(400).json({error: 'Requires token'});
+
+  const taskToUpdate = await Task.findById(req.params.id);
+  if (!taskToUpdate || taskToUpdate.user.toString() !== token.id) return res.status(400);
+
+  taskToUpdate.index = req.body.index;
+  const returnTask = await taskToUpdate.save();
+  return res.status(200).json(returnTask);
+})
+
 taskRouter.patch('/endDate/:id', async (req, res) => {
   const filter = { _id: req.params.id }
   const modifier = { endDate: req.body.endDate }
