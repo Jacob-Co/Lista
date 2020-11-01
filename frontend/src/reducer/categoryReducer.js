@@ -93,6 +93,11 @@ export const switchTaskIndexes = (sourceIdx, destinationIdx, categoryList, categ
       updatedTasks = updatedTasks.concat(task);
       counter += 1;
     }
+
+    dispatch({
+      type: 'UPDATE_CATEGORY',
+      data: updatedTasks
+    })
   }
 }
 
