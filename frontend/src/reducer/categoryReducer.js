@@ -84,19 +84,26 @@ export const switchTaskIndexes = (sourceIdx, destinationIdx, categoryList, categ
       data: quickUpdatedCategoryList
     })
 
-    let updatedTasks = [];
-    let counter = 0;
-    for (let task of quickUpdatedTasks) {
-      if (task.index !== counter) {
-        task = await tasks.updateIndex(task.id, counter);
-      }
-      updatedTasks = updatedTasks.concat(task);
-      counter += 1;
-    }
+    let updatedCategoryList = []
+    for (const category of quickUpdatedCategoryList) {
+      if (category.id === categoryId) {
+        let updatedTasks = [];
+        let counter = 0;
+        for (let task of quickUpdatedTasks) {
+          if (task.index !== counter) {
+            task = await tasks.updateIndex(task.id, counter);
+          }
+          updatedTasks = updatedTasks.concat(task);
+          counter += 1;
+        }
+        category.tasks = updatedTasks;
+      };
+      updatedCategoryList = updatedCategoryList.concat(category);
+    };
 
     dispatch({
       type: 'UPDATE_CATEGORY',
-      data: updatedTasks
+      data: updatedCategoryList
     })
   }
 }
