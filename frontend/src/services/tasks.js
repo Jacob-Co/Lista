@@ -13,4 +13,10 @@ const deleteTask = async (id) => {
   await axios.delete(`${baseUrl}/${id}`, config);
 }
 
-export default { createTask, deleteTask }
+const updateIndex = async (id, index) => {
+  const config = { headers: { Authorization: getToken() }};
+  const res = await axios.patch(`${baseUrl}/${id}`, { index }, config);
+  return res.data;
+}
+
+export default { createTask, deleteTask, updateIndex }
