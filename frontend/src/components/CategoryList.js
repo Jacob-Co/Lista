@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 
-import { initializeCategories, removeCategory, switchCategoryIndexes } from '../reducer/categoryReducer'
+import { initializeCategories, removeCategory, switchCategoryIndexes , switchTaskIndexes } from '../reducer/categoryReducer'
 import CategoryForm from './CategoryForm'
 import CategorySide from './CategorySide'
 import WorkingOn from './WorkingOn';
@@ -37,7 +37,8 @@ const CategoryList = () => {
     if (result.type === 'categories') {
       dispatch(switchCategoryIndexes(sourceIdx, destIdx, categoryList));
     } else {
-      //dispatch(switchTaskIndexes(sourceIdx, destIdx, categoryList, categoryId))
+      const categoryId = result.source.droppableId;
+      dispatch(switchTaskIndexes(sourceIdx, destIdx, categoryList, categoryId))
     }
   }
 
