@@ -70,9 +70,11 @@ const quickSwitchTasks = (sourceIdx, destinationIdx, taskList) => {
 
 export const switchTaskIndexes = (sourceIdx, destinationIdx, categoryList, categoryId) => {
   return async (dispatch) => {
+    let quickUpdatedTasks;
     const quickUpdatedCategoryList = categoryList.map(category => {
       if (category.id === categoryId) {
         category.tasks = quickSwitchTasks(sourceIdx, destinationIdx, category.tasks);
+        quickUpdatedTasks = category.tasks
       };
       return category
     })
@@ -81,6 +83,16 @@ export const switchTaskIndexes = (sourceIdx, destinationIdx, categoryList, categ
       type: 'UPDATE_CATEGORY',
       data: quickUpdatedCategoryList
     })
+
+    let updatedTasks = [];
+    let counter = 0;
+    for (let task of quickUpdatedTasks) {
+      if (task.index !== counter) {
+        task = await tasks.updateIndex(task.id, counter);
+      }
+      updatedTasks = updatedTasks.concat(task);
+      counter += 1;
+    }
   }
 }
 
