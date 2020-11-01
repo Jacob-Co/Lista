@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { switchIndexes } from '../reducer/categoryReducer';
+import { switchCategoryIndexes } from '../reducer/categoryReducer';
 
 const WorkingOnDiv = styled.div`
   padding-bottom: .5rem;
@@ -13,7 +13,7 @@ const WorkingOn = ({ category, categoryList }) => {
 
   const handleRemove = () => {
     if (!category.workingOn && category.extraInfo !== null) return;
-    dispatch(switchIndexes(0, 0, categoryList))
+    dispatch(switchCategoryIndexes(0, 0, categoryList))
   }
 
   return(

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 
-import { initializeCategories, removeCategory, switchIndexes } from '../reducer/categoryReducer'
+import { initializeCategories, removeCategory, switchCategoryIndexes } from '../reducer/categoryReducer'
 import CategoryForm from './CategoryForm'
 import CategorySide from './CategorySide'
 import WorkingOn from './WorkingOn';
@@ -35,14 +35,14 @@ const CategoryList = () => {
     const destIdx = parseInt(result.destination.index)
     console.log(`source: ${sourceIdx}, dest: ${destIdx}`)
     if (result.type === 'categories') {
-      dispatch(switchIndexes(sourceIdx, destIdx, categoryList));
+      dispatch(switchCategoryIndexes(sourceIdx, destIdx, categoryList));
     } else {
       //dispatch(switchTaskIndexes(sourceIdx, destIdx, categoryList, categoryId))
     }
   }
 
   const makeWorkingOn = (index) => {
-    dispatch(switchIndexes(index, 0, categoryList));
+    dispatch(switchCategoryIndexes(index, 0, categoryList));
   }
 
   return (
