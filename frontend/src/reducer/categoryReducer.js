@@ -121,7 +121,7 @@ export const switchIndexes = (sourceIdx, desitnationIdx, categoryList) => {
 export const removeTask = (taskId, category) => {
   return async (dispatch) => {
     const updatedCategory = category;
-    updatedCategory.tasks = category.tasks.filter(task => task.id != taskId);
+    updatedCategory.tasks = category.tasks.filter(task => task.id !== taskId);
 
     dispatch({
       type: 'REMOVE_TASK',
