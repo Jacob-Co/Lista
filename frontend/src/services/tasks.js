@@ -15,7 +15,7 @@ const deleteTask = async (id) => {
 
 const updateIndex = async (id, index) => {
   const config = { headers: { Authorization: getToken() }};
-  const res = await axios.patch(`${baseUrl}/${id}`, { index }, config);
+  const res = await axios.patch(`${baseUrl}/index/${id}`, { index }, config);
   return res.data;
 }
 
