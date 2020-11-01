@@ -68,6 +68,22 @@ const quickSwitchTasks = (sourceIdx, destinationIdx, taskList) => {
   return newTaskList;
 }
 
+export const switchTaskIndexes = (sourceIdx, destinationIdx, categoryList, categoryId) => {
+  return async (dispatch) => {
+    const quickUpdatedCategoryList = categoryList.map(category => {
+      if (category.id === categoryId) {
+        category.tasks = quickSwitchTasks(sourceIdx, destinationIdx, category.tasks);
+      };
+      return category
+    })
+
+    dispatch({
+      type: 'UPDATE_CATEGORY',
+      data: quickUpdatedCategoryList
+    })
+  }
+}
+
 const quickSwitchCategories = (sourceIdx, desitnationIdx, categoryList) => {
   let newCategoryList = categoryList.slice();
   newCategoryList.splice(sourceIdx, 1);
