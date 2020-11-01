@@ -4,7 +4,7 @@ import { Draggable } from 'react-beautiful-dnd';
 
 import { removeTask } from '../reducer/categoryReducer';
 
-const Task = ({ task, category }) => {
+const Task = ({ task, category, arrayIndex }) => {
   const dispatch = useDispatch();
 
   const handleDeleteTask = () => {
@@ -14,7 +14,7 @@ const Task = ({ task, category }) => {
   }
 
   return(
-    <Draggable draggableId={task.id} index={task.index}>
+    <Draggable draggableId={task.id} index={arrayIndex}>
       {provided => (
         <div
         ref={provided.innerRef}
