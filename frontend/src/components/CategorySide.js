@@ -13,9 +13,9 @@ const DropDown = styled.div`
   margin-bottom: 1.5rem;
 `
 
-const CategorySide = ({category, deleteCategory, makeWorkingOn}) => {
+const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex}) => {
   return (
-    <Draggable draggableId={category.id} index={category.index}>
+    <Draggable draggableId={category.id} index={arrayIndex}>
       {provided => (
         <DropDown
           ref={provided.innerRef}
