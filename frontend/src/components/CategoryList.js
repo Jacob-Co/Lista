@@ -57,7 +57,7 @@ const CategoryList = () => {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {categoryList.map(category => {
+              {categoryList.map((category, position) => {
                 if (category === null || category === categoryList[0]) {
                   return <WorkingOn key={category.id} category={category} categoryList={categoryList}/>
                 }
@@ -67,6 +67,7 @@ const CategoryList = () => {
                   category={category}
                   deleteCategory={deleteCategory}
                   makeWorkingOn={makeWorkingOn}
+                  arrayIndex={position}
                 />
               })}
               {provided.placeholder}
