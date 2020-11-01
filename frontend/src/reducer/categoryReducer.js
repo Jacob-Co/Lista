@@ -64,7 +64,7 @@ export const createNewTask = (task) => {
 const quickSwitchTasks = (sourceIdx, destinationIdx, taskList) => {
   let newTaskList = taskList.slice();
   newTaskList.splice(sourceIdx, 1);
-  newTaskList.splice(destinationIdx, 0, sourceIdx);
+  newTaskList.splice(destinationIdx, 0, taskList[sourceIdx]);
   return newTaskList;
 }
 
