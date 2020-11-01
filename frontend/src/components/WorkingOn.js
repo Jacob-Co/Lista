@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import { switchIndexes } from '../reducer/categoryReducer';
 
@@ -23,21 +22,6 @@ const WorkingOn = ({ category, categoryList }) => {
       <h2>Currently Working On:</h2>
       <h3>{category.name}</h3>
       { category.extraInfo === null ? <button onClick={handleRemove}>remove</button> : ''}
-        {/* <WorkingOnDiv> */}
-          {/* <Draggable draggableId={category.id} index={category.index}>
-            {provided => 
-              <div
-                ref={provided.innerRef}
-                // no draggable props
-                // style={{ userSelect: 'none' }}
-                // {...provided.dragHandleProps}
-              >
-                <h3>{category.name}</h3>
-                <button onClick={handleRemove}>remove</button>
-              </div>
-            }
-          </Draggable>
-      </WorkingOnDiv> */}
     </WorkingOnDiv>
     <h2>Other Categories:</h2>
     </>
