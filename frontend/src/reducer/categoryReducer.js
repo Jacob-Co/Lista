@@ -61,6 +61,13 @@ export const createNewTask = (task) => {
   }
 }
 
+const quickSwitchTasks = (sourceIdx, destinationIdx, taskList) => {
+  let newTaskList = taskList.slice();
+  newTaskList.splice(sourceIdx, 1);
+  newTaskList.splice(destinationIdx, 0, sourceIdx);
+  return newTaskList;
+}
+
 const quickSwitchCategories = (sourceIdx, desitnationIdx, categoryList) => {
   let newCategoryList = categoryList.slice();
   newCategoryList.splice(sourceIdx, 1);
