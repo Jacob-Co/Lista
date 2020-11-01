@@ -30,7 +30,7 @@ const TaskList = ({category, deleteCategory}) => {
       <button onClick={() => toggleCreateTask.current.toggleVisibility()}>+</button>
       {category.tasks.length > 0 ? <button onClick={toggleTasks}>&or;</button> : ''}
       <div>
-        <Droppable droppableId={`tasks:${category.index}`} type="tasks">
+        <Droppable droppableId={`${category.id}`} type="tasks">
           {provided => (
             <div 
               ref={provided.innerRef}
