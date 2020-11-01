@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -16,10 +16,6 @@ const FriendCategoriesView = () => {
   const friendCategories = useSelector(state => state.friendCategories);
   const friend = useSelector(state => state.friends
     .find(friend => friend.id === id))
-
-  useEffect(() => {
-    dispatch(initializeFriendCategories(id));
-  }, [dispatch])
 
   const handleRefresh = () => {
     dispatch(initializeFriendCategories(id))
