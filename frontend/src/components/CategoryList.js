@@ -29,17 +29,16 @@ const CategoryList = () => {
   }
 
   const handleDragEnd = (result) => {
-    // console.log(`source idx: ${result.source.index} || destination id: ${result.destination.index}`)
-    // if (result.source.index >= 1000000 || result.destination.index >= 1000000) {
-    //   return console.log(`Task`)
-    // };
-    return;
     if (!result.destination) return;
     if (result.destination.index === result.source.index) return;
-    let sourceIdx = parseInt(result.source.index)
-    let destIdx = parseInt(result.destination.index)
+    const sourceIdx = parseInt(result.source.index)
+    const destIdx = parseInt(result.destination.index)
     console.log(`source: ${sourceIdx}, dest: ${destIdx}`)
-    dispatch(switchIndexes(sourceIdx, destIdx, categoryList));
+    if (result.type === 'categories') {
+      dispatch(switchIndexes(sourceIdx, destIdx, categoryList));
+    } else {
+      //switchTaskIndex
+    }
   }
 
   const makeWorkingOn = (index) => {
