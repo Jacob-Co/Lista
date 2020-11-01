@@ -6,7 +6,6 @@ import { removeTask } from '../reducer/categoryReducer';
 
 const Task = ({ task, category }) => {
   const dispatch = useDispatch();
-  const indexSupplement = (category.index + 1) * 1000000;
 
   const handleDeleteTask = () => {
     if (window.confirm(`Delete ${task.name}?`)) {
@@ -15,7 +14,7 @@ const Task = ({ task, category }) => {
   }
 
   return(
-    <Draggable draggableId={task.id} index={task.index + indexSupplement}>
+    <Draggable draggableId={task.id} index={task.index}>
       {provided => (
         <div
         ref={provided.innerRef}
