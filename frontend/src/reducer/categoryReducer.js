@@ -61,7 +61,7 @@ export const createNewTask = (task) => {
   }
 }
 
-const quickSwitch = (sourceIdx, desitnationIdx, categoryList) => {
+const quickSwitchCategories = (sourceIdx, desitnationIdx, categoryList) => {
   let newCategoryList = categoryList.slice();
   newCategoryList.splice(sourceIdx, 1);
   if (desitnationIdx === 0 && categoryList[0].extraInfo) {
@@ -84,7 +84,7 @@ const quickSwitch = (sourceIdx, desitnationIdx, categoryList) => {
 
 export const switchIndexes = (sourceIdx, desitnationIdx, categoryList) => {
   return async(dispatch) => {
-    const quickUpdatedCategoryList = quickSwitch(sourceIdx, desitnationIdx, categoryList);
+    const quickUpdatedCategoryList = quickSwitchCategories(sourceIdx, desitnationIdx, categoryList);
     dispatch({
       type: 'UPDATE_CATEGORY',
       data: quickUpdatedCategoryList
