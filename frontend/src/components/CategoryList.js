@@ -37,7 +37,7 @@ const CategoryList = () => {
     if (result.type === 'categories') {
       dispatch(switchIndexes(sourceIdx, destIdx, categoryList));
     } else {
-      //switchTaskIndex
+      //dispatch(switchTaskIndexes(sourceIdx, destIdx, categoryList, categoryId))
     }
   }
 
