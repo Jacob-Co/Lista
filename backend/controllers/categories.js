@@ -121,4 +121,24 @@ categoryRouter.patch('/workingOn/:id', async (req, res) => {
   return res.json(returnCategory);
 })
 
+categoryRouter.patch('/taskWorkingOn/:id', async (req, res) => {
+  const { token } = req;
+  if (!token) return res.status(401).json({ error: "Requires a token"});
+
+  const { taskId } = req.body;
+
+  const categoryToUpdate = await Category.findById(req.params.id);
+
+  if (taskId === null) {
+    categoryToUpdate.taskWorkingOn = null;
+    const returnCategory = await categoryToUpdate.save();
+    return res.json(returnCategory);
+  } else if (categoryToUpdate.tasks.find(task => task.id.toString() === taskId)) {
+    categoryToUpdate.taskWorkingOn = taskId;
+    return res.json(returnCategory);
+  }
+
+  return res.status(400).json({'error': 'taskId not found'});
+})
+
 module.exports = categoryRouter
