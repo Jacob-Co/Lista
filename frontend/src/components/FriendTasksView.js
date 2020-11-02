@@ -8,14 +8,14 @@ const TaskDiv = styled.div`
   margin-left: 1.5rem;
 `
 
-const FriendTasksView = ({task}) => {
+const FriendTasksView = ({tasks}) => {
   const taskToggableRef = useRef();
 
   return(
     <TaskDiv>
       <button onClick={() => taskToggableRef.current.toggleVisibiliy()}>&or;</button>
       <Toggable ref={taskToggableRef}>
-        {task.name}
+        {tasks.map(task => <p key={task.id}>{task.name}</p>)}
       </Toggable>
     </TaskDiv>
   )
