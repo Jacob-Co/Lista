@@ -134,7 +134,7 @@ categoryRouter.patch('/taskWorkingOn/:id', async (req, res) => {
     const returnCategory = await categoryToUpdate.save();
     return res.json(returnCategory);
   } else if (categoryToUpdate.tasks.find(task => task.id.toString() === taskId)) {
-    categoryToUpdate.taskWorkingOn = taskId;
+    const returnCategory = categoryToUpdate.taskWorkingOn = taskId;
     return res.json(returnCategory);
   }
 
