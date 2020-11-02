@@ -11,6 +11,13 @@ const FriendCategories = styled.div`
   margin-left: .75rem;
 `
 
+const CategoryHeader = styled.div`
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-left: .75rem;
+  padding-bottom: .75rem;
+`
+
 const FriendCategoriesView = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -34,18 +41,19 @@ const FriendCategoriesView = () => {
     <FriendCategories>
       <h1>{friend ? capitalize(friend.username) : ""} Categories: </h1>
       <h2>Currently Working On:</h2>
-      <p>{friendCategories.length > 0 
+      <p><CategoryHeader>{friendCategories.length > 0 
         ? friendCategories[0].name
         : 'Loading'}
-      </p>
+      </CategoryHeader></p>
       <h2>Other Categories:</h2>
       {friendCategories.length > 0 
         ? friendCategories.slice(1).map(category => <div key={category.id}>
-            {category.name}
-            {category.tasks.length > 0
-              ? <FriendTasksView tasks={category.tasks}/>
-              : ""
-            }
+            <CategoryHeader>{category.name}
+              {category.tasks.length > 0
+                ? <FriendTasksView tasks={category.tasks}/>
+                : ""
+              }
+            </CategoryHeader>
           </div>)
         : 'Loading'}
       <Link to="/"><button>back</button></Link>
