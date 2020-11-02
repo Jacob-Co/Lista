@@ -13,21 +13,27 @@ const TaskDiv = styled.div`
 `
 
 const TaskList = ({category, deleteCategory}) => {
-  const toggleTask = useRef();
-  const toggleCreateTask = useRef();
+  const taskToggable = useRef();
+  const createTaskToggable = useRef();
+  const taskFormRef = useRef();
 
   const showTasks = () => {
-    toggleTask.current.toggleVisibility(true);
+    taskToggable.current.toggleVisibility(true);
   }
 
   const toggleTasks = () => {
-    toggleTask.current.toggleVisibility();
+    taskToggable.current.toggleVisibility();
+  }
+
+  const showCreateTask = () => {
+    createTaskToggable.current.toggleVisibility()
+    taskFormRef.current.focusOnName();
   }
 
   return (
     <>
       <button onClick={() => {deleteCategory(category)}}>X</button>
-      <button onClick={() => toggleCreateTask.current.toggleVisibility()}>+</button>
+      <button onClick={showCreateTask}>+</button>
       {category.tasks.length > 0 ? <button onClick={toggleTasks}>&or;</button> : ''}
       <div>
         <Droppable droppableId={`${category.id}`} type="tasks">
@@ -36,10 +42,10 @@ const TaskList = ({category, deleteCategory}) => {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              <Toggable ref={toggleCreateTask}>
-                <TaskDiv><TaskForm category={category} showTasks={showTasks}/></TaskDiv>
+              <Toggable ref={createTaskToggable}>
+                <TaskDiv><TaskForm category={category} showTasks={showTasks} ref={taskFormRef}/></TaskDiv>
               </Toggable>
-              <Toggable ref={toggleTask}>
+              <Toggable ref={taskToggable}>
               { category.tasks.length > 0 
                 ? <TaskDiv className="tasks">
                     <h4>Tasks:</h4>
