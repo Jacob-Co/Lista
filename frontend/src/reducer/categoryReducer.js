@@ -132,7 +132,7 @@ export const switchCategoryIndexes = (sourceIdx, desitnationIdx, categoryList) =
     })
 
     let counter = 0;
-    let updatedCategoryList = [];
+    // let updatedCategoryList = [];
 
     for (const category of quickUpdatedCategoryList) {
       if (category.index !== counter) {
@@ -140,22 +140,22 @@ export const switchCategoryIndexes = (sourceIdx, desitnationIdx, categoryList) =
         if (counter === 0) {
           const updatedWorkingOn = await categories.patchWorkingOn(category.id);
           counter += 1;
-          updatedCategoryList = updatedCategoryList.concat(updatedWorkingOn);
+          // updatedCategoryList = updatedCategoryList.concat(updatedWorkingOn);
           continue;
         }
         const updatedCategory = await categories.patchIndex(category.id, counter);
         counter += 1;
-        updatedCategoryList = updatedCategoryList.concat(updatedCategory);
+        // updatedCategoryList = updatedCategoryList.concat(updatedCategory);
       } else {
         counter += 1;
-        updatedCategoryList = updatedCategoryList.concat(category);
+        // updatedCategoryList = updatedCategoryList.concat(category);
       }
     }
 
-    dispatch({
-      type: 'UPDATE_CATEGORY',
-      data: updatedCategoryList
-    })
+    // dispatch({
+    //   type: 'UPDATE_CATEGORY',
+    //   data: updatedCategoryList
+    // })
   }
 }
 
