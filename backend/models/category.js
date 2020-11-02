@@ -25,6 +25,10 @@ const categorySchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  taskWorkingOn: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Task'
+  },
   extraInfo: {
     type: String,
     default: null
