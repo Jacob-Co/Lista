@@ -1,13 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useImperativeHandle } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { createNewTask } from '../reducer/categoryReducer'
 
-const TaskForm = ({category, showTasks}) => {
+const TaskForm = React.forwardRef(({category, showTasks}, ref) => {
   const dispatch = useDispatch();
 
   const [name, setName] = useState('')
   const [content, setContent] = useState('')
+  const nameInput = useRef()
+
+  const focusOnName = () => {
+    setTimeout(() => {
+      nameInput.current.focus();
+    }, 100);
+  }
+
+  useImperativeHandle(ref, () => {
+    return { focusOnName }
+  })
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -27,6 +38,7 @@ const TaskForm = ({category, showTasks}) => {
         <div>
           name
           <input
+            ref={nameInput}
             type="text"
             id="name"
             name="Name"
@@ -49,6 +61,6 @@ const TaskForm = ({category, showTasks}) => {
       </form>
     </div>
   )
-}
+})
 
 export default TaskForm
