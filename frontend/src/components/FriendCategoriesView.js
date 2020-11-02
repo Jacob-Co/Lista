@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { useParams } from 'react-router-dom';
 import { initializeFriendCategories } from '../reducer/friendCategoryReducer';
+import FriendTasksView from './FriendTasksView';
 
 const FriendCategories = styled.div`
   margin-left: .75rem;
@@ -39,7 +40,13 @@ const FriendCategoriesView = () => {
       </p>
       <h2>Other Categories:</h2>
       {friendCategories.length > 0 
-        ? friendCategories.slice(1).map(category => <p key={category.id}>{category.name}</p>)
+        ? friendCategories.slice(1).map(category => <div key={category.id}>
+            {category.name}
+            {category.tasks.length > 0
+              ? <FriendTasksView tasks={category.tasks}/>
+              : ""
+            }
+          </div>)
         : 'Loading'}
       <Link to="/"><button>back</button></Link>
       <button onClick={handleRefresh}>refresh</button>
