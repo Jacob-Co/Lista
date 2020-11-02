@@ -71,8 +71,10 @@ const quickSwitchTasks = (sourceIdx, destinationIdx, taskList) => {
 export const switchTaskIndexes = (sourceIdx, destinationIdx, categoryList, categoryId) => {
   return async (dispatch) => {
     let quickUpdatedTasks;
+    let previousTasks;
     const quickUpdatedCategoryList = categoryList.map(category => {
       if (category.id === categoryId) {
+        previousTasks = category.tasks;
         category.tasks = quickSwitchTasks(sourceIdx, destinationIdx, category.tasks);
         quickUpdatedTasks = category.tasks
       };
@@ -84,27 +86,19 @@ export const switchTaskIndexes = (sourceIdx, destinationIdx, categoryList, categ
       data: quickUpdatedCategoryList
     })
 
-    let updatedCategoryList = []
     for (const category of quickUpdatedCategoryList) {
       if (category.id === categoryId) {
-        let updatedTasks = [];
         let counter = 0;
         for (let task of quickUpdatedTasks) {
-          if (task.index !== counter) {
+          console.log(`task.id: ${task.id}`)
+          console.log(`previosTask.id: ${previousTasks[counter].id}`)
+          if (task.id !== previousTasks[counter].id) {
             task = await tasks.updateIndex(task.id, counter);
           }
-          updatedTasks = updatedTasks.concat(task);
           counter += 1;
         }
-        category.tasks = updatedTasks;
       };
-      updatedCategoryList = updatedCategoryList.concat(category);
     };
-
-    dispatch({
-      type: 'UPDATE_CATEGORY',
-      data: updatedCategoryList
-    })
   }
 }
 
