@@ -24,7 +24,7 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex}) => 
         >
           <div>
             <span {...provided.dragHandleProps}>
-              <CategoryName onDoubleClick={() => makeWorkingOn(category.index)}>{category.name}</CategoryName>
+              <CategoryName onDoubleClick={() => makeWorkingOn(arrayIndex)}>{category.name}</CategoryName>
             </span>
             <TaskList category={category} deleteCategory={deleteCategory}/>
           </div>
