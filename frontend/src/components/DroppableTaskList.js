@@ -12,7 +12,7 @@ const TaskDiv = styled.div`
   margin-bottom: 1rem;
 `
 
-const TaskList = ({category, deleteCategory}) => {
+const DroppableTaskList = ({category, deleteCategory}) => {
   const taskToggable = useRef();
   const createTaskToggable = useRef();
   const taskFormRef = useRef();
@@ -71,4 +71,4 @@ const TaskList = ({category, deleteCategory}) => {
   )
 }
 
-export default TaskList;
+export default DroppableTaskList;
