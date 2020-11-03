@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import { Draggable } from 'react-beautiful-dnd';
 
-import TaskList from './TaskList'
+import TaskList from './DroppableTaskList'
 
 const CategoryName = styled.span`
   font-size: 1.07em;
