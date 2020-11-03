@@ -30,7 +30,7 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, make
               category={category}
               deleteCategory={deleteCategory}
               makeTaskWorkingON={makeTaskWorkingON}
-              taskArrayIndex={arrayIndex}
+              categoryArrayIndex={arrayIndex}
             />
           </div>
         </DropDown>
