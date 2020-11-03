@@ -23,6 +23,12 @@ const CategoryName = styled.span`
   font-weight: bold;
   margin-right: .5rem;
 `
+const TaskName = styled.div`
+  font-size: 1.07em;
+  font-weight: bold;
+  margin-right: .5rem;
+  margin-bottom: .5rem;
+`
 
 const WorkingOn = ({ category, categoryList, viewOnly }) => {
   const dispatch = useDispatch();
@@ -38,6 +44,7 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
       <h2>Currently Working On:</h2>
       <ContentDiv>
         
+          {category.taskWorkingOn ? <TaskName>{`Task ${category.taskWorkingOn} from:`}</TaskName> : ""}
           <CategoryName>{category.name}</CategoryName>
           { category.tasks && category.tasks.length > 0
             ? <TaskList tasks={category.tasks}/>
