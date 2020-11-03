@@ -7,7 +7,7 @@ import TaskList from './TaskList';
 
 const WorkingOnDiv = styled.div`
   padding-bottom: .5rem;
-  border-bottom: .15rem solid;
+  border-bottom: ${props => (props.viewOnly ? '' : '.15rem solid')};
 `
 
 const ContentDiv = styled.div`
@@ -34,7 +34,7 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
 
   return(
     <>
-    <WorkingOnDiv>
+    <WorkingOnDiv viewOnly={viewOnly}>
       <h2>Currently Working On:</h2>
       <ContentDiv>
         
