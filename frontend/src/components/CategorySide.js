@@ -13,7 +13,7 @@ const DropDown = styled.div`
   margin-bottom: 1.5rem;
 `
 
-const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex}) => {
+const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, makeTaskWorkingON}) => {
   return (
     <Draggable draggableId={category.id} index={arrayIndex}>
       {provided => (
@@ -26,7 +26,12 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex}) => 
             <span {...provided.dragHandleProps}>
               <CategoryName onDoubleClick={() => makeWorkingOn(arrayIndex)}>{category.name}</CategoryName>
             </span>
-            <TaskList category={category} deleteCategory={deleteCategory}/>
+            <TaskList 
+              category={category}
+              deleteCategory={deleteCategory}
+              makeTaskWorkingON={makeTaskWorkingON}
+              taskArrayIndex={arrayIndex}
+            />
           </div>
         </DropDown>
       )}
