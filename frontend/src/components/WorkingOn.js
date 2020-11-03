@@ -11,7 +11,16 @@ const WorkingOnDiv = styled.div`
 `
 
 const ContentDiv = styled.div`
-  margin-left: .5rem;
+  margin-left: 1.5rem;
+`
+
+const RemoveButton = styled.button`
+  margin: .75rem 0;
+`
+
+const CategoryName = styled.span`
+  font-size: 1.07em;
+  font-weight: bold;
 `
 
 const WorkingOn = ({ category, categoryList, viewOnly }) => {
@@ -27,14 +36,16 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
     <WorkingOnDiv>
       <h2>Currently Working On:</h2>
       <ContentDiv>
-        <h3>{category.name}</h3>
-        { category.tasks.length > 0
-          ? <TaskList tasks={category.tasks}/>
-          : ""
-        }
+        
+          <CategoryName>{category.name}</CategoryName>
+          { category.tasks.length > 0
+            ? <TaskList tasks={category.tasks}/>
+            : ""
+          }
+
         { viewOnly || category.extraInfo !== null
           ? "" 
-          : <button onClick={handleRemove}>remove</button>
+          : <RemoveButton onClick={handleRemove}>remove</RemoveButton>
         }
       </ContentDiv>
     </WorkingOnDiv>
