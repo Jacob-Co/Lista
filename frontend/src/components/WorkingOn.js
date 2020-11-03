@@ -46,7 +46,7 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
 
         { viewOnly || category.extraInfo !== null
           ? "" 
-          : <RemoveButton onClick={handleRemove}>remove</RemoveButton>
+          : <div><RemoveButton onClick={handleRemove}>remove</RemoveButton></div>
         }
       </ContentDiv>
     </WorkingOnDiv>
