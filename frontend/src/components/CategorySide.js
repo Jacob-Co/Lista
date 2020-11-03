@@ -22,7 +22,6 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex}) => 
           // isDragging={snapshot.isDragging}
           {...provided.draggableProps}
         >
-          <h2>Other Categories:</h2>
           <div>
             <span {...provided.dragHandleProps}>
               <CategoryName onDoubleClick={() => makeWorkingOn(arrayIndex)}>{category.name}</CategoryName>
