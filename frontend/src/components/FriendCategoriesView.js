@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { initializeFriendCategories } from '../reducer/friendCategoryReducer';
 import FriendTasksView from './FriendTasksView';
+import WorkingOn from './WorkingOn';
 
 const FriendCategories = styled.div`
   margin-left: .75rem;
