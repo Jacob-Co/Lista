@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import { Draggable } from 'react-beautiful-dnd';
 
-import TaskList from './DroppableTaskList'
+import DroppableTaskList from './DroppableTaskList'
 
 const CategoryName = styled.span`
   font-size: 1.07em;
@@ -26,7 +26,7 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, make
             <span {...provided.dragHandleProps}>
               <CategoryName onDoubleClick={() => makeWorkingOn(arrayIndex)}>{category.name}</CategoryName>
             </span>
-            <TaskList 
+            <DroppableTaskList 
               category={category}
               deleteCategory={deleteCategory}
               makeTaskWorkingON={makeTaskWorkingON}
