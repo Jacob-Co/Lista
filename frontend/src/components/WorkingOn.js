@@ -44,7 +44,7 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
       <h2>Currently Working On:</h2>
       <ContentDiv>
         
-          {category.taskWorkingOn ? <TaskName>{`Task ${category.taskWorkingOn} from:`}</TaskName> : ""}
+          {category.taskWorkingOn ? <TaskName>{`Task -${category.taskWorkingOn.name}- from:`}</TaskName> : ""}
           <CategoryName>{category.name}</CategoryName>
           { category.tasks && category.tasks.length > 0
             ? <TaskList tasks={category.tasks}/>
