@@ -39,7 +39,7 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
       <ContentDiv>
         
           <CategoryName>{category.name}</CategoryName>
-          { category.tasks.length > 0
+          { category.tasks && category.tasks.length > 0
             ? <TaskList tasks={category.tasks}/>
             : ""
           }
