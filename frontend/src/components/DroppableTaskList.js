@@ -12,7 +12,7 @@ const TaskDiv = styled.div`
   margin-bottom: 1rem;
 `
 
-const DroppableTaskList = ({category, deleteCategory}) => {
+const DroppableTaskList = ({category, deleteCategory, makeTaskWorkingOn, categoryArrayIndex}) => {
   const taskToggable = useRef();
   const createTaskToggable = useRef();
   const taskFormRef = useRef();
@@ -49,7 +49,9 @@ const DroppableTaskList = ({category, deleteCategory}) => {
               { category.tasks.length > 0 
                 ? <TaskDiv className="tasks">
                     <h4>Tasks:</h4>
-                    {category.tasks.map((task, position) => <div onDoubleClick={()=>alert('double click task')}>
+                    {category.tasks.map((task, position) => <div onDoubleClick={()=>{
+                      makeTaskWorkingOn(category, task, categoryArrayIndex);
+                    }}>
                         <Task
                         task={task}
                         key={task.id}
