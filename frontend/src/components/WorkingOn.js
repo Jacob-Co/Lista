@@ -8,7 +8,7 @@ const WorkingOnDiv = styled.div`
   border-bottom: .15rem solid;
 `
 
-const WorkingOn = ({ category, categoryList }) => {
+const WorkingOn = ({ category, categoryList, viewOnly }) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
@@ -21,7 +21,11 @@ const WorkingOn = ({ category, categoryList }) => {
     <WorkingOnDiv>
       <h2>Currently Working On:</h2>
       <h3>{category.name}</h3>
-      { category.extraInfo === null ? <button onClick={handleRemove}>remove</button> : ''}
+      { viewOnly 
+        ? "" 
+        : category.extraInfo === null ? <button onClick={handleRemove}>remove</button> : ''
+      }
+
     </WorkingOnDiv>
     </>
       );
