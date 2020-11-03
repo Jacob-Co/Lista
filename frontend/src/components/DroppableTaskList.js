@@ -49,12 +49,15 @@ const TaskList = ({category, deleteCategory}) => {
               { category.tasks.length > 0 
                 ? <TaskDiv className="tasks">
                     <h4>Tasks:</h4>
-                    {category.tasks.map((task, position) => <Task
-                      task={task}
-                      key={task.id}
-                      category={category}
-                      arrayIndex={position}
-                    />)}
+                    {category.tasks.map((task, position) => <div onDoubleClick={()=>alert('double click task')}>
+                        <Task
+                        task={task}
+                        key={task.id}
+                        category={category}
+                        arrayIndex={position}
+                        />
+                      </div>
+                    )}
                   </TaskDiv>
                 : ''
               }
