@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { useParams } from 'react-router-dom';
 import { initializeFriendCategories } from '../reducer/friendCategoryReducer';
-import FriendTasksView from './FriendTasksView';
+import TaskList from './TaskList';
 import WorkingOn from './WorkingOn';
 
 const FriendCategories = styled.div`
@@ -45,7 +45,7 @@ const FriendCategoriesView = () => {
       <div><CategoryHeader>{friendCategories.length > 0 
         ? <div>{friendCategories[0].name}
             {friendCategories[0].tasks.length > 0
-              ? <FriendTasksView tasks={friendCategories[0].tasks}/>
+              ? <TaskList tasks={friendCategories[0].tasks}/>
               : ""
             }
           </div>
@@ -56,7 +56,7 @@ const FriendCategoriesView = () => {
         ? friendCategories.slice(1).map(category => <div key={category.id}>
             <CategoryHeader>{category.name}
               {category.tasks.length > 0
-                ? <FriendTasksView tasks={category.tasks}/>
+                ? <TaskList tasks={category.tasks}/>
                 : ""
               }
             </CategoryHeader>

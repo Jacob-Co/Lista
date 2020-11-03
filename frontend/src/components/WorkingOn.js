@@ -21,6 +21,7 @@ const RemoveButton = styled.button`
 const CategoryName = styled.span`
   font-size: 1.07em;
   font-weight: bold;
+  margin-right: .5rem;
 `
 
 const WorkingOn = ({ category, categoryList, viewOnly }) => {
