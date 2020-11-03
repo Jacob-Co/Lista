@@ -173,7 +173,7 @@ export const removeTask = (taskId, category) => {
   }
 }
 
-export const makeTaskWorkingOn = (paramCategory, task, categoryList, categoryArrayPosition) => {
+export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryArrayPosition) => {
   /*
     1. get category and task, place obj inside categories taskWorkingOn prop
       1.1 parameter category obj and task obj
