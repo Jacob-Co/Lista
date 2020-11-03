@@ -21,9 +21,9 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
     <WorkingOnDiv>
       <h2>Currently Working On:</h2>
       <h3>{category.name}</h3>
-      { viewOnly 
+      { viewOnly || category.extraInfo !== null
         ? "" 
-        : category.extraInfo === null ? <button onClick={handleRemove}>remove</button> : ''
+        : <button onClick={handleRemove}>remove</button>
       }
 
     </WorkingOnDiv>
