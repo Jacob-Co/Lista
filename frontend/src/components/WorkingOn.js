@@ -8,6 +8,10 @@ const WorkingOnDiv = styled.div`
   border-bottom: .15rem solid;
 `
 
+const ContentDiv = styled.div`
+  margin-left: .5rem;
+`
+
 const WorkingOn = ({ category, categoryList, viewOnly }) => {
   const dispatch = useDispatch();
 
@@ -20,12 +24,13 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
     <>
     <WorkingOnDiv>
       <h2>Currently Working On:</h2>
-      <h3>{category.name}</h3>
-      { viewOnly || category.extraInfo !== null
-        ? "" 
-        : <button onClick={handleRemove}>remove</button>
-      }
-
+      <ContentDiv>
+        <h3>{category.name}</h3>
+        { viewOnly || category.extraInfo !== null
+          ? "" 
+          : <button onClick={handleRemove}>remove</button>
+        }
+      </ContentDiv>
     </WorkingOnDiv>
     </>
       );
