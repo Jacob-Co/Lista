@@ -23,7 +23,6 @@ const WorkingOn = ({ category, categoryList }) => {
       <h3>{category.name}</h3>
       { category.extraInfo === null ? <button onClick={handleRemove}>remove</button> : ''}
     </WorkingOnDiv>
-    <h2>Other Categories:</h2>
     </>
       );
 };
