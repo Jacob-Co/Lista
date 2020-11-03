@@ -41,16 +41,10 @@ const FriendCategoriesView = () => {
   return (
     <FriendCategories>
       <h1>{friend ? capitalize(friend.username) : ""} Categories: </h1>
-      <h2>Currently Working On:</h2>
-      <div><CategoryHeader>{friendCategories.length > 0 
-        ? <div>{friendCategories[0].name}
-            {friendCategories[0].tasks.length > 0
-              ? <TaskList tasks={friendCategories[0].tasks}/>
-              : ""
-            }
-          </div>
-        : 'Loading'}
-      </CategoryHeader></div>
+      { friendCategories.length > 0 
+        ? <WorkingOn category={friendCategories[0]} viewOnly={true}/>
+        : 'Loading'
+      }
       <h2>Other Categories:</h2>
       {friendCategories.length > 0 
         ? friendCategories.slice(1).map(category => <div key={category.id}>
