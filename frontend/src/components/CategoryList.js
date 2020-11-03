@@ -3,7 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 
-import { initializeCategories, removeCategory, switchCategoryIndexes , switchTaskIndexes } from '../reducer/categoryReducer'
+import { initializeCategories,
+    removeCategory,
+    switchCategoryIndexes,
+    switchTaskIndexes, 
+    switchTaskWorkingOn 
+  } from '../reducer/categoryReducer'
 import CategoryForm from './CategoryForm'
 import CategorySide from './CategorySide'
 import WorkingOn from './WorkingOn';
@@ -46,6 +51,10 @@ const CategoryList = () => {
     dispatch(switchCategoryIndexes(index, 0, categoryList));
   }
 
+  const makeTaskWorkingOn = (category, task, categoryArrayPosition) => {
+    dispatch(switchTaskWorkingOn(category, task, categoryList, categoryArrayPosition));
+  }
+
   return (
     <div>
       <h2>Your Categories:</h2>
@@ -71,6 +80,7 @@ const CategoryList = () => {
                   deleteCategory={deleteCategory}
                   makeWorkingOn={makeWorkingOn}
                   arrayIndex={position}
+                  makeTaskWorkingOn={makeTaskWorkingOn}
                 />
               })}
               {provided.placeholder}
