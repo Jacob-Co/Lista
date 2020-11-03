@@ -27,11 +27,18 @@ categoryRouter.get('/', async (req, res) => {
 
   let categories = await Category.find({ user: token.id})
   categories = fixDisplayedCategories(categories, 'Double click an item to place here');
-  categories = categories.map(category => {
+  // categories = categories.map(category => {
+  //   if (category.taskWorkingOn) await category.populate()
+  //   category.tasks = category.tasks.sort((task1, task2) => task1.index - task2.index);
+  //   return category
+  // });
+  returnCategories = [];
+  for (const category of categories) {
+    if (category.taskWorkingOn) await category.populate('taskWorkingOn').execPopulate();
     category.tasks = category.tasks.sort((task1, task2) => task1.index - task2.index);
-    return category
-  });
-  res.status(200).json(categories);
+    returnCategories = returnCategories.concat(category);
+  }
+  res.status(200).json(returnCategories);
 });
 
 categoryRouter.get('/friend/:id', async (req,res) => {
