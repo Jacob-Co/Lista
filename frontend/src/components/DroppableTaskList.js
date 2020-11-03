@@ -50,11 +50,13 @@ const DroppableTaskList = ({category, deleteCategory, makeTaskWorkingOn, categor
                 ? <TaskDiv className="tasks">
                     <h4>Tasks:</h4>
                     {category.tasks.map((task, position) => <div onDoubleClick={()=>{
-                      makeTaskWorkingOn(category, task, categoryArrayIndex);
-                    }}>
+                        makeTaskWorkingOn(category, task, categoryArrayIndex);
+                        console.log(`works`)
+                      }}
+                      key={task.id}
+                    >
                         <Task
                         task={task}
-                        key={task.id}
                         category={category}
                         arrayIndex={position}
                         />
