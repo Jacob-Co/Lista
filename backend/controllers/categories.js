@@ -1,4 +1,5 @@
 const categoryRouter = require('express').Router();
+const { json } = require('express');
 const Category = require('../models/category');
 const Task = require('../models/task');
 const User = require('../models/users');
@@ -129,12 +130,15 @@ categoryRouter.patch('/taskWorkingOn/:id', async (req, res) => {
 
   const categoryToUpdate = await Category.findById(req.params.id);
 
+  if (!categoryToUpdate) return json.status(400).json({ "error": "No Category found"})
+
   if (taskId === null) {
     categoryToUpdate.taskWorkingOn = null;
     const returnCategory = await categoryToUpdate.save();
     return res.json(returnCategory);
-  } else if (categoryToUpdate.tasks.find(task => task.id.toString() === taskId)) {
-    const returnCategory = categoryToUpdate.taskWorkingOn = taskId;
+  } else if (categoryToUpdate.tasks.find(task => task._id.toString() === taskId)) {
+    categoryToUpdate.taskWorkingOn = taskId;
+    const returnCategory = await categoryToUpdate.save();
     return res.json(returnCategory);
   }
 
