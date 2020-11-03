@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { switchCategoryIndexes } from '../reducer/categoryReducer';
 
+import TaskList from './TaskList';
+
 const WorkingOnDiv = styled.div`
   padding-bottom: .5rem;
   border-bottom: .15rem solid;
@@ -26,6 +28,10 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
       <h2>Currently Working On:</h2>
       <ContentDiv>
         <h3>{category.name}</h3>
+        { category.tasks.length > 0
+          ? <TaskList tasks={category.tasks}/>
+          : ""
+        }
         { viewOnly || category.extraInfo !== null
           ? "" 
           : <button onClick={handleRemove}>remove</button>
