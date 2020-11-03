@@ -68,10 +68,12 @@ const CategoryList = () => {
             >
               {categoryList.map((category, position) => {
                 if (category === null || category === categoryList[0]) {
-                  return (<>
-                    <WorkingOn key={category.id} category={category} categoryList={categoryList}/>
+                  return (
+                  <div key={category.id}>
+                    <WorkingOn category={category} categoryList={categoryList}/>
                     <h2>Other Categories:</h2>
-                  </>)
+                  </div>
+                  )
                 }
                 return <CategorySide 
                   className="category"
