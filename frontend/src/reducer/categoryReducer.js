@@ -173,6 +173,26 @@ export const removeTask = (taskId, category) => {
   }
 }
 
+export const makeTaskWorkingOn = (paramCategory, task, categoryList, categoryArrayPosition) => {
+  /*
+    1. get category and task, place obj inside categories taskWorkingOn prop
+      1.1 parameter category obj and task obj
+    2. call map and replace the old category with the new updated category (can get the current cat array position here)
+    3. call switchCategoryIndexes (category array position, 0, modified categoryList)
+    4. await service to update taskWorkingOn
+  */
+  return async (dispatch) => {
+    paramCategory.taskWorkingOn = task;
+    categoryList.map(category => {
+      if (category.id === paramCategory.id) {
+        return paramCategory;
+      }
+      return category
+    });
+    await switchCategoryIndexes(categoryArrayPosition, 0, categoryList);
+  }
+}
+
 const categoryReducer = (state = [], action) => {
   switch (action.type) {
     case 'INIT_CATEGORIES':
