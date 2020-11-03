@@ -13,7 +13,7 @@ const DropDown = styled.div`
   margin-bottom: 1.5rem;
 `
 
-const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, makeTaskWorkingON}) => {
+const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, makeTaskWorkingOn}) => {
   return (
     <Draggable draggableId={category.id} index={arrayIndex}>
       {provided => (
@@ -29,7 +29,7 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, make
             <DroppableTaskList 
               category={category}
               deleteCategory={deleteCategory}
-              makeTaskWorkingON={makeTaskWorkingON}
+              makeTaskWorkingOn={makeTaskWorkingOn}
               categoryArrayIndex={arrayIndex}
             />
           </div>
