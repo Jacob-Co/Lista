@@ -187,21 +187,26 @@ export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryA
   }
 }
 
+const localRemoveWorkingOnTask = async (categoryId, categoryList) => {
+  const updatedCategoryList = categoryList.map(category => {
+    if (category.id === categoryId) {
+      category.taskWorkingOn = null;
+    }
+    return category;
+  })
+
+  await categories.patchTaskWorkingOn(categoryId, null);
+  return updatedCategoryList;
+}
+
 export const removeWorkingOnTask = (categoryId, categoryList) => {
   return async (dispatch) => {
-    const updatedCategoryList = categoryList.map(category => {
-      if (category.id === categoryId) {
-        category.taskWorkingOn = null;
-      }
-      return category;
-    })
+    const updatedCategoryList = localRemoveWorkingOnTask(categoryId, categoryList);
   
     dispatch({
       type: 'UPDATE_CATEGORY',
       data: updatedCategoryList
-    })
-  
-    await categories.patchTaskWorkingOn(categoryId, null);
+    });
   }
 }
 
