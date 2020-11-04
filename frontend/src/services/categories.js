@@ -36,4 +36,18 @@ const getFriendCategories = async (id) => {
   return res.data;
 }
 
-export default { getAll, postNewCategory, deleteCategory, patchIndex, patchWorkingOn, getFriendCategories }
+const updateTaskWorkingOn = async (categoryId, taskId) => {
+  const config = { headers: { Authorization: getToken() }};
+  const res = await axios.patch(`${baseUrl}/taskWorkingOn/${categoryId}`, { taskId }, config);
+  return res.data;
+}
+
+export default {
+  getAll,
+  postNewCategory,
+  deleteCategory,
+  patchIndex,
+  patchWorkingOn,
+  getFriendCategories,
+  updateTaskWorkingOn,
+}
