@@ -177,7 +177,12 @@ export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryA
       }
       return category
     });
-    await switchCategoryIndexes(categoryArrayPosition, 0, updatedCategoryList)();
+    const quickUpdatedCategoryList = quickSwitchCategories(categoryArrayPosition, 0, updatedCategoryList);
+    dispatch({
+      type: 'UPDATE_CATEGORY',
+      data: quickUpdatedCategoryList
+    });
+    await updateCategoryIndexOnDb(quickUpdatedCategoryList);
   }
 }
 
