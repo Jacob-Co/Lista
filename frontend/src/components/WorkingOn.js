@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { switchCategoryIndexes } from '../reducer/categoryReducer';
+import { switchCategoryIndexes, removeWorkingOnTask } from '../reducer/categoryReducer';
 
 import TaskList from './TaskList';
 
@@ -35,6 +35,7 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
 
   const handleRemove = () => {
     if (!category.workingOn && category.extraInfo !== null) return;
+    if (category.taskWorkingOn) dispatch(removeWorkingOnTask(category.id, categoryList));
     dispatch(switchCategoryIndexes(0, 0, categoryList))
   }
 
