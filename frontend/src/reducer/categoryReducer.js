@@ -123,6 +123,25 @@ const quickSwitchCategories = (sourceIdx, desitnationIdx, categoryList) => {
   return newCategoryList
 }
 
+const updateCategoryIndexOnDb = async (categoryToBeUpdated) => {
+  let counter = 0;
+
+  for (const category of categoryToBeUpdated) {
+    if (category.index !== counter) {
+      if (category.extraInfo) continue;
+      if (counter === 0) {
+        await categories.patchWorkingOn(category.id);
+        counter += 1;
+        continue;
+      }
+      await categories.patchIndex(category.id, counter);
+      counter += 1;
+    } else {
+      counter += 1;
+    }
+  }
+};
+
 export const switchCategoryIndexes = (sourceIdx, desitnationIdx, categoryList) => {
   return async(dispatch) => {
     const quickUpdatedCategoryList = quickSwitchCategories(sourceIdx, desitnationIdx, categoryList);
@@ -131,31 +150,7 @@ export const switchCategoryIndexes = (sourceIdx, desitnationIdx, categoryList) =
       data: quickUpdatedCategoryList
     })
 
-    let counter = 0;
-    // let updatedCategoryList = [];
-
-    for (const category of quickUpdatedCategoryList) {
-      if (category.index !== counter) {
-        if (category.extraInfo) continue;
-        if (counter === 0) {
-          const updatedWorkingOn = await categories.patchWorkingOn(category.id);
-          counter += 1;
-          // updatedCategoryList = updatedCategoryList.concat(updatedWorkingOn);
-          continue;
-        }
-        const updatedCategory = await categories.patchIndex(category.id, counter);
-        counter += 1;
-        // updatedCategoryList = updatedCategoryList.concat(updatedCategory);
-      } else {
-        counter += 1;
-        // updatedCategoryList = updatedCategoryList.concat(category);
-      }
-    }
-
-    // dispatch({
-    //   type: 'UPDATE_CATEGORY',
-    //   data: updatedCategoryList
-    // })
+    await updateCategoryIndexOnDb(quickUpdatedCategoryList);
   }
 }
 
@@ -174,22 +169,15 @@ export const removeTask = (taskId, category) => {
 }
 
 export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryArrayPosition) => {
-  /*
-    1. get category and task, place obj inside categories taskWorkingOn prop
-      1.1 parameter category obj and task obj
-    2. call map and replace the old category with the new updated category (can get the current cat array position here)
-    3. call switchCategoryIndexes (category array position, 0, modified categoryList)
-    4. await service to update taskWorkingOn
-  */
   return async (dispatch) => {
     paramCategory.taskWorkingOn = task;
-    categoryList.map(category => {
+    const updatedCategoryList = categoryList.map(category => {
       if (category.id === paramCategory.id) {
         return paramCategory;
       }
       return category
     });
-    await switchCategoryIndexes(categoryArrayPosition, 0, categoryList);
+    await switchCategoryIndexes(categoryArrayPosition, 0, updatedCategoryList)();
   }
 }
 
