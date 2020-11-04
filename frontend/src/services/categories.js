@@ -36,7 +36,7 @@ const getFriendCategories = async (id) => {
   return res.data;
 }
 
-const updateTaskWorkingOn = async (categoryId, taskId) => {
+const patchTaskWorkingOn = async (categoryId, taskId) => {
   const config = { headers: { Authorization: getToken() }};
   const res = await axios.patch(`${baseUrl}/taskWorkingOn/${categoryId}`, { taskId }, config);
   return res.data;
@@ -49,5 +49,5 @@ export default {
   patchIndex,
   patchWorkingOn,
   getFriendCategories,
-  updateTaskWorkingOn,
+  patchTaskWorkingOn,
 }

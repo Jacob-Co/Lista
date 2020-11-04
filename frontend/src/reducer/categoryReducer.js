@@ -182,7 +182,7 @@ export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryA
       type: 'UPDATE_CATEGORY',
       data: quickUpdatedCategoryList
     });
-    await categories.updateTaskWorkingOn(paramCategory.id, task.id);
+    await categories.patchTaskWorkingOn(paramCategory.id, task.id);
     await updateCategoryIndexOnDb(quickUpdatedCategoryList);
   }
 }
@@ -201,7 +201,7 @@ export const removeWorkingOnTask = (categoryId, categoryList) => {
       data: updatedCategoryList
     })
   
-    await categories.updateTaskWorkingOn(categoryId, null);
+    await categories.patchTaskWorkingOn(categoryId, null);
   }
 }
 
