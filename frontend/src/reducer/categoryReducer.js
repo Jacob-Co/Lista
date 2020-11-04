@@ -187,6 +187,24 @@ export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryA
   }
 }
 
+export const removeWorkingOn = (categoryId, categoryList) => {
+  return async (dispatch) => {
+    const updatedCategoryList = categoryList.map(category => {
+      if (category.id === categoryId) {
+        category.taskWorkingOn = null;
+      }
+      return category;
+    })
+  
+    dispatch({
+      type: 'UPDATE_CATEGORY',
+      data: updatedCategoryList
+    })
+  
+    await categories.updateTaskWorkingOn(categoryId, null);
+  }
+}
+
 const categoryReducer = (state = [], action) => {
   switch (action.type) {
     case 'INIT_CATEGORIES':
