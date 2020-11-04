@@ -187,7 +187,7 @@ export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryA
   }
 }
 
-export const removeWorkingOn = (categoryId, categoryList) => {
+export const removeWorkingOnTask = (categoryId, categoryList) => {
   return async (dispatch) => {
     const updatedCategoryList = categoryList.map(category => {
       if (category.id === categoryId) {
