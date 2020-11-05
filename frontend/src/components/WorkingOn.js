@@ -48,7 +48,7 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
           {category.taskWorkingOn ? <TaskName>{`Task -${category.taskWorkingOn.name}- from:`}</TaskName> : ""}
           <CategoryName>{category.name}</CategoryName>
           { category.tasks && category.tasks.length > 0
-            ? <TaskList tasks={category.tasks} categories={categoryList}/>
+            ? <TaskList tasks={category.tasks} category={category}/>
             : ""
           }
 
