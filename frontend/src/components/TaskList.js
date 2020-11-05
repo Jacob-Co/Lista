@@ -10,9 +10,11 @@ const TasksDiv = styled.div`
 
 const TaskList = ({tasks, category}) => {
   const taskToggableRef = useRef();
+  const taskFormToggableRef = useRef();
+  // const showTaskFormRef = useRe
 
   const handleToggleTaskForm = () => {
-
+    taskFormToggableRef.current.toggleVisibility();
   };
 
   return(
@@ -20,7 +22,7 @@ const TaskList = ({tasks, category}) => {
       <button onClick={handleToggleTaskForm}>+</button>
       <button onClick={() => taskToggableRef.current.toggleVisibility()}>&or;</button>
       <TasksDiv>
-        <Toggable >
+        <Toggable ref={taskFormToggableRef}>
           <TaskForm category={category} />
         </Toggable>
         <Toggable ref={taskToggableRef}>
