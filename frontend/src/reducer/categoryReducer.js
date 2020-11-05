@@ -144,6 +144,7 @@ const updateCategoryIndexOnDb = async (categoryToBeUpdated) => {
 
 export const switchCategoryIndexes = (sourceIdx, desitnationIdx, categoryList) => {
   return async(dispatch) => {
+    if (categoryList[sourceIdx].taskWorkingOn) categoryList = await localRemoveWorkingOnTask(categoryList[sourceIdx].id, categoryList);
     const quickUpdatedCategoryList = quickSwitchCategories(sourceIdx, desitnationIdx, categoryList);
     dispatch({
       type: 'UPDATE_CATEGORY',
