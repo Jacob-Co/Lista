@@ -6,7 +6,7 @@ const Toggable = React.forwardRef(({children}, ref) => {
   const showIfVisibile = {display: visible ? '' : "none"}
 
   const toggleVisibility = (forceBoolean) => {
-    if (forceBoolean) {
+    if (forceBoolean !== undefined) {
       setVisible(forceBoolean);
     } else {
       setVisible(!visible);
