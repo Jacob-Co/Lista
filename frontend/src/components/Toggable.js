@@ -14,7 +14,7 @@ const Toggable = React.forwardRef(({children}, ref) => {
   }
 
   useImperativeHandle(ref, () => {
-    return { toggleVisibility }
+    return { toggleVisibility, visible }
   });
 
   return(
