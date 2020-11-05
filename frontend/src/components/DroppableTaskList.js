@@ -22,7 +22,7 @@ const DroppableTaskList = ({category, deleteCategory, makeTaskWorkingOn, categor
   }
 
   const toggleTasks = () => {
-    createTaskToggable.current.toggleVisibility(false);
+    if (taskToggable.current.visible) createTaskToggable.current.toggleVisibility(false);
     taskToggable.current.toggleVisibility();
   }
 
