@@ -7,7 +7,7 @@ const TasksDiv = styled.div`
   margin-left: 1.5rem;
 `
 
-const FriendTasksView = ({tasks}) => {
+const TaskList = ({tasks}) => {
   const taskToggableRef = useRef();
 
   return(
@@ -23,4 +23,4 @@ const FriendTasksView = ({tasks}) => {
   )
 }
 
-export default FriendTasksView;
+export default TaskList;
