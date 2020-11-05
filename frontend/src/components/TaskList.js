@@ -18,13 +18,17 @@ const TaskList = ({tasks, category}) => {
     showTaskFormRef.current.focusOnName();
   };
 
+  const showTasks = () => {
+    taskToggableRef.current.toggleVisibility(true)
+  }
+
   return(
     <>
       <button onClick={handleToggleTaskForm}>+</button>
       <button onClick={() => taskToggableRef.current.toggleVisibility()}>&or;</button>
       <TasksDiv>
         <Toggable ref={taskFormToggableRef}>
-          <TaskForm category={category} ref={showTaskFormRef}/>
+          <TaskForm category={category} ref={showTaskFormRef} showTasks={showTasks}/>
         </Toggable>
         <Toggable ref={taskToggableRef}>
           <h4>Tasks:</h4>
