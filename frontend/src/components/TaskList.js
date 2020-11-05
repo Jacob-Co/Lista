@@ -23,6 +23,7 @@ const TaskList = ({tasks, category}) => {
   }
 
   const toggleTasks = () => {
+    if (taskToggableRef.current.visible) taskFormToggableRef.current.toggleVisibility(false);
     taskToggableRef.current.toggleVisibility()
   }
 
