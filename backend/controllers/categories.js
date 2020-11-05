@@ -4,7 +4,7 @@ const Category = require('../models/category');
 const Task = require('../models/task');
 const User = require('../models/users');
 
-const fixDisplayedCategories = (categories, message) => {
+const fixDisplayedCategories = async (categories, message) => {
   categories = categories.sort((category1, category2) => {
     return category1.index - category2.index
   });
@@ -18,7 +18,14 @@ const fixDisplayedCategories = (categories, message) => {
     categories = [nullCategory].concat(categories)
   };
 
-  return categories;
+  let returnCategories = [];
+  for (const category of categories) {
+    if (category.taskWorkingOn) await category.populate('taskWorkingOn').execPopulate();
+    category.tasks = category.tasks.sort((task1, task2) => task1.index - task2.index);
+    returnCategories = returnCategories.concat(category);
+  }
+
+  return returnCategories;
 }
 
 categoryRouter.get('/', async (req, res) => {
@@ -26,14 +33,8 @@ categoryRouter.get('/', async (req, res) => {
   if (!token) return res.status(400).json({error: 'Requires token'});
 
   let categories = await Category.find({ user: token.id})
-  categories = fixDisplayedCategories(categories, 'Double click an item to place here');
-  
-  returnCategories = [];
-  for (const category of categories) {
-    if (category.taskWorkingOn) await category.populate('taskWorkingOn').execPopulate();
-    category.tasks = category.tasks.sort((task1, task2) => task1.index - task2.index);
-    returnCategories = returnCategories.concat(category);
-  }
+  const returnCategories = await fixDisplayedCategories(categories, 'Double click an item to place here');
+
   res.status(200).json(returnCategories);
 });
 
