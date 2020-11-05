@@ -7,7 +7,7 @@ const TasksDiv = styled.div`
   margin-left: 1.5rem;
 `
 
-const TaskList = ({tasks}) => {
+const TaskList = ({tasks, categories}) => {
   const taskToggableRef = useRef();
 
   return(
