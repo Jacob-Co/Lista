@@ -27,19 +27,21 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, make
             <OptionBox optionsArray={[
                 ['Mark Done'],
                 ['Edit'],
-                ['Send to (Under Construction)'],
+                ['Send to'],
                 ['Delete']
               ]}
             />
-            <span {...provided.dragHandleProps}>
-              <CategoryName onDoubleClick={() => makeWorkingOn(arrayIndex)}>{category.name}</CategoryName>
-            </span>
-            <DroppableTaskList 
-              category={category}
-              deleteCategory={deleteCategory}
-              makeTaskWorkingOn={makeTaskWorkingOn}
-              categoryArrayIndex={arrayIndex}
-            />
+            <div>
+              <span {...provided.dragHandleProps}>
+                <CategoryName onDoubleClick={() => makeWorkingOn(arrayIndex)}>{category.name}</CategoryName>
+              </span>
+              <DroppableTaskList 
+                category={category}
+                deleteCategory={deleteCategory}
+                makeTaskWorkingOn={makeTaskWorkingOn}
+                categoryArrayIndex={arrayIndex}
+              />
+            </div>
           </div>
         </DropDown>
       )}
