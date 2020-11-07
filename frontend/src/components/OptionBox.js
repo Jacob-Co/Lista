@@ -6,8 +6,11 @@ import Toggable from './Toggable';
 const CheckBox = styled.span`
   font-size: 1.2em;
 `
+const OptionBoxContent = styled.div`
 
-const OptionBox = ({ optionsArray, checked }) => {
+`
+
+const OptionBox = ({ optionsArray = [], checked }) => {
   const optionBoxRef = useRef();
 
   return(
@@ -16,7 +19,11 @@ const OptionBox = ({ optionsArray, checked }) => {
         { checked ? <CheckBox>&#9745;</CheckBox> : <CheckBox>&#9744;</CheckBox>}
       </div>
       <Toggable ref={optionBoxRef}>
-        boo
+        <OptionBoxContent>
+          {optionsArray.map(option => <div>
+            {option[0]}
+          </div>)}
+        </OptionBoxContent>
       </Toggable>
     </div>
   )
