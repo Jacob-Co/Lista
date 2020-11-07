@@ -1,14 +1,18 @@
 import React, { useRef } from 'react';
+import styled from 'styled-components';
 
 import Toggable from './Toggable';
 
+const CheckBox = styled.span`
+  font-size: 1.2em;
+`
 
 const OptionBox = ({ optionsArray, checked }) => {
   const optionBoxRef = useRef();
 
   return(
     <>
-      { checked ? <>&#9745;</> : <>&#9744;</>}
+      { checked ? <CheckBox>&#9745;</CheckBox> : <CheckBox>&#9744;</CheckBox>}
       <Toggable ref={optionBoxRef}>
       </Toggable>
     </>
