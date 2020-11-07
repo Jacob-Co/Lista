@@ -75,15 +75,18 @@ const CategoryList = () => {
                   </div>
                   )
                 }
-                return <CategorySide 
-                  className="category"
-                  key={category.id}
-                  category={category}
-                  deleteCategory={deleteCategory}
-                  makeWorkingOn={makeWorkingOn}
-                  arrayIndex={position}
-                  makeTaskWorkingOn={makeTaskWorkingOn}
-                />
+                return (
+                  <div key={category.id}>
+                  <CategorySide 
+                    className="category"
+                    category={category}
+                    deleteCategory={deleteCategory}
+                    makeWorkingOn={makeWorkingOn}
+                    arrayIndex={position}
+                    makeTaskWorkingOn={makeTaskWorkingOn}
+                    />
+                  </div>
+                )
               })}
               {provided.placeholder}
             </StyledDroppable>

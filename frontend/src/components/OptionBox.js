@@ -7,9 +7,11 @@ const OptionBox = ({ optionsArray, checked }) => {
   const optionBoxRef = useRef();
 
   return(
-    <Toggable ref={optionBoxRef}>
+    <>
       { checked ? <>&#9745;</> : <>&#9744;</>}
-    </Toggable>
+      <Toggable ref={optionBoxRef}>
+      </Toggable>
+    </>
   )
 }
 
