@@ -16,7 +16,8 @@ const OptionBoxContent = styled.div`
 `
 
 const OptionDiv = styled.div`
-  margin: .35em 0;
+  margin: .45em 0;
+  cursor: pointer
 `
 
 const OptionBox = ({ optionsArray = [], checked }) => {
