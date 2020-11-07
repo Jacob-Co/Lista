@@ -12,6 +12,7 @@ import { initializeCategories,
 import CategoryForm from './CategoryForm'
 import CategorySide from './CategorySide'
 import WorkingOn from './WorkingOn';
+import OptionBox from './OptionBox';
 
 const StyledDroppable = styled.div`
   margin-right: 1rem;
@@ -77,6 +78,7 @@ const CategoryList = () => {
                 }
                 return (
                   <div key={category.id}>
+                  <OptionBox />
                   <CategorySide 
                     className="category"
                     category={category}
