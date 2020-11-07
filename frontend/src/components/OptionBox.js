@@ -10,9 +10,9 @@ const OptionBoxContent = styled.div`
   position: absolute;
   left: 1em;
   padding: .35em;
-
   background-color: black;
   color: white;
+  width: 7.5rem;
 `
 
 const OptionDiv = styled.div`
