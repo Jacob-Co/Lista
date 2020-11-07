@@ -11,11 +11,14 @@ const OptionBox = ({ optionsArray, checked }) => {
   const optionBoxRef = useRef();
 
   return(
-    <>
-      { checked ? <CheckBox>&#9745;</CheckBox> : <CheckBox>&#9744;</CheckBox>}
+    <div>
+      <div onClick={() => optionBoxRef.current.toggleVisibility()}>
+        { checked ? <CheckBox>&#9745;</CheckBox> : <CheckBox>&#9744;</CheckBox>}
+      </div>
       <Toggable ref={optionBoxRef}>
+        boo
       </Toggable>
-    </>
+    </div>
   )
 }
 
