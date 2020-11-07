@@ -76,7 +76,8 @@ const CategoryList = () => {
                   )
                 }
                 return (
-                  <CategorySide 
+                  <CategorySide
+                    key={category.id}
                     className="category"
                     category={category}
                     deleteCategory={deleteCategory}
