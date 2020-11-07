@@ -12,7 +12,6 @@ import { initializeCategories,
 import CategoryForm from './CategoryForm'
 import CategorySide from './CategorySide'
 import WorkingOn from './WorkingOn';
-import OptionBox from './OptionBox';
 
 const StyledDroppable = styled.div`
   margin-right: 1rem;
@@ -77,8 +76,6 @@ const CategoryList = () => {
                   )
                 }
                 return (
-                  <div key={category.id} style={{"display": "flex"}}>
-                  <OptionBox />
                   <CategorySide 
                     className="category"
                     category={category}
@@ -87,7 +84,6 @@ const CategoryList = () => {
                     arrayIndex={position}
                     makeTaskWorkingOn={makeTaskWorkingOn}
                     />
-                  </div>
                 )
               })}
               {provided.placeholder}
