@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 import Toggable from './Toggable';
@@ -21,6 +21,16 @@ const OptionDiv = styled.div`
 
 const OptionBox = ({ optionsArray = [], checked }) => {
   const optionBoxRef = useRef();
+
+  const hideOptionBox = () => {
+    optionBoxRef.current.toggleVisibility(false);
+  }
+  useEffect(() => {
+    document.addEventListener("mousedown", hideOptionBox);
+    return () => {
+      document.removeEventListener("mosuedown", hideOptionBox);
+    }
+  }, [hideOptionBox])
 
   return(
     <div style={{"position": "relative"}}>
