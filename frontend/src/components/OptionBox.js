@@ -20,7 +20,7 @@ const OptionBox = ({ optionsArray = [], checked }) => {
       </div>
       <Toggable ref={optionBoxRef}>
         <OptionBoxContent>
-          {optionsArray.map(option => <div>
+          {optionsArray.map((option, idx) => <div key={idx}>
             {option[0]}
           </div>)}
         </OptionBoxContent>
