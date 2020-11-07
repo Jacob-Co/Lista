@@ -77,7 +77,7 @@ const CategoryList = () => {
                   )
                 }
                 return (
-                  <div key={category.id}>
+                  <div key={category.id} style={{"display": "flex"}}>
                   <OptionBox />
                   <CategorySide 
                     className="category"
