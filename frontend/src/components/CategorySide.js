@@ -24,7 +24,13 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, make
           {...provided.draggableProps}
         >
           <div style={{"display": "flex"}}>
-            <OptionBox />
+            <OptionBox optionsArray={[
+                ['Mark Done'],
+                ['Edit'],
+                ['Send to (Under Construction)'],
+                ['Delete']
+              ]}
+            />
             <span {...provided.dragHandleProps}>
               <CategoryName onDoubleClick={() => makeWorkingOn(arrayIndex)}>{category.name}</CategoryName>
             </span>
