@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Draggable } from 'react-beautiful-dnd';
 
 import DroppableTaskList from './DroppableTaskList'
+import OptionBox from './OptionBox'
 
 const CategoryName = styled.span`
   font-size: 1.07em;
@@ -22,7 +23,8 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, make
           // isDragging={snapshot.isDragging}
           {...provided.draggableProps}
         >
-          <div>
+          <div style={{"display": "flex"}}>
+            <OptionBox />
             <span {...provided.dragHandleProps}>
               <CategoryName onDoubleClick={() => makeWorkingOn(arrayIndex)}>{category.name}</CategoryName>
             </span>
