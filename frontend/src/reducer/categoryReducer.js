@@ -215,7 +215,7 @@ export const patchAccomplishedCategory = (categoryId, categoryList, accomplished
   return async (dispatch) => {
     const updatedCategoryList = categoryList.map(category => {
       if (category.id === categoryId) {
-        accomplishedStatus = accomplishedStatus
+        category.accomplished = accomplishedStatus
       }
       return category;
     });
