@@ -14,7 +14,7 @@ const DropDown = styled.div`
   margin-bottom: 1.5rem;
 `
 
-const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, makeTaskWorkingOn}) => {
+const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, makeTaskWorkingOn, toggleAccomplishedCategory}) => {
   return (
     <Draggable draggableId={category.id} index={arrayIndex}>
       {provided => (
@@ -25,7 +25,7 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, make
         >
           <div style={{"display": "flex"}}>
             <OptionBox optionsArray={[
-                ['Mark Done'],
+                ['Mark Done', toggleAccomplishedCategory],
                 ['Edit'],
                 ['Send to'],
                 ['Delete']

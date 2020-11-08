@@ -89,6 +89,7 @@ const CategoryList = () => {
                     makeWorkingOn={makeWorkingOn}
                     arrayIndex={position}
                     makeTaskWorkingOn={makeTaskWorkingOn}
+                    toggleAccomplishedCategory={toggleAccomplishedCategory}
                     />
                 )
               })}
