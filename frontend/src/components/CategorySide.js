@@ -15,7 +15,14 @@ const DropDown = styled.div`
   margin-bottom: 1.5rem;
 `
 
-const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, makeTaskWorkingOn, toggleAccomplishedCategory}) => {
+const CategorySide = ({
+      category,
+      deleteCategory,
+      makeWorkingOn,
+      arrayIndex,
+      makeTaskWorkingOn,
+      toggleAccomplishedCategory
+    }) => {
   return (
     <Draggable draggableId={category.id} index={arrayIndex}>
       {provided => (
