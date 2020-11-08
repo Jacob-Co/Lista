@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import { Draggable } from 'react-beautiful-dnd';
 
@@ -22,9 +22,14 @@ const CategorySide = ({
       arrayIndex,
       makeTaskWorkingOn,
       toggleAccomplishedCategory,
-      toggleEditing,
-      isEditing,
     }) => {
+
+  const [isEditing, setIsEditing] = useState(false);
+
+  const toggleEditing = () => {
+    setIsEditing(!isEditing);
+  }
+
   return (
     <Draggable draggableId={category.id} index={arrayIndex}>
       {provided => (
