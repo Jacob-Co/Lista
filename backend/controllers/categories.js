@@ -79,11 +79,23 @@ categoryRouter.delete('/:id', async (req, res) => {
 })
 
 categoryRouter.patch('/name/:id', async (req, res) => {
-  const filter = { _id: req.params.id }
-  const modify = { name: req.body.name }
-  const options = { new: true }
-  const returnedCategory = await Category.findOneAndUpdate(filter, modify, options);
-  res.status(202).json(returnedCategory);
+  const { token } = req;
+  if (!token) return res.status(401).json({ error: "Requires a token"});
+
+  const { body } = req;
+
+  const categoryToUpdate = await Category.findById(req.params.id);
+  if (!categoryToUpdate) return res.status(400).json({ "error": "No Category found"});
+  if (categoryToUpdate.user.toString() !== token.id) return res.status(401).json({ "error": "Invalid access" });
+
+  categoryToUpdate.name = body.name;
+  const returnedCategory = await categoryToUpdate.save();
+  return res.json(returnedCategory);
+  // const filter = { _id: req.params.id }
+  // const modify = { name: req.body.name }
+  // const options = { new: true }
+  // const returnedCategory = await Category.findOneAndUpdate(filter, modify, options);
+  // res.status(202).json(returnedCategory);
 })
 
 categoryRouter.patch('/summary/:id', async (req, res) => {
