@@ -41,7 +41,12 @@ const OptionBox = ({ optionsArray = [], checked }) => {
       </div>
       <Toggable ref={optionBoxRef}>
         <OptionBoxContent>
-          {optionsArray.map((option, idx) => <OptionDiv key={idx}>
+          {optionsArray.map((option, idx) => <OptionDiv key={idx}
+              onClick={() => {
+                option[1]();
+                optionBoxRef.current.toggleVisibility(false);
+              }}
+            >
             &#x000B7; {option[0]}
           </OptionDiv>)}
         </OptionBoxContent>
