@@ -35,7 +35,12 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, make
             />
             <div>
               <span {...provided.dragHandleProps}>
-                <CategoryName onDoubleClick={() => makeWorkingOn(arrayIndex)}>{category.name}</CategoryName>
+                <CategoryName 
+                  onDoubleClick={() => makeWorkingOn(arrayIndex)}
+                  isAccomplished={category.accomplished}
+                >
+                  {category.name}
+                </CategoryName>
               </span>
               <DroppableTaskList 
                 category={category}
