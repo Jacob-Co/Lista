@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 import Toggable from './Toggable';
@@ -21,21 +21,37 @@ const OptionDiv = styled.div`
   cursor: pointer
 `
 
+const useOutsideEventListener = (ref, callback) => {
+  useEffect(() => {
+    const hideOptionBox = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        callback();
+      }
+    }
+
+    document.addEventListener('mousedown', hideOptionBox);
+    return () => {
+      document.removeEventListener('mousedown', hideOptionBox);
+    }
+  }, [ref])
+};
+
 const OptionBox = ({ optionsArray = [], checked }) => {
   const optionBoxRef = useRef();
+  const wholeCompRef = useRef();
 
   const hideOptionBox = () => {
     optionBoxRef.current.toggleVisibility(false);
-    document.removeEventListener("mosuedown", hideOptionBox);
   }
 
   const showOptionBox = () => {
     optionBoxRef.current.toggleVisibility()
-    document.addEventListener("mousedown", hideOptionBox);
   }
 
+  useOutsideEventListener(wholeCompRef, hideOptionBox);
+
   return(
-    <div style={{"position": "relative"}}>
+    <div style={{"position": "relative"}} ref={wholeCompRef}>
       <div onClick={showOptionBox}>
         { checked ? <CheckBox>&#9745;</CheckBox> : <CheckBox>&#9744;</CheckBox>}
       </div>
@@ -44,7 +60,7 @@ const OptionBox = ({ optionsArray = [], checked }) => {
           {optionsArray.map((option, idx) => <OptionDiv key={idx}
               onClick={() => {
                 option[1]();
-                optionBoxRef.current.toggleVisibility(false);
+                // optionBoxRef.current.toggleVisibility(false);
               }}
             >
             &#x000B7; {option[0]}
