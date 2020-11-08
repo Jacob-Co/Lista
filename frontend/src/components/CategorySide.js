@@ -21,7 +21,9 @@ const CategorySide = ({
       makeWorkingOn,
       arrayIndex,
       makeTaskWorkingOn,
-      toggleAccomplishedCategory
+      toggleAccomplishedCategory,
+      toggleEditing,
+      isEditing,
     }) => {
   return (
     <Draggable draggableId={category.id} index={arrayIndex}>
@@ -34,7 +36,7 @@ const CategorySide = ({
           <div style={{"display": "flex"}}>
             <OptionBox optionsArray={[
                 ['Mark Done', () => toggleAccomplishedCategory(category.id, !category.accomplished)],
-                ['Edit'],
+                ['Edit', () => toggleEditing()],
                 ['Send to'],
                 ['Delete']
               ]}
