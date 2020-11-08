@@ -48,6 +48,12 @@ const patchAccomplishedCategory = async (categoryId, accomplished) => {
   return res.data;
 }
 
+const patchCategoryName = async (cateogryId, name) => {
+  const config = { headers: { Authorization: getToken() }};
+  const res = await axios.patch(`${baseUrl}/name/${cateogryId}`, { name }, config);
+  return res.data;
+}
+
 export default {
   getAll,
   postNewCategory,
@@ -57,4 +63,5 @@ export default {
   getFriendCategories,
   patchTaskWorkingOn,
   patchAccomplishedCategory,
+  patchCategoryName,
 }
