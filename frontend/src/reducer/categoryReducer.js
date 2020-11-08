@@ -211,13 +211,11 @@ export const removeWorkingOnTask = (categoryId, categoryList) => {
   }
 }
 
-export const toggleAccomplishedCategory = (categoryId, categoryList) => {
+export const patchAccomplishedCategory = (categoryId, categoryList, accomplishedStatus) => {
   return async (dispatch) => {
-    let accomplishedStatus;
     const updatedCategoryList = categoryList.map(category => {
       if (category.id === categoryId) {
-        accomplishedStatus = !category.accomplished
-        category.accomplished = accomplishedStatus;
+        accomplishedStatus = accomplishedStatus
       }
       return category;
     });
