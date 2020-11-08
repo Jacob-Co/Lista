@@ -156,8 +156,8 @@ categoryRouter.patch('/accomplished/:id', async (req, res) => {
   const { body } = req;
 
   const categoryToUpdate = await Category.findById(req.params.id);
-  if (!categoryToUpdate) return json.status(400).json({ "error": "No Category found"});
-  if (categoryToUpdate.user.toString() !== token.id) return json.status(401);
+  if (!categoryToUpdate) return res.status(400).json({ "error": "No Category found"});
+  if (categoryToUpdate.user.toString() !== token.id) return res.status(401);
 
   categoryToUpdate.accomplished = body.accomplished;
   const returnCategory = await categoryToUpdate.save();
