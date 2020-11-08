@@ -5,6 +5,7 @@ import Toggable from './Toggable';
 
 const CheckBox = styled.span`
   font-size: 1.2em;
+  cursor: pointer;
 `
 const OptionBoxContent = styled.div`
   position: absolute;
