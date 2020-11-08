@@ -211,6 +211,26 @@ export const removeWorkingOnTask = (categoryId, categoryList) => {
   }
 }
 
+export const toggleAccomplishedCategory = (categoryId, categoryList) => {
+  return async (dispatch) => {
+    let accomplishedStatus;
+    const updatedCategoryList = categoryList.map(category => {
+      if (category.id === categoryId) {
+        accomplishedStatus = !category.accomplished
+        category.accomplished = accomplishedStatus;
+      }
+      return category;
+    });
+
+    dispatch({
+      type: 'UPDATE_CATEGORY',
+      data: updatedCategoryList
+    });
+
+    await categories.patchAccomplishedCategory(categoryId, accomplishedStatus);
+  };
+}
+
 const categoryReducer = (state = [], action) => {
   switch (action.type) {
     case 'INIT_CATEGORIES':
