@@ -7,7 +7,8 @@ import { initializeCategories,
     removeCategory,
     switchCategoryIndexes,
     switchTaskIndexes, 
-    switchTaskWorkingOn 
+    switchTaskWorkingOn,
+    patchAccomplishedCategory
   } from '../reducer/categoryReducer'
 import CategoryForm from './CategoryForm'
 import CategorySide from './CategorySide'
@@ -26,6 +27,10 @@ const CategoryList = () => {
   useEffect(() => {
     dispatch(initializeCategories())
   }, [dispatch])
+
+  const toggleAccomplishedCategory = (categoryId, accomplishedStatus) => {
+    dispatch(patchAccomplishedCategory(categoryId, categoryList, accomplishedStatus));
+  }
 
   const deleteCategory = ({name, id}) => {
     if (window.confirm(`Do you really want to delete category ${name}?`)) {
