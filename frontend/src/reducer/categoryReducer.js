@@ -229,6 +229,24 @@ export const patchAccomplishedCategory = (categoryId, categoryList, accomplished
   };
 }
 
+export const patchCategoryName = (categoryId, categoryList, newName) => {
+  return async (dispatch) => {
+    const updatedCategoryList = categoryList.map(category => {
+      if (category.id === categoryId) {
+        category.name = newName;
+      }
+      return category;
+    });
+
+    dispatch({
+      type: 'UPDATE_CATEGORY',
+      data: updatedCategoryList
+    })
+
+    await categories.patchCategoryName(categoryId, newName);
+  }
+}
+
 const categoryReducer = (state = [], action) => {
   switch (action.type) {
     case 'INIT_CATEGORIES':
