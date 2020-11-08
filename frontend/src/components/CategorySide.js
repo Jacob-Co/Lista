@@ -8,6 +8,7 @@ import OptionBox from './OptionBox'
 const CategoryName = styled.span`
   font-size: 1.07em;
   font-weight: bold;
+  text-decoration-line: ${props => (props.isAccomplished ? 'line-through;' : 'none;')}
 `
 
 const DropDown = styled.div`
@@ -25,7 +26,7 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, make
         >
           <div style={{"display": "flex"}}>
             <OptionBox optionsArray={[
-                ['Mark Done', toggleAccomplishedCategory],
+                ['Mark Done', () => toggleAccomplishedCategory(category.id, !category.accomplished)],
                 ['Edit'],
                 ['Send to'],
                 ['Delete']
