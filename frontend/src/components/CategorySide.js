@@ -31,6 +31,7 @@ const CategorySide = ({category, deleteCategory, makeWorkingOn, arrayIndex, make
                 ['Send to'],
                 ['Delete']
               ]}
+              checked={ category.accomplished }
             />
             <div>
               <span {...provided.dragHandleProps}>
