@@ -47,22 +47,25 @@ const CategorySide = ({
               ]}
               checked={ category.accomplished }
             />
-            <div>
-              <span {...provided.dragHandleProps}>
-                <CategoryName 
-                  onDoubleClick={() => makeWorkingOn(arrayIndex)}
-                  isAccomplished={category.accomplished}
-                >
-                  {category.name}
-                </CategoryName>
-              </span>
-              <DroppableTaskList 
-                category={category}
-                deleteCategory={deleteCategory}
-                makeTaskWorkingOn={makeTaskWorkingOn}
-                categoryArrayIndex={arrayIndex}
-              />
-            </div>
+            { isEditing 
+              ? 'Place Category name input here'
+              : <div>
+                <span {...provided.dragHandleProps}>
+                  <CategoryName 
+                    onDoubleClick={() => makeWorkingOn(arrayIndex)}
+                    isAccomplished={category.accomplished}
+                  >
+                    {category.name}
+                  </CategoryName>
+                </span>
+                <DroppableTaskList 
+                  category={category}
+                  deleteCategory={deleteCategory}
+                  makeTaskWorkingOn={makeTaskWorkingOn}
+                  categoryArrayIndex={arrayIndex}
+                />
+              </div>
+            }
           </div>
         </DropDown>
       )}
