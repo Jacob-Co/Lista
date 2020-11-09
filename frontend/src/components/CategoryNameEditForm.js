@@ -6,8 +6,6 @@ import { patchCategoryName } from '../reducer/categoryReducer';
 const useOutsideEventListener = (ref, callback) => {
   useEffect(() => {
     const hideForm = (event) => {
-      console.log(`here`)
-      console.log(ref.current)
       if (ref.current && !ref.current.contains(event.target)) callback();
     }
 
