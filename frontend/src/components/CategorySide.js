@@ -44,8 +44,8 @@ const CategorySide = ({
             <OptionBox optionsArray={[
                 ['Mark Done', () => toggleAccomplishedCategory(category.id, !category.accomplished)],
                 ['Edit', () => toggleEditing()],
-                ['Send to'],
-                ['Delete']
+                ['Send to', () => alert('Under Construction')],
+                ['Delete', () => deleteCategory(category)]
               ]}
               checked={ category.accomplished }
             />
