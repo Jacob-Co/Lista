@@ -60,7 +60,7 @@ const OptionBox = ({ optionsArray = [], checked }) => {
           {optionsArray.map((option, idx) => <OptionDiv key={idx}
               onClick={() => {
                 option[1]();
-                // optionBoxRef.current.toggleVisibility(false);
+                hideOptionBox();
               }}
             >
             &#x000B7; {option[0]}
