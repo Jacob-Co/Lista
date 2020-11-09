@@ -16,7 +16,7 @@ const CategoryNameEditForm = ({ category, categoryList, toggleEditing }) => {
   }
 
   return(
-    <form onsubmit={ handleSubmit }>
+    <form onSubmit={ handleSubmit }>
       <input
         value={name}
         onChange={({target}) => setName(target.value)}
