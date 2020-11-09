@@ -23,6 +23,7 @@ const CategorySide = ({
       arrayIndex,
       makeTaskWorkingOn,
       toggleAccomplishedCategory,
+      categoryList,
     }) => {
 
   const [isEditing, setIsEditing] = useState(false);
@@ -49,7 +50,11 @@ const CategorySide = ({
               checked={ category.accomplished }
             />
             { isEditing 
-              ? <CategoryNameEditForm category={category}/>
+              ? <CategoryNameEditForm
+                  category={category}
+                  categoryList={categoryList}
+                  toggleEditing={toggleEditing}
+                />
               : <div>
                 <span {...provided.dragHandleProps}>
                   <CategoryName 
