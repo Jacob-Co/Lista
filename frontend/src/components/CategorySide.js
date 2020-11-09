@@ -16,6 +16,10 @@ const DropDown = styled.div`
   margin-bottom: 1.5rem;
 `
 
+const ContentDiv = styled.div`
+  margin-left: 1.5rem;
+`
+
 const CategorySide = ({
       category,
       deleteCategory,
@@ -40,7 +44,7 @@ const CategorySide = ({
           // isDragging={snapshot.isDragging}
           {...provided.draggableProps}
         >
-          <div style={{"display": "flex"}}>
+          <ContentDiv style={{"display": "flex"}}>
             <OptionBox optionsArray={[
                 ['Toggle Done', () => toggleAccomplishedCategory(category.id, !category.accomplished)],
                 ['Edit', () => toggleEditing()],
@@ -72,7 +76,7 @@ const CategorySide = ({
                 />
               </div>
             }
-          </div>
+          </ContentDiv>
         </DropDown>
       )}
     </Draggable>
