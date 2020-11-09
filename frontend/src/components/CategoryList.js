@@ -62,7 +62,7 @@ const CategoryList = () => {
 
   return (
     <div>
-      <h2>Your Categories:</h2>
+      <h2>Categories:</h2>
       <CategoryForm />
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId={'categories'} type={'categories'}>
@@ -76,7 +76,7 @@ const CategoryList = () => {
                   return (
                   <div key={category.id}>
                     <WorkingOn category={category} categoryList={categoryList}/>
-                    <h2>Other Categories:</h2>
+                    <h2>Your Categories:</h2>
                   </div>
                   )
                 }
