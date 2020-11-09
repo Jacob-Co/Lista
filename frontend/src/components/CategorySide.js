@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 import { Draggable } from 'react-beautiful-dnd';
 
-import DroppableTaskList from './DroppableTaskList'
-import OptionBox from './OptionBox'
+import DroppableTaskList from './DroppableTaskList';
+import OptionBox from './OptionBox';
+import CategoryNameEditForm from './CategoryNameEditForm';
 
 const CategoryName = styled.span`
   font-size: 1.07em;
@@ -48,7 +49,7 @@ const CategorySide = ({
               checked={ category.accomplished }
             />
             { isEditing 
-              ? 'Place Category name input here'
+              ? <CategoryNameEditForm category={category}/>
               : <div>
                 <span {...provided.dragHandleProps}>
                   <CategoryName 
