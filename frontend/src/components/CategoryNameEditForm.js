@@ -3,10 +3,26 @@ import { useDispatch } from 'react-redux';
 
 import { patchCategoryName } from '../reducer/categoryReducer';
 
+const useOutsideEventListener = (ref, callback) => {
+  useEffect(() => {
+    const hideForm = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) callback();
+    }
+
+    document.addEventListener('mousedown', hideForm);
+    return () => {
+      document.removeEventListener('mousedown', hideForm);
+    }
+  }, [ref])
+}
+
 const CategoryNameEditForm = ({ category, categoryList, toggleEditing }) => {
   const [ name, setName] = useState(category.name);
   const dispatch = useDispatch();
   const inputRef = useRef();
+  const formRef = useRef();
+
+  useOutsideEventListener(formRef, toggleEditing);
 
   useEffect(() => {
     setTimeout(() => {
