@@ -91,11 +91,6 @@ categoryRouter.patch('/name/:id', async (req, res) => {
   categoryToUpdate.name = body.name;
   const returnedCategory = await categoryToUpdate.save();
   return res.json(returnedCategory);
-  // const filter = { _id: req.params.id }
-  // const modify = { name: req.body.name }
-  // const options = { new: true }
-  // const returnedCategory = await Category.findOneAndUpdate(filter, modify, options);
-  // res.status(202).json(returnedCategory);
 })
 
 categoryRouter.patch('/summary/:id', async (req, res) => {
