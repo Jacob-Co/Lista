@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from "styled-components";
 import { Draggable } from 'react-beautiful-dnd';
 
 import DroppableTaskList from './DroppableTaskList';
 import OptionBox from './OptionBox';
 import CategoryNameEditForm from './CategoryNameEditForm';
+import Toggable from './Toggable';
+import SendForm from './SendForm';
 
 const CategoryName = styled.span`
   font-size: 1.07em;
@@ -20,6 +22,10 @@ const ContentDiv = styled.div`
   margin-left: 1.5rem;
 `
 
+const SendFormWrapper = styled.div`
+  margin-left: 3rem;
+`
+
 const CategorySide = ({
       category,
       deleteCategory,
@@ -31,6 +37,7 @@ const CategorySide = ({
     }) => {
 
   const [isEditing, setIsEditing] = useState(false);
+  const sendFormRef = useRef();
 
   const toggleEditing = () => {
     setIsEditing(!isEditing);
@@ -48,7 +55,7 @@ const CategorySide = ({
             <OptionBox optionsArray={[
                 ['Toggle Done', () => toggleAccomplishedCategory(category.id, !category.accomplished)],
                 ['Edit', () => toggleEditing()],
-                ['Send to', () => alert('Under Construction')],
+                ['Send to', () => sendFormRef.current.toggleVisibility()],
                 ['Delete', () => deleteCategory(category)]
               ]}
               checked={ category.accomplished }
@@ -77,6 +84,11 @@ const CategorySide = ({
               </div>
             }
           </ContentDiv>
+          <Toggable ref={sendFormRef}>
+            <SendFormWrapper>
+              <SendForm />
+            </SendFormWrapper>
+          </Toggable>
         </DropDown>
       )}
     </Draggable>
