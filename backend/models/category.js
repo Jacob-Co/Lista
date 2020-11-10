@@ -17,6 +17,10 @@ const categorySchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
+  sentTo: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
   index: {
     type: Number,
     default: null,
