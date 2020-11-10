@@ -2,7 +2,7 @@ import categories from '../services/categories';
 
 export const getSentToItems = () => {
   return async (dispatch) => {
-    const sentToItems = await categories.getSentToItems();
+    const sentToItems = await categories.getSentTo();
     dispatch({
       type: 'INIT_SENT_TO_ITEMS',
       data: sentToItems
