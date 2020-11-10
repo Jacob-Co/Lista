@@ -62,6 +62,7 @@ const patchCategoryName = async (cateogryId, name) => {
 
 export default {
   getAll,
+  getSentTo,
   postNewCategory,
   deleteCategory,
   patchIndex,
