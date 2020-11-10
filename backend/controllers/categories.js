@@ -57,7 +57,6 @@ categoryRouter.get('/sentTo', async (req, res) => {
   let returnCategories = [];
   if (sentCategories.length > 0) {
     for (const category of sentCategories) {
-      console.log('here')
       await category.populate({ path: 'user', select: 'username'}).execPopulate();
       returnCategories = returnCategories.concat(category);
     }
