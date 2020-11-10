@@ -29,7 +29,7 @@ const GivenCategoriesTasks = () => {
       {sentToItems.map(item => <ItemName
           key={item.id}
         >
-        {item.name}
+        {item.name}{`-- by: ${item.user.username}`}
         </ItemName>
       )}
     </div>
