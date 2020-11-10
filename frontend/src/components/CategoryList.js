@@ -13,6 +13,7 @@ import { initializeCategories,
 import CategoryForm from './CategoryForm'
 import CategorySide from './CategorySide'
 import WorkingOn from './WorkingOn';
+import GivenCategoriesTasks from './GivenCategoriesTasks';
 
 const StyledDroppable = styled.div`
   margin-right: 1rem;
@@ -99,6 +100,9 @@ const CategoryList = () => {
           )}
         </Droppable>
       </DragDropContext>
+      <StyledDroppable>
+        <GivenCategoriesTasks />
+      </StyledDroppable>
     </div>
   )
 }
