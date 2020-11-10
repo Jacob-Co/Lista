@@ -95,18 +95,7 @@ const genericPatchHelper = async (propertyToUpdate, req, res) => {
 }
 
 categoryRouter.patch('/name/:id', async (req, res) => {
-  const { token } = req;
-  if (!token) return res.status(401).json({ error: "Requires a token"});
-
-  const { body } = req;
-
-  const categoryToUpdate = await Category.findById(req.params.id);
-  if (!categoryToUpdate) return res.status(400).json({ "error": "No Category found"});
-  if (categoryToUpdate.user.toString() !== token.id) return res.status(401).json({ "error": "Invalid access" });
-
-  categoryToUpdate.name = body.name;
-  const returnedCategory = await categoryToUpdate.save();
-  return res.json(returnedCategory);
+  return await genericPatchHelper('name', req, res);
 })
 
 categoryRouter.patch('/summary/:id', async (req, res) => {
