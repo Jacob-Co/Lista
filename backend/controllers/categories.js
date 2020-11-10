@@ -50,6 +50,21 @@ categoryRouter.get('/friend/:id', async (req,res) => {
   res.status(200).json(friendCategories)
 })
 
+categoryRouter.get('/sentTo', async (req, res) => {
+  const { token } = req;
+  if (!token) return res.status(400).json({error: 'Requires token'});
+  let sentCategories = await Category.find({ sentTo: token.id });
+  let returnCategories = [];
+  if (sentCategories.length > 0) {
+    for (const category of sentCategories) {
+      console.log('here')
+      await category.populate({ path: 'user', select: 'username'}).execPopulate();
+      returnCategories = returnCategories.concat(category);
+    }
+  }
+  return res.json(returnCategories);
+})
+
 categoryRouter.get('/:id', async (req, res) => {
   const { id } = req.params;
   const returnedCategory = await Category.findById(id);
