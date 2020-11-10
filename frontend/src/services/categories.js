@@ -8,6 +8,12 @@ const getAll = async () => {
   return res.data
 }
 
+const getSentTo = async () => {
+  const config = { headers: { Authorization: getToken() }};
+  const res = await axios.get(`${baseUrl}/sentTo`, config);
+  return res.data;
+}
+
 const postNewCategory = async (category) => {
   const config = { headers: { Authorization: getToken() }}
   const res = await axios.post(baseUrl, category, config);
