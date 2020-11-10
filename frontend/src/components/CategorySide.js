@@ -55,7 +55,7 @@ const CategorySide = ({
             <OptionBox optionsArray={[
                 ['Toggle Done', () => toggleAccomplishedCategory(category.id, !category.accomplished)],
                 ['Edit', () => toggleEditing()],
-                ['Send to', () => sendFormRef.current.toggleVisibility()],
+                ['Send to', () => sendFormRef.current.toggleVisibility(true)],
                 ['Delete', () => deleteCategory(category)]
               ]}
               checked={ category.accomplished }
@@ -86,7 +86,7 @@ const CategorySide = ({
           </ContentDiv>
           <Toggable ref={sendFormRef}>
             <SendFormWrapper>
-              <SendForm />
+              <SendForm hideSendForm={() => sendFormRef.current.toggleVisibility(false)}/>
             </SendFormWrapper>
           </Toggable>
         </DropDown>
