@@ -78,7 +78,7 @@ categoryRouter.delete('/:id', async (req, res) => {
   res.status(204).end();
 })
 
-const genericPatchHelper = async (propertyToUpdate, req) => {
+const genericPatchHelper = async (propertyToUpdate, req, res) => {
   const { token } = req;
   if (!token) return res.status(401).json({ error: "Requires a token"});
 
@@ -91,7 +91,7 @@ const genericPatchHelper = async (propertyToUpdate, req) => {
   categoryToUpdate[propertyToUpdate] = body[propertyToUpdate];
   const returnCategory = await categoryToUpdate.save();
 
-  return returnCategory;
+  return res.json(returnCategory);
 }
 
 categoryRouter.patch('/name/:id', async (req, res) => {
@@ -189,8 +189,7 @@ categoryRouter.patch('/accomplished/:id', async (req, res) => {
 });
 
 categoryRouter.patch('/sentTo/:id', async (req, res) => {
-  const returnCategory = await genericPatchHelper('sentTo', req);
-  return res.json(returnCategory);
+  return await genericPatchHelper('sentTo', req, res);
 });
 
 module.exports = categoryRouter
