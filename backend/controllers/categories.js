@@ -78,6 +78,22 @@ categoryRouter.delete('/:id', async (req, res) => {
   res.status(204).end();
 })
 
+const genericPatchHelper = async (propertyToUpdate, req) => {
+  const { token } = req;
+  if (!token) return res.status(401).json({ error: "Requires a token"});
+
+  const { body } = req;
+
+  const categoryToUpdate = await Category.findById(req.params.id);
+  if (!categoryToUpdate) return res.status(400).json({ "error": "No Category found"});
+  if (categoryToUpdate.user.toString() !== token.id) return res.status(401).json({ "error": "Invalid access" });
+
+  categoryToUpdate[propertyToUpdate] = body[propertyToUpdate];
+  const returnCategory = await categoryToUpdate.save();
+
+  return returnCategory;
+}
+
 categoryRouter.patch('/name/:id', async (req, res) => {
   const { token } = req;
   if (!token) return res.status(401).json({ error: "Requires a token"});
