@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import io from 'socket.io-client';
 
 const GivenCategoriesTasks = () => {
-  const socket = io();
+  let socket;
+
+  useEffect(() => {
+    socket = io();
+  }, [])
+
 
   return(
     <div>
