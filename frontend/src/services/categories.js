@@ -60,6 +60,12 @@ const patchCategoryName = async (cateogryId, name) => {
   return res.data;
 }
 
+const patchSentTo = async (categoryId, sentTo) => {
+  const config = { headers: { Authorization: getToken() }};
+  const res = await axios.patch(`${baseUrl}/name/${categoryId}`, { sentTo }, config);
+  return res.data;
+}
+
 export default {
   getAll,
   getSentTo,
@@ -71,4 +77,5 @@ export default {
   patchTaskWorkingOn,
   patchAccomplishedCategory,
   patchCategoryName,
+  patchSentTo
 }
