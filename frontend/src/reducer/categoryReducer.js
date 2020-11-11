@@ -38,7 +38,7 @@ export const removeCategory = (id, categoryList) => {
     });
 
     dispatch({
-      type: 'UPDATE_CATEGORY',
+      type: 'UPDATE_CATEGORY_LIST',
       data: updatedCategoryList
     });
 
@@ -82,7 +82,7 @@ export const switchTaskIndexes = (sourceIdx, destinationIdx, categoryList, categ
     })
 
     dispatch({
-      type: 'UPDATE_CATEGORY',
+      type: 'UPDATE_CATEGORY_LIST',
       data: quickUpdatedCategoryList
     })
 
@@ -147,7 +147,7 @@ export const switchCategoryIndexes = (sourceIdx, desitnationIdx, categoryList) =
     if (categoryList[sourceIdx].taskWorkingOn) categoryList = await localRemoveWorkingOnTask(categoryList[sourceIdx].id, categoryList);
     const quickUpdatedCategoryList = quickSwitchCategories(sourceIdx, desitnationIdx, categoryList);
     dispatch({
-      type: 'UPDATE_CATEGORY',
+      type: 'UPDATE_CATEGORY_LIST',
       data: quickUpdatedCategoryList
     })
 
@@ -161,7 +161,7 @@ export const removeTask = (taskId, category) => {
     updatedCategory.tasks = category.tasks.filter(task => task.id !== taskId);
 
     dispatch({
-      type: 'REMOVE_TASK',
+      type: 'UPDATE_CATEGORY',
       data: updatedCategory
     })
 
@@ -180,7 +180,7 @@ export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryA
     });
     const quickUpdatedCategoryList = quickSwitchCategories(categoryArrayPosition, 0, updatedCategoryList);
     dispatch({
-      type: 'UPDATE_CATEGORY',
+      type: 'UPDATE_CATEGORY_LIST',
       data: quickUpdatedCategoryList
     });
     await categories.patchTaskWorkingOn(paramCategory.id, task.id);
@@ -205,7 +205,7 @@ export const removeWorkingOnTask = (categoryId, categoryList) => {
     const updatedCategoryList = localRemoveWorkingOnTask(categoryId, categoryList);
   
     dispatch({
-      type: 'UPDATE_CATEGORY',
+      type: 'UPDATE_CATEGORY_LIST',
       data: updatedCategoryList
     });
   }
@@ -221,7 +221,7 @@ export const patchAccomplishedCategory = (categoryId, categoryList, accomplished
     });
 
     dispatch({
-      type: 'UPDATE_CATEGORY',
+      type: 'UPDATE_CATEGORY_LIST',
       data: updatedCategoryList
     });
 
@@ -239,11 +239,22 @@ export const patchCategoryName = (categoryId, categoryList, newName) => {
     });
 
     dispatch({
-      type: 'UPDATE_CATEGORY',
+      type: 'UPDATE_CATEGORY_LIST',
       data: updatedCategoryList
     })
 
     await categories.patchCategoryName(categoryId, newName);
+  }
+}
+
+export const patchSentTo = (categoryId, sentTo) => {
+  return async (dispatch) => {
+    const updatedCategory = await categories.patchSentTo(categoryId, sentTo);
+
+    dispatch({
+      type: 'UPDATE_CATEGORY',
+      data: updatedCategory
+    })
   }
 }
 
@@ -262,14 +273,14 @@ const categoryReducer = (state = [], action) => {
         }
         return category;
       });
-    case 'REMOVE_TASK':
+    case 'UPDATE_CATEGORY':
       return state.map(category => {
         if (category.id === action.data.id) {
           return action.data;
         }
         return category;
       });
-    case 'UPDATE_CATEGORY':
+    case 'UPDATE_CATEGORY_LIST':
       return action.data;
     default:
       return state
