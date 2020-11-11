@@ -49,6 +49,21 @@ const CategorySide = ({
     setIsEditing(!isEditing);
   }
 
+  const optionsToBePassed = (isAccomplished, isSent) => {
+    const toggleDone = ['Toggle Done', () => toggleAccomplishedCategory(category.id, !category.accomplished)];
+    const edit = ['Edit', () => toggleEditing()];
+    const sendTo = ['Send to', () => sendFormRef.current.toggleVisibility(true)];
+    const deleteFunction = ['Delete', () => deleteCategory(category)];
+
+    if (isAccomplished && isSent) {
+      return [deleteFunction]
+    } else if (isAccomplished) {
+      return [toggleDone, deleteFunction]
+    }
+
+    return [toggleDone, edit, sendTo, deleteFunction];
+  }
+
   return (
     <Draggable draggableId={category.id} index={arrayIndex}>
       {provided => (
@@ -58,12 +73,7 @@ const CategorySide = ({
           {...provided.draggableProps}
         >
           <ContentDiv style={{"display": "flex"}}>
-            <OptionBox optionsArray={[
-                ['Toggle Done', () => toggleAccomplishedCategory(category.id, !category.accomplished)],
-                ['Edit', () => toggleEditing()],
-                ['Send to', () => sendFormRef.current.toggleVisibility(true)],
-                ['Delete', () => deleteCategory(category)]
-              ]}
+            <OptionBox optionsArray={optionsToBePassed(category.accomplished, category.sentTo)}
               checked={ category.accomplished }
             />
             { isEditing 
