@@ -86,7 +86,10 @@ const CategorySide = ({
           </ContentDiv>
           <Toggable ref={sendFormRef}>
             <SendFormWrapper>
-              <SendForm hideSendForm={() => sendFormRef.current.toggleVisibility(false)}/>
+              <SendForm 
+                hideSendForm={() => sendFormRef.current.toggleVisibility(false)}
+                item={category}
+              />
             </SendFormWrapper>
           </Toggable>
         </DropDown>
