@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+
+import patchSentTo from '../reducer/categoryReducer';
 
 const ButtonHolder = styled.div`
   margin-left: 1.5rem;
@@ -21,7 +23,8 @@ const useOutsideEventListener = (ref, callback) => {
   }, [ref])
 };
 
-const SendForm = ({ hideSendForm }) => {
+const SendForm = ({ hideSendForm, item }) => {
+  const dispatch = useDispatch();
   const friends = useSelector(state => state.friends);
   const sendFormRef = useRef();
 
@@ -33,6 +36,10 @@ const SendForm = ({ hideSendForm }) => {
       <ButtonHolder>
         {friends.map(friend => <button
           key={friend.id}
+          onClick={() => {
+            hideSendForm();
+            dispatch(patchSentTo(item.id, friend.id));
+          }}
         >
           {friend.username}
         </button>)}
