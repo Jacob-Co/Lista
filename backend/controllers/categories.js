@@ -93,24 +93,26 @@ categoryRouter.delete('/:id', async (req, res) => {
   res.status(204).end();
 })
 
-const genericPatchHelper = async (propertyToUpdate, req, res) => {
+const genericPatchHelper = async (propertyToUpdate, req) => {
   const { token } = req;
-  if (!token) return res.status(401).json({ error: "Requires a token"});
+  if (!token) return { error: "Requires a token"};
 
   const { body } = req;
 
   const categoryToUpdate = await Category.findById(req.params.id);
-  if (!categoryToUpdate) return res.status(400).json({ "error": "No Category found"});
-  if (categoryToUpdate.user.toString() !== token.id) return res.status(401).json({ "error": "Invalid access" });
+  if (!categoryToUpdate) return { "error": "No Category found"};
+  if (categoryToUpdate.user.toString() !== token.id) return { "error": "Invalid access" };
 
   categoryToUpdate[propertyToUpdate] = body[propertyToUpdate];
   const returnCategory = await categoryToUpdate.save();
 
-  return res.json(returnCategory);
+  return returnCategory;
 }
 
 categoryRouter.patch('/name/:id', async (req, res) => {
-  return await genericPatchHelper('name', req, res);
+  const returnCategory = await genericPatchHelper('name', req, res);
+  if (returnCategory.error) return res.status(400).json(returnCategory);
+  return res.json(returnCategory);
 })
 
 categoryRouter.patch('/summary/:id', async (req, res) => {
@@ -177,11 +179,16 @@ categoryRouter.patch('/taskWorkingOn/:id', async (req, res) => {
 })
 
 categoryRouter.patch('/accomplished/:id', async (req, res) => {
-  return await genericPatchHelper('accomplished', req, res);
+  const returnCategory = await genericPatchHelper('accomplished', req, res);
+  if (returnCategory.error) return res.status(400).json(returnCategory);
+  return res.json(returnCategory);
 });
 
 categoryRouter.patch('/sentTo/:id', async (req, res) => {
-  return await genericPatchHelper('sentTo', req, res);
+  const returnCategory = await genericPatchHelper('sentTo', req, res);
+  if (returnCategory.error) return res.status(400).json(returnCategory);
+  await returnCategory.populate({ path : 'sentTo', select: 'username'}).execPopulate();
+  return res.json(returnCategory);
 });
 
 module.exports = categoryRouter
