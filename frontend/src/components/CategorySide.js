@@ -26,6 +26,12 @@ const SendFormWrapper = styled.div`
   margin-left: 3rem;
 `
 
+const SendToDiv = styled.div`
+  margin-left: 3rem;
+  font-size: 1.02em;
+  font-style: italic;
+`
+
 const CategorySide = ({
       category,
       deleteCategory,
@@ -84,6 +90,7 @@ const CategorySide = ({
               </div>
             }
           </ContentDiv>
+          {category.sentTo ? <SendToDiv>{`sent to: ${category.sentTo.username}`}</SendToDiv> : ""}
           <Toggable ref={sendFormRef}>
             <SendFormWrapper>
               <SendForm 
