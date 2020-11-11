@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from "styled-components";
 import { Draggable } from 'react-beautiful-dnd';
 
@@ -7,6 +8,7 @@ import OptionBox from './OptionBox';
 import CategoryNameEditForm from './CategoryNameEditForm';
 import Toggable from './Toggable';
 import SendForm from './SendForm';
+import { patchSentTo } from '../reducer/categoryReducer';
 
 const CategoryName = styled.span`
   font-size: 1.07em;
@@ -44,6 +46,7 @@ const CategorySide = ({
 
   const [isEditing, setIsEditing] = useState(false);
   const sendFormRef = useRef();
+  const dispatch = useDispatch();
 
   const toggleEditing = () => {
     setIsEditing(!isEditing);
@@ -54,11 +57,14 @@ const CategorySide = ({
     const edit = ['Edit', () => toggleEditing()];
     const sendTo = ['Send to', () => sendFormRef.current.toggleVisibility(true)];
     const deleteFunction = ['Delete', () => deleteCategory(category)];
+    const unsend = ['Unsend', () => dispatch(patchSentTo(category.id, null))]
 
     if (isAccomplished && isSent) {
       return [deleteFunction]
     } else if (isAccomplished) {
       return [toggleDone, deleteFunction]
+    } else if (isSent) {
+      return [unsend]
     }
 
     return [toggleDone, edit, sendTo, deleteFunction];
