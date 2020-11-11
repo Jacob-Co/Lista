@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import patchSentTo from '../reducer/categoryReducer';
+import { patchSentTo } from '../reducer/categoryReducer';
 
 const ButtonHolder = styled.div`
   margin-left: 1.5rem;
