@@ -15,10 +15,8 @@ const ItemName = styled.span`
 const GivenCategoriesTasks = () => {
   const dispatch = useDispatch();
   const sentToItems = useSelector(state => state.sentToItems);
-  let socket;
 
   useEffect(() => {
-    socket = io();
     dispatch(getSentToItems());
   }, [])
 
