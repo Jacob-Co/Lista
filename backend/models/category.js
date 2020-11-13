@@ -25,6 +25,10 @@ const categorySchema = new mongoose.Schema({
     type: Number,
     default: null,
   },
+  sentToIndex: {
+    type: Number,
+    default: null
+  },
   workingOn: {
     type: Boolean,
     default: false,
