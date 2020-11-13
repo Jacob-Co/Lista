@@ -9,7 +9,3 @@ const io = require('socket.io')(server);
 server.listen(config.PORT, () => {
   console.log(`Listening on PORT ${config.PORT}`)
 })
-
-io.on('connection', (socket) => {
-  console.log('a user connected');
-});
