@@ -113,7 +113,7 @@ const quickSwitchCategories = (sourceIdx, desitnationIdx, categoryList) => {
   if (sourceIdx === 0) {
     const placeHolderCategory = {
       id: 'placeHolder',
-      name: '--none--',
+      name: 'Double click an item to place here',
       index: 0,
       workingOn: false,
       extraInfo: 'placeHolder'
