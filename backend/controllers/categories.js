@@ -4,9 +4,11 @@ const Category = require('../models/category');
 const Task = require('../models/task');
 const User = require('../models/users');
 
-const fixDisplayedCategories = async (categories, message) => {
+const fixDisplayedCategories = async (categories, message, userId) => {
   categories = categories.sort((category1, category2) => {
-    return category1.index - category2.index
+    const index1 = category1.user.toString() === userId ? category1.index : category1.sentToIndex;
+    const index2 = category2.user.toString() === userId ? category2.index : category2.sentToIndex;
+    return index1 - index2;
   });
 
   if (!categories[0] || !categories[0].workingOn || categories[0].index != 0) {
@@ -34,7 +36,7 @@ categoryRouter.get('/', async (req, res) => {
   if (!token) return res.status(400).json({error: 'Requires token'});
 
   let categories = await Category.find({ user: token.id})
-  const returnCategories = await fixDisplayedCategories(categories, 'Double click an item to place here');
+  const returnCategories = await fixDisplayedCategories(categories, 'Double click an item to place here', token.id);
 
   res.status(200).json(returnCategories);
 });
