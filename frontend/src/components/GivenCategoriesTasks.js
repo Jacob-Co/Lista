@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import io from 'socket.io-client';
 
 import { getSentToItems } from '../reducer/sentToItemReducer';
 
