@@ -5,11 +5,7 @@ const Task = require('../models/task');
 const User = require('../models/users');
 
 const fixDisplayedCategories = async (categories, message, userId) => {
-  categories = categories.sort((category1, category2) => {
-    const index1 = category1.user.toString() === userId ? category1.index : category1.sentToIndex;
-    const index2 = category2.user.toString() === userId ? category2.index : category2.sentToIndex;
-    return index1 - index2;
-  });
+  categories = sortCategories(categories, userId);
 
   if (!categories[0] || !categories[0].workingOn || categories[0].index != 0) {
     const nullCategory = new Category({ 
@@ -34,11 +30,27 @@ const fixDisplayedCategories = async (categories, message, userId) => {
   return returnCategories;
 }
 
+const sortCategories = (categories, userId) => {
+  categories = categories.sort((category1, category2) => {
+    const index1 = category1.user.toString() === userId ? category1.index : category1.sentToIndex;
+    const index2 = category2.user.toString() === userId ? category2.index : category2.sentToIndex;
+    return index1 - index2;
+  });
+  return categories;
+}
+
+const getAllDisplayedCategories = async (userId) => {
+  let categories = await Category.find({ user: userId})
+  const sentToCategories = await Category.find({ sentTo: userId });
+  categories = categories.concat(sentToCategories);
+  return categories;
+}
+
 categoryRouter.get('/', async (req, res) => {
   const { token } = req;
   if (!token) return res.status(400).json({error: 'Requires token'});
 
-  let categories = await Category.find({ user: token.id})
+  const categories = await getAllDisplayedCategories(token.id);
   const returnCategories = await fixDisplayedCategories(categories, 'Double click an item to place here', token.id);
 
   res.status(200).json(returnCategories);
@@ -192,8 +204,6 @@ categoryRouter.patch('/accomplished/:id', async (req, res) => {
 categoryRouter.patch('/sentTo/:id', async (req, res) => {
   const returnCategory = await genericPatchHelper('sentTo', req);
   if (returnCategory.error) return res.status(400).json(returnCategory);
-  returnCategory.sentToIndex = 1;
-  await returnCategory.save();
   await returnCategory.populate({ path : 'sentTo', select: 'username'}).execPopulate();
   return res.json(returnCategory);
 });
