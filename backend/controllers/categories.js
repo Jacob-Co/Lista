@@ -115,7 +115,7 @@ const genericPatchHelper = async (propertyToUpdate, req) => {
 }
 
 categoryRouter.patch('/name/:id', async (req, res) => {
-  const returnCategory = await genericPatchHelper('name', req, res);
+  const returnCategory = await genericPatchHelper('name', req);
   if (returnCategory.error) return res.status(400).json(returnCategory);
   return res.json(returnCategory);
 })
@@ -184,13 +184,13 @@ categoryRouter.patch('/taskWorkingOn/:id', async (req, res) => {
 })
 
 categoryRouter.patch('/accomplished/:id', async (req, res) => {
-  const returnCategory = await genericPatchHelper('accomplished', req, res);
+  const returnCategory = await genericPatchHelper('accomplished', req);
   if (returnCategory.error) return res.status(400).json(returnCategory);
   return res.json(returnCategory);
 });
 
 categoryRouter.patch('/sentTo/:id', async (req, res) => {
-  const returnCategory = await genericPatchHelper('sentTo', req, res);
+  const returnCategory = await genericPatchHelper('sentTo', req);
   if (returnCategory.error) return res.status(400).json(returnCategory);
   await returnCategory.populate({ path : 'sentTo', select: 'username'}).execPopulate();
   return res.json(returnCategory);
