@@ -100,9 +100,9 @@ const CategoryList = () => {
           )}
         </Droppable>
       </DragDropContext>
-      <StyledDroppable>
+      {/* <StyledDroppable>
         <GivenCategoriesTasks />
-      </StyledDroppable>
+      </StyledDroppable> */}
     </div>
   )
 }

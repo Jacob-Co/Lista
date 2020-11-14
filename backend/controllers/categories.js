@@ -24,7 +24,7 @@ const fixDisplayedCategories = async (categories, message, userId) => {
   for (const category of categories) {
     if (category.taskWorkingOn) await category.populate('taskWorkingOn').execPopulate();
     if (category.sentTo) await category.populate({ path: 'sentTo', select: 'username' }).execPopulate();
-    if (category.user.toString === userId) await category.populate({ path: 'user', select: 'username' }).execPopulate();
+    if (category.user.toString() === userId) await category.populate({ path: 'user', select: 'username' }).execPopulate();
     category.tasks = category.tasks.sort((task1, task2) => task1.index - task2.index);
     returnCategories = returnCategories.concat(category);
   }
