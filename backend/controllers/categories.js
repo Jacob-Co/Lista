@@ -192,6 +192,8 @@ categoryRouter.patch('/accomplished/:id', async (req, res) => {
 categoryRouter.patch('/sentTo/:id', async (req, res) => {
   const returnCategory = await genericPatchHelper('sentTo', req);
   if (returnCategory.error) return res.status(400).json(returnCategory);
+  returnCategory.sentToIndex = 1;
+  await returnCategory.save();
   await returnCategory.populate({ path : 'sentTo', select: 'username'}).execPopulate();
   return res.json(returnCategory);
 });
