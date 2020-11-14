@@ -4,6 +4,8 @@ const Category = require('../models/category');
 const Task = require('../models/task');
 const User = require('../models/users');
 
+// Helper Methods
+
 const fixDisplayedCategories = async (categories, message, userId) => {
   categories = sortCategories(categories, userId);
 
@@ -46,6 +48,23 @@ const getAllDisplayedCategories = async (userId) => {
   return categories;
 }
 
+const genericPatchHelper = async (propertyToUpdate, req) => {
+  const { token } = req;
+  if (!token) return { error: "Requires a token"};
+
+  const { body } = req;
+
+  const categoryToUpdate = await Category.findById(req.params.id);
+  if (!categoryToUpdate) return { "error": "No Category found"};
+  if (categoryToUpdate.user.toString() !== token.id) return { "error": "Invalid access" };
+
+  categoryToUpdate[propertyToUpdate] = body[propertyToUpdate];
+  const returnCategory = await categoryToUpdate.save();
+
+  return returnCategory;
+}
+
+// GET HANDLER
 categoryRouter.get('/', async (req, res) => {
   const { token } = req;
   if (!token) return res.status(400).json({error: 'Requires token'});
@@ -88,6 +107,8 @@ categoryRouter.get('/:id', async (req, res) => {
   res.status(201).json(returnedCategory);
 })
 
+// POST HANDLER
+
 categoryRouter.post('/', async (req, res) => {
   const { token } = req;
 
@@ -101,6 +122,7 @@ categoryRouter.post('/', async (req, res) => {
   res.status(201).json(returnedCategory);
 })
 
+// DELETE HANDLER
 categoryRouter.delete('/:id', async (req, res) => {
   const categoryToDelete = await Category.findById(req.params.id);
   for (const taskId of categoryToDelete.tasks) {
@@ -110,22 +132,7 @@ categoryRouter.delete('/:id', async (req, res) => {
   res.status(204).end();
 })
 
-const genericPatchHelper = async (propertyToUpdate, req) => {
-  const { token } = req;
-  if (!token) return { error: "Requires a token"};
-
-  const { body } = req;
-
-  const categoryToUpdate = await Category.findById(req.params.id);
-  if (!categoryToUpdate) return { "error": "No Category found"};
-  if (categoryToUpdate.user.toString() !== token.id) return { "error": "Invalid access" };
-
-  categoryToUpdate[propertyToUpdate] = body[propertyToUpdate];
-  const returnCategory = await categoryToUpdate.save();
-
-  return returnCategory;
-}
-
+//PATCH HANDLER
 categoryRouter.patch('/name/:id', async (req, res) => {
   const returnCategory = await genericPatchHelper('name', req);
   if (returnCategory.error) return res.status(400).json(returnCategory);
