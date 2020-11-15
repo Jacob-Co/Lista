@@ -66,6 +66,12 @@ const patchSentTo = async (categoryId, sentTo) => {
   return res.data;
 }
 
+const patchSentToIndex = async (categoryId, sentToIndex) => {
+  const config = { headers: { Authorization: getToken() }};
+  const res = await axios.post(`${baseUrl}/sentToIndex/${categoryId}`, { sentToIndex }, config);
+  return res.data;
+}
+
 export default {
   getAll,
   getSentTo,
@@ -77,5 +83,6 @@ export default {
   patchTaskWorkingOn,
   patchAccomplishedCategory,
   patchCategoryName,
-  patchSentTo
+  patchSentTo,
+  patchSentToIndex
 }
