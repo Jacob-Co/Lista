@@ -231,4 +231,10 @@ categoryRouter.patch('/sentTo/:id', async (req, res) => {
   return res.json(returnCategory);
 });
 
+categoryRouter.patch('/sentToIndex/:id', async (req, res) => {
+  const returnCategory = await genericPatchHelper('sentToIndex', req);
+  if (returnCategory.error) return res.status(400).json(returnCategory);
+  return res.json(returnCategory);
+})
+
 module.exports = categoryRouter
