@@ -61,6 +61,22 @@ export const createNewTask = (task) => {
   }
 }
 
+export const removeTask = (taskId, category) => {
+  return async (dispatch) => {
+    const updatedCategory = category;
+    updatedCategory.tasks = category.tasks.filter(task => task.id !== taskId);
+
+    dispatch({
+      type: 'UPDATE_CATEGORY',
+      data: updatedCategory
+    })
+
+    await tasks.deleteTask(taskId);
+  }
+}
+
+// SWITCH
+
 const quickSwitchTasks = (sourceIdx, destinationIdx, taskList) => {
   let newTaskList = taskList.slice();
   newTaskList.splice(sourceIdx, 1);
@@ -155,18 +171,16 @@ export const switchCategoryIndexes = (sourceIdx, desitnationIdx, categoryList) =
   }
 }
 
-export const removeTask = (taskId, category) => {
-  return async (dispatch) => {
-    const updatedCategory = category;
-    updatedCategory.tasks = category.tasks.filter(task => task.id !== taskId);
+const localRemoveWorkingOnTask = async (categoryId, categoryList) => {
+  const updatedCategoryList = categoryList.map(category => {
+    if (category.id === categoryId) {
+      category.taskWorkingOn = null;
+    }
+    return category;
+  })
 
-    dispatch({
-      type: 'UPDATE_CATEGORY',
-      data: updatedCategory
-    })
-
-    await tasks.deleteTask(taskId);
-  }
+  await categories.patchTaskWorkingOn(categoryId, null);
+  return updatedCategoryList;
 }
 
 export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryArrayPosition) => {
@@ -188,18 +202,6 @@ export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryA
   }
 }
 
-const localRemoveWorkingOnTask = async (categoryId, categoryList) => {
-  const updatedCategoryList = categoryList.map(category => {
-    if (category.id === categoryId) {
-      category.taskWorkingOn = null;
-    }
-    return category;
-  })
-
-  await categories.patchTaskWorkingOn(categoryId, null);
-  return updatedCategoryList;
-}
-
 export const removeWorkingOnTask = (categoryId, categoryList) => {
   return async (dispatch) => {
     const updatedCategoryList = localRemoveWorkingOnTask(categoryId, categoryList);
@@ -210,6 +212,8 @@ export const removeWorkingOnTask = (categoryId, categoryList) => {
     });
   }
 }
+
+// PATCH
 
 export const patchAccomplishedCategory = (categoryId, categoryList, accomplishedStatus) => {
   return async (dispatch) => {
