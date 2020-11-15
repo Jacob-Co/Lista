@@ -9,7 +9,10 @@ const User = require('../models/users');
 const fixDisplayedCategories = async (categories, message, userId) => {
   categories = sortCategories(categories, userId);
 
-  if (!categories[0] || !categories[0].workingOn || categories[0].index != 0) {
+  if (!categories[0] || 
+      (!categories[0].workingOn && !categories[0].sentToWorkingOn) ||
+      (categories[0].index != 0 && categories[0].sentToIndex != 0)
+     ){
     const nullCategory = new Category({ 
       name: `--${message}--`,
       index: 0,
