@@ -29,6 +29,10 @@ const categorySchema = new mongoose.Schema({
     type: Number,
     default: null
   },
+  sentToWorkingOn: {
+    type: Boolean,
+    default: false,
+  },
   workingOn: {
     type: Boolean,
     default: false,
