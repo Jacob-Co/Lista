@@ -211,6 +211,22 @@ categoryRouter.patch('/accomplished/:id', async (req, res) => {
 categoryRouter.patch('/sentTo/:id', async (req, res) => {
   const returnCategory = await genericPatchHelper('sentTo', req);
   if (returnCategory.error) return res.status(400).json(returnCategory);
+  const sentToId = req.body.sentTo;
+  if (sentToId) {
+    const sentToCategories = await getAllDisplayedCategories(sentToId);
+    for (const category of sentToCategories) {
+      if (category.id === returnCategory.id) {
+        category.sentToIndex = 1;
+      } else {
+        const indexToIncrement = category.user.toString() === sentToId ? 'index' : 'sentToIndex';
+        if (category[indexToIncrement] === 0) continue;
+        category[indexToIncrement] += 1;
+      }
+  
+      await category.save();
+    }
+  }
+
   await returnCategory.populate({ path : 'sentTo', select: 'username'}).execPopulate();
   return res.json(returnCategory);
 });
