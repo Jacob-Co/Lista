@@ -68,7 +68,7 @@ const patchSentTo = async (categoryId, sentTo) => {
 
 const patchSentToIndex = async (categoryId, sentToIndex) => {
   const config = { headers: { Authorization: getToken() }};
-  const res = await axios.post(`${baseUrl}/sentToIndex/${categoryId}`, { sentToIndex }, config);
+  const res = await axios.patch(`${baseUrl}/sentToIndex/${categoryId}`, { sentToIndex }, config);
   return res.data;
 }
 
