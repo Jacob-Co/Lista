@@ -158,7 +158,7 @@ const updateCategoryIndexOnDb = async (categoryToBeUpdated) => {
   }
 };
 
-export const switchCategoryIndexes = (sourceIdx, desitnationIdx, categoryList) => {
+export const switchCategoryIndexes = (sourceIdx, desitnationIdx, categoryList, username) => {
   return async(dispatch) => {
     if (categoryList[sourceIdx].taskWorkingOn) categoryList = await localRemoveWorkingOnTask(categoryList[sourceIdx].id, categoryList);
     const quickUpdatedCategoryList = quickSwitchCategories(sourceIdx, desitnationIdx, categoryList);
@@ -167,7 +167,7 @@ export const switchCategoryIndexes = (sourceIdx, desitnationIdx, categoryList) =
       data: quickUpdatedCategoryList
     })
 
-    await updateCategoryIndexOnDb(quickUpdatedCategoryList);
+    await updateCategoryIndexOnDb(quickUpdatedCategoryList, username);
   }
 }
 
