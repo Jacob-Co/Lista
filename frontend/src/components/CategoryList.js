@@ -24,6 +24,7 @@ const StyledDroppable = styled.div`
 const CategoryList = () => {
   const dispatch = useDispatch()
   const categoryList = useSelector(state => state.categories)
+  const username = useSelector(state => state.token.username);
 
   useEffect(() => {
     dispatch(initializeCategories())
