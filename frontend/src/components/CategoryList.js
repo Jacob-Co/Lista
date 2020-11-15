@@ -47,7 +47,7 @@ const CategoryList = () => {
     const destIdx = parseInt(result.destination.index)
     console.log(`source: ${sourceIdx}, dest: ${destIdx}`)
     if (result.type === 'categories') {
-      dispatch(switchCategoryIndexes(sourceIdx, destIdx, categoryList));
+      dispatch(switchCategoryIndexes(sourceIdx, destIdx, categoryList, username));
     } else {
       const categoryId = result.source.droppableId;
       dispatch(switchTaskIndexes(sourceIdx, destIdx, categoryList, categoryId))
@@ -55,7 +55,7 @@ const CategoryList = () => {
   }
 
   const makeWorkingOn = (index) => {
-    dispatch(switchCategoryIndexes(index, 0, categoryList));
+    dispatch(switchCategoryIndexes(index, 0, categoryList, username));
   }
 
   const makeTaskWorkingOn = (category, task, categoryArrayPosition) => {
