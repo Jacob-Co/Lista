@@ -148,8 +148,7 @@ const updateCategoryIndexOnDb = async (categoryToBeUpdated, username) => {
     if (category[properIndex] !== counter) {
       if (category.extraInfo) continue;
       if (counter === 0) {
-        // add here categories.patchSentToWorkingOn;
-        await categories.patchWorkingOn(category.id);
+        await categories.patchWorkingOn(category.id, isSentCategory);
         counter += 1;
         continue;
       }
@@ -161,37 +160,6 @@ const updateCategoryIndexOnDb = async (categoryToBeUpdated, username) => {
       counter += 1;
     }
   }
-
-  // for (const category of categoryToBeUpdated) {
-  //   if (category.sentTo && category.sentTo.username !== username) {
-  //     if (category.sentToIndex !== counter) {
-  //       if (counter === 0) {
-  //         // To be added
-  //         counter += 1;
-  //         continue;
-  //       }
-  //       await categories.patchSentToIndex(category.id, counter);
-  //       counter += 1;
-  //     } else {
-  //       counter += 1;
-  //     }
-  //   } else {
-  //     if (category.index !== counter) {
-  //       if (category.extraInfo) continue;
-  //       if (counter === 0) {
-  //         await categories.patchWorkingOn(category.id);
-  //         counter += 1;
-  //         continue;
-  //       }
-  //       await categories.patchIndex(category.id, counter);
-  //       counter += 1;
-  //     } else {
-  //       counter += 1;
-  //     }
-  //   }
-  // }
-
-  
 };
 
 export const switchCategoryIndexes = (sourceIdx, desitnationIdx, categoryList, username) => {
