@@ -99,7 +99,7 @@ const CategorySide = ({
                   <CategoryName 
                     onDoubleClick={() => {
                       (category.sentTo && category.sentTo.username !== username)
-                        ? alert('Cannot work on sent items!')
+                        ? alert('Cannot work on items you sent to others!')
                         : makeWorkingOn(arrayIndex)
                     }}
                     isAccomplished={category.accomplished}
@@ -116,10 +116,10 @@ const CategorySide = ({
               </div>
             }
           </ContentDiv>
-          {category.sentTo 
+          {category.sentTo
             ? <SendToDiv>{category.sentTo.username === username 
-              ? `to: ${category.sentTo.username}` 
-              :  `from: ${category.sentTo.username}`}</SendToDiv> 
+              ? `from: ${category.user.username}` 
+              :  `to: ${category.sentTo.username}`}</SendToDiv> 
             : ""}
           <Toggable ref={sendFormRef}>
             <SendFormWrapper>
