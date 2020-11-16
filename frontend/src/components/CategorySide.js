@@ -84,7 +84,7 @@ const CategorySide = ({
           <ContentDiv style={{"display": "flex"}}>
             <OptionBox optionsArray={optionsToBePassed(category.accomplished,
                 category.sentTo,
-                (category.sentTo && category.sentTo.username !== username)
+                (category.sentTo && category.sentTo.username === username)
               )}
               checked={ category.accomplished }
             />
