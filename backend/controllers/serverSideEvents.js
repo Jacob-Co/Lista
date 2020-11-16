@@ -18,6 +18,7 @@ serverSERouter.get('/stream', async (req, res) => {
   });
   userIds[user.id] = res;
   console.log(Object.keys(userIds))
+  return res.status(200).json({ success: 'Server side connection established' });
 })
 
 module.exports = serverSERouter;
