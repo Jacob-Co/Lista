@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components";
 import { Draggable } from 'react-beautiful-dnd';
 
@@ -47,6 +47,7 @@ const CategorySide = ({
   const [isEditing, setIsEditing] = useState(false);
   const sendFormRef = useRef();
   const dispatch = useDispatch();
+  const username = useSelector(state => state.token.username);
 
   const toggleEditing = () => {
     setIsEditing(!isEditing);
@@ -106,7 +107,11 @@ const CategorySide = ({
               </div>
             }
           </ContentDiv>
-          {category.sentTo ? <SendToDiv>{`sent to: ${category.sentTo.username}`}</SendToDiv> : ""}
+          {category.sentTo 
+            ? <SendToDiv>{category.sentTo.username === username 
+              ? `to: ${category.sentTo.username}` 
+              :  `from: ${category.sentTo.username}`}</SendToDiv> 
+            : ""}
           <Toggable ref={sendFormRef}>
             <SendFormWrapper>
               <SendForm 
