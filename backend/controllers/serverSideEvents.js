@@ -35,7 +35,7 @@ serverSERouter.get('/requestStream', async (req, res) => {
   return res.status(200).json({ success: 'Server side connection established', code });
 })
 
-serverSERouter.get('/stream/:code', (req, res) => {
+serverSERouter.get('/stream/:code/:username', (req, res) => {
   const code = req.params.code;
   let isCorrectCode = false;
   accessCodes = accessCodes.filter(accessCode => {
@@ -46,12 +46,14 @@ serverSERouter.get('/stream/:code', (req, res) => {
 
   if (!isCorrectCode) return res.status(400).json({ error: 'wrong code'});
 
+  const username = req.params.username;
+
   res.setHeader('Content-Type', 'text/event-stream');
   res.socket.on('end', e => {
-    delete userIds[user.id]
+    delete userIds[username]
     console.log(`Remaining: ${Object.keys(userIds)}`)
   });
-  userIds[user.id] = res;
+  userIds[username] = res;
   console.log(Object.keys(userIds))
   return res.status(200).json({ success: 'Server side connection established' });
 })
