@@ -119,7 +119,7 @@ const CategorySide = ({
           {category.sentTo
             ? <SendToDiv>{category.sentTo.username === username 
               ? `from: ${category.user.username}` 
-              :  `to: ${category.sentTo.username}`}</SendToDiv> 
+              :  `sent to: ${category.sentTo.username}`}</SendToDiv> 
             : ""}
           <Toggable ref={sendFormRef}>
             <SendFormWrapper>
