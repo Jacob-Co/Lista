@@ -33,7 +33,7 @@ const DroppableTaskList = ({category, deleteCategory, makeTaskWorkingOn, categor
 
   return (
     <>
-      <button onClick={() => {deleteCategory(category)}}>X</button>
+      {/* <button onClick={() => {deleteCategory(category)}}>X</button> */}
       <button onClick={showCreateTask}>+</button>
       {category.tasks.length > 0 ? <button onClick={toggleTasks}>&or;</button> : ''}
       <div>
