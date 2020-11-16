@@ -9,6 +9,7 @@ const updateNoteRouter = require('./controllers/updateNotes')
 const dateRouter = require('./controllers/dates');
 const loginRouter = require('./controllers/login');
 const userRouter = require('./controllers/users');
+const serverSideEvents = require('./controllers/serverSideEvents');
 const config = require('./utils/config')
 const { errorHandler, tokenExtractor } = require('./utils/middleware');
 
@@ -25,13 +26,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(tokenExtractor);
-app.use(express.static('build'))
-app.use('/api/categories', categoryRouter)
-app.use('/api/tasks', taskRouter)
-app.use('/api/updateNotes', updateNoteRouter)
-app.use('/api/dates', dateRouter)
+app.use(express.static('build'));
+app.use('/api/categories', categoryRouter);
+app.use('/api/tasks', taskRouter);
+app.use('/api/updateNotes', updateNoteRouter);
+app.use('/api/dates', dateRouter);
 app.use('/api/login', loginRouter);
-app.use('/api/user', userRouter)
+app.use('/api/user', userRouter);
+app.use('/serverSide', serverSideEvents);
 app.use(errorHandler)
 
 module.exports = app;
