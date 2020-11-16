@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { switchCategoryIndexes, removeWorkingOnTask } from '../reducer/categoryReducer';
 
@@ -32,11 +32,12 @@ const TaskName = styled.div`
 
 const WorkingOn = ({ category, categoryList, viewOnly }) => {
   const dispatch = useDispatch();
+  const username = useSelector(state => state.token.username);
 
   const handleRemove = () => {
     if (!category.workingOn && category.extraInfo !== null) return;
     if (category.taskWorkingOn) dispatch(removeWorkingOnTask(category.id, categoryList));
-    dispatch(switchCategoryIndexes(0, 0, categoryList))
+    dispatch(switchCategoryIndexes(0, 0, categoryList, username))
   }
 
   return(
