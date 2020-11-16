@@ -257,19 +257,8 @@ categoryRouter.patch('/sentTo/:id', async (req, res) => {
 });
 
 categoryRouter.patch('/sentToIndex/:id', async (req, res) => {
-  const { token } = req;
-  if (!token) return { error: "Requires a token"};
-
-  const { body } = req;
-
-  const categoryToUpdate = await Category.findById(req.params.id);
-  if (!categoryToUpdate) return res.status(400).json({ "error": "No Category found"});
-  // check sentTo instead of user
-  if (categoryToUpdate.sentTo.toString() !== token.id) return res.status(400).json({ "error": "Invalid access" });
-
-  categoryToUpdate.sentToIndex = body.sentToIndex;
-  const returnCategory = await categoryToUpdate.save();
-
+  const returnCategory = await genericPatchHelper('sentToIndex', req);
+  if (returnCategory.error) return res.status(400).json(returnCategory);
   return res.json(returnCategory);
 })
 
