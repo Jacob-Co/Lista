@@ -30,6 +30,12 @@ const TaskName = styled.div`
   margin-bottom: .5rem;
 `
 
+const SendToDiv = styled.div`
+  margin-left: 1rem;
+  font-size: 1.02em;
+  font-style: italic;
+`
+
 const WorkingOn = ({ category, categoryList, viewOnly }) => {
   const dispatch = useDispatch();
   const username = useSelector(state => state.token.username);
@@ -45,14 +51,13 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
     <WorkingOnDiv viewOnly={viewOnly}>
       <h2>Currently Working On:</h2>
       <ContentDiv>
-        
-          {category.taskWorkingOn ? <TaskName>{`Task -${category.taskWorkingOn.name}- from:`}</TaskName> : ""}
-          <CategoryName>{category.name}</CategoryName>
-          { category.tasks && category.tasks.length > 0
-            ? <TaskList tasks={category.tasks} category={category}/>
-            : ""
-          }
-
+        {category.taskWorkingOn ? <TaskName>{`Task -${category.taskWorkingOn.name}- from:`}</TaskName> : ""}
+        <CategoryName>{category.name}</CategoryName>
+        { category.tasks && category.tasks.length > 0
+          ? <TaskList tasks={category.tasks} category={category}/>
+          : ""
+        }
+        { category.sentTo ? <SendToDiv>{`from: ${category.user.username}`}</SendToDiv> : ""}
         { viewOnly || category.extraInfo !== null
           ? "" 
           : <div><RemoveButton onClick={handleRemove}>remove</RemoveButton></div>
