@@ -59,7 +59,7 @@ const genericPatchHelper = async (propertyToUpdate, req) => {
 
   const categoryToUpdate = await Category.findById(req.params.id);
   if (!categoryToUpdate) return { "error": "No Category found"};
-  if (categoryToUpdate.user.toString() !== token.id ||
+  if (categoryToUpdate.user.toString() !== token.id &&
     categoryToUpdate.sentTo.toString() !== token.id) {
       return { "error": "Invalid access" }
   }
