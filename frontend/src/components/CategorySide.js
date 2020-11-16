@@ -60,7 +60,7 @@ const CategorySide = ({
     const deleteFunction = ['Delete', () => deleteCategory(category)];
     const unsend = ['Unsend', () => dispatch(patchSentTo(category.id, null))]
 
-    if (isNotOwned ) {
+    if (isNotOwned) {
       return[toggleDone]
     } else if (isAccomplished && isSent) {
       return [deleteFunction]
@@ -82,7 +82,10 @@ const CategorySide = ({
           {...provided.draggableProps}
         >
           <ContentDiv style={{"display": "flex"}}>
-            <OptionBox optionsArray={optionsToBePassed(category.accomplished, category.sentTo, category.sentTo !== username)}
+            <OptionBox optionsArray={optionsToBePassed(category.accomplished,
+                category.sentTo,
+                (category.sentTo && category.sentTo.username !== username)
+              )}
               checked={ category.accomplished }
             />
             { isEditing 
@@ -94,7 +97,11 @@ const CategorySide = ({
               : <div>
                 <span {...provided.dragHandleProps}>
                   <CategoryName 
-                    onDoubleClick={() => makeWorkingOn(arrayIndex)}
+                    onDoubleClick={() => {
+                      (category.sentTo && category.sentTo.username !== username)
+                        ? alert('Cannot work on sent items!')
+                        : makeWorkingOn(arrayIndex)
+                    }}
                     isAccomplished={category.accomplished}
                   >
                     {category.name}
