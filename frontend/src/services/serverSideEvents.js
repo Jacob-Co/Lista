@@ -1,4 +1,7 @@
 import axios from 'axios';
+
+import { getToken } from './tokenHolder'
+
 const baseUrl = '/serverSide';
 
 let sse;
