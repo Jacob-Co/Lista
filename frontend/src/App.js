@@ -10,6 +10,7 @@ import Login from './components/Login'
 import Logout from './components/Logout'
 import FriendsList from './components/FriendsList'
 import FriendCategoriesView from './components/FriendCategoriesView'
+import serverSideEvents from './services/serverSideEvents'
 
 const TwoColumn = styled.div`
   display: flex;
@@ -31,6 +32,8 @@ const RightColumn = styled.div`
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.token);
+
+  if (user) serverSideEvents.establishSSE()
 
   useEffect(() => {
     const localUser = window.localStorage.getItem('localTicketUser');
