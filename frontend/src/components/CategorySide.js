@@ -53,14 +53,16 @@ const CategorySide = ({
     setIsEditing(!isEditing);
   }
 
-  const optionsToBePassed = (isAccomplished, isSent) => {
+  const optionsToBePassed = (isAccomplished, isSent, isNotOwned) => {
     const toggleDone = ['Toggle Done', () => toggleAccomplishedCategory(category.id, !category.accomplished)];
     const edit = ['Edit', () => toggleEditing()];
     const sendTo = ['Send to', () => sendFormRef.current.toggleVisibility(true)];
     const deleteFunction = ['Delete', () => deleteCategory(category)];
     const unsend = ['Unsend', () => dispatch(patchSentTo(category.id, null))]
 
-    if (isAccomplished && isSent) {
+    if (isNotOwned ) {
+      return[toggleDone]
+    } else if (isAccomplished && isSent) {
       return [deleteFunction]
     } else if (isAccomplished) {
       return [toggleDone, deleteFunction]
@@ -80,7 +82,7 @@ const CategorySide = ({
           {...provided.draggableProps}
         >
           <ContentDiv style={{"display": "flex"}}>
-            <OptionBox optionsArray={optionsToBePassed(category.accomplished, category.sentTo)}
+            <OptionBox optionsArray={optionsToBePassed(category.accomplished, category.sentTo, category.sentTo !== username)}
               checked={ category.accomplished }
             />
             { isEditing 
