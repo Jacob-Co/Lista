@@ -1,8 +1,8 @@
 const categoryRouter = require('express').Router();
-const { json } = require('express');
 const Category = require('../models/category');
 const Task = require('../models/task');
 const User = require('../models/users');
+const SSEUserIds = require('../utils/SSEUserIds');
 
 // Helper Methods
 
