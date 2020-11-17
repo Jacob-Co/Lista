@@ -11,6 +11,7 @@ import Logout from './components/Logout'
 import FriendsList from './components/FriendsList'
 import FriendCategoriesView from './components/FriendCategoriesView'
 import serverSideEvents from './services/serverSideEvents'
+import SSEListener from './SSEListener';
 
 const TwoColumn = styled.div`
   display: flex;
@@ -37,7 +38,8 @@ function App() {
     if (user) {
       serverSideEvents.getStreamCode()
         .then(code => {
-          serverSideEvents.establishSSE(code, user.username);
+          let SSE = serverSideEvents.establishSSE(code, user.username);
+          SSEListener(SSE);
         })
     }
   }, [user]);
