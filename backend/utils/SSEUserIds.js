@@ -1,3 +1,3 @@
 const SSEUserIds = {}
 
-module.exports = userIds;
+module.exports = SSEUserIds;
