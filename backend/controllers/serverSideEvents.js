@@ -48,14 +48,18 @@ serverSERouter.get('/stream/:code/:username', (req, res) => {
 
   const username = req.params.username;
 
-  res.setHeader('Content-Type', 'text/event-stream');
+  const headers = {
+    'Content-Type': 'text/event-stream',
+    'Connection': 'keep-alive',
+    'Cache-Control': 'no-cache'
+  }
+  res.writeHead(200, headers);
   res.socket.on('end', e => {
     delete userIds[username]
     console.log(`Remaining: ${Object.keys(userIds)}`)
   });
   userIds[username] = res;
   console.log(Object.keys(userIds))
-  return res.status(200).json({ success: 'Server side connection established' });
 })
 
 module.exports = serverSERouter;
