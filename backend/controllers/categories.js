@@ -251,11 +251,13 @@ categoryRouter.patch('/sentTo/:id', async (req, res) => {
       await category.save();
     }
     await returnCategory.populate({ path : 'sentTo', select: 'username'}).execPopulate();
-    const sentToRes = SSEUserIds[returnCategory.sentTo.username];
-    const command = 'NEW_SENT_TO_CATEGORY';
-    const sentToCategory = returnCategory;
-    const data = JSON.stringify({ command, sentToCategory});
-    sentToRes.write(`data: ${data}\n\n`);
+    if (SSEUserIds[returnCategory.sentTo.username]) {
+      const sentToRes = SSEUserIds[returnCategory.sentTo.username];
+      const command = 'NEW_SENT_TO_CATEGORY';
+      const sentToCategory = returnCategory;
+      const data = JSON.stringify({ command, sentToCategory});
+      sentToRes.write(`data: ${data}\n\n`);
+    }
   }
 
   return res.json(returnCategory);
