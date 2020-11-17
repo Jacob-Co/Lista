@@ -3,8 +3,9 @@ import axios from 'axios';
 import { getToken } from './tokenHolder'
 
 const baseUrl = '/serverSide';
+let SSE;
 
-const getStreamCode = async (username) => {
+const getStreamCode = async () => {
   const config = { headers: { Authorization: getToken() }};
   const res = await axios.get(`${baseUrl}/requestStream`, config);
   
@@ -12,8 +13,8 @@ const getStreamCode = async (username) => {
   return res.data.code;
 };
 
-// const getSSE = (code, user) => {
-//   return new EventSource(`${baseUrl}/stream/${}`)
-// }
+const establishSSE = (code, username) => {
+  return new EventSource(`${baseUrl}/stream/${code}/${username}`)
+}
 
-  export default { getStreamCode };
+export default { getStreamCode, establishSSE };
