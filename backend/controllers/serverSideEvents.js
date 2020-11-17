@@ -1,9 +1,8 @@
 const serverSERouter = require('express').Router();
-
 const User = require('../models/users');
+const userIds = require('../utils/SSEUserIds')
 
 // Store open connections here
-const userIds = {};
 let accessCodes = [];
 
 const generateRandomCode = () => {
