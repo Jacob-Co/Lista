@@ -12,4 +12,8 @@ const getStreamCode = async (username) => {
   return res.data.code;
 };
 
+// const getSSE = (code, user) => {
+//   return new EventSource(`${baseUrl}/stream/${}`)
+// }
+
   export default { getStreamCode };
