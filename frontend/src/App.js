@@ -33,8 +33,6 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.token);
 
-  if (user) serverSideEvents.establishSSE(user.username)
-
   useEffect(() => {
     const localUser = window.localStorage.getItem('localTicketUser');
     if (localUser) {
