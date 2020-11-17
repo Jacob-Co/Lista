@@ -36,9 +36,8 @@ function App() {
   useEffect(() => {
     if (user) {
       serverSideEvents.getStreamCode()
-        .then(res => {
-          console.log(res)
-          const sse = new EventSource(`/serverSide/stream/${res}/${user.username}`)
+        .then(code => {
+          serverSideEvents.establishSSE(code, user.username);
         })
     }
   }, [user]);
