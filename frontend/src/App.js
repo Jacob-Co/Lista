@@ -34,6 +34,16 @@ function App() {
   const user = useSelector(state => state.token);
 
   useEffect(() => {
+    if (user) {
+      serverSideEvents.getStreamCode()
+        .then(res => {
+          console.log(res)
+          const sse = new EventSource(`/serverSide/stream/${res}/${user.username}`)
+        })
+    }
+  }, [user]);
+
+  useEffect(() => {
     const localUser = window.localStorage.getItem('localTicketUser');
     if (localUser) {
       const transformedUser = JSON.parse(localUser);
