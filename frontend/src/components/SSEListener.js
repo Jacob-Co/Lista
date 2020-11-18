@@ -46,8 +46,9 @@ const SSEListener =  ({ username }) => {
     if (sse.readyState === 2 || !navigator.onLine) {
       sse.close();
       connectToSSE();
+      if (sse.readyState !== 2 || navigator.onLine) dispatch(initializeCategories());
     };
-  }, 1000);
+  }, 3000);
 
   return(<></>)
 }
