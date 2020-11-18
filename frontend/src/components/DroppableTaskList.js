@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { Children, useRef } from 'react';
 import styled from 'styled-components';
 import { Droppable } from 'react-beautiful-dnd';
 
@@ -12,7 +12,7 @@ const TaskDiv = styled.div`
   margin-bottom: 1rem;
 `
 
-const DroppableTaskList = ({category, deleteCategory, makeTaskWorkingOn, categoryArrayIndex}) => {
+const DroppableTaskList = ({category, deleteCategory, makeTaskWorkingOn, categoryArrayIndex, children}) => {
   const taskToggable = useRef();
   const createTaskToggable = useRef();
   const taskFormRef = useRef();
@@ -36,6 +36,7 @@ const DroppableTaskList = ({category, deleteCategory, makeTaskWorkingOn, categor
       {/* <button onClick={() => {deleteCategory(category)}}>X</button> */}
       { category.sentTo ? "" : <button onClick={showCreateTask}>+</button>}
       {category.tasks.length > 0 ? <button onClick={toggleTasks}>&or;</button> : ''}
+      {children}
       <div>
         <Droppable droppableId={`${category.id}`} type="tasks">
           {provided => (
