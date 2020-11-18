@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom'
 
-import serverSideEvents from '../services/serverSideEvents'
+import serverSideEvents from '../services/serverSideEvents';
 import { initializeCategories } from '../reducer/categoryReducer';
+import { logout } from '../reducer/tokenReducer';
 
 const useInterval = (callback, miliSeconds) => {
   const savedCallback = useRef();
@@ -21,14 +23,20 @@ const useInterval = (callback, miliSeconds) => {
 
 const SSEListener =  ({ username }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   let sse;
   const connectToSSE = () => {
     serverSideEvents.getStreamCode()
     .then(code => {
       sse = serverSideEvents.establishSSE(code, username);
       sse.onmessage = e => {
-        console.log(`hello`)
-        dispatch(initializeCategories());
+        console.log(e.data)
+        if (e.data === 'logout') {
+          dispatch(logout());
+          history.push('/');
+        } else {
+          dispatch(initializeCategories());
+        }
       }
     })
   }
