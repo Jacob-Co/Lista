@@ -8,7 +8,7 @@ const TasksDiv = styled.div`
   margin-left: 1.5rem;
 `
 
-const TaskList = ({tasks, category}) => {
+const TaskList = ({tasks, category, children}) => {
   const taskToggableRef = useRef();
   const taskFormToggableRef = useRef();
   const showTaskFormRef = useRef();
@@ -29,8 +29,9 @@ const TaskList = ({tasks, category}) => {
 
   return(
     <>
-      <button onClick={handleToggleTaskForm}>+</button>
+      {/* <button onClick={handleToggleTaskForm}>+</button> */}
       <button onClick={toggleTasks}>&or;</button>
+      {children}
       <TasksDiv>
         <Toggable ref={taskFormToggableRef}>
           <TaskForm category={category} ref={showTaskFormRef} showTasks={showTasks}/>
