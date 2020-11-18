@@ -21,7 +21,8 @@ const postNewCategory = async (category) => {
 }
 
 const deleteCategory = async (id) => {
-  await axios.delete(baseUrl + `/${id}`);
+  const config = { headers: { Authorization: getToken() }}
+  await axios.delete(baseUrl + `/${id}`, config);
 }
 
 const patchIndex = async (id, index) => {
