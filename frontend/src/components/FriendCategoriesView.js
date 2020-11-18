@@ -70,7 +70,7 @@ const FriendCategoriesView = () => {
                     {category.sentTo
                       ? <SendToDiv>{category.sentTo.username === friend.username 
                         ? `from: ${category.user.username === myUsername ? 'me' : category.user.username}` 
-                        :  `sent to: ${category.sentTo.username === myUsername ? 'me' : category.user.username}`}</SendToDiv> 
+                        :  `sent to: ${category.sentTo.username === myUsername ? 'me' : category.sentTo.username}`}</SendToDiv> 
                       : ""
                     }
                   </TaskList>
