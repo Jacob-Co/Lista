@@ -133,7 +133,22 @@ categoryRouter.post('/', async (req, res) => {
 
 // DELETE HANDLER
 categoryRouter.delete('/:id', async (req, res) => {
+  const { token } = req;
+  if (!token) return res.status(401).json({ error: "Requires a token"});
+
   const categoryToDelete = await Category.findById(req.params.id);
+  if (categoryToDelete.user.toString() !== token.id) return res.sendStatus(403);
+
+  if (categoryToDelete.sentTo) {
+    await categoryToDelete.populate({ path: 'sentTo', select: 'username' }).execPopulate();
+    const username = categoryToDelete.sentTo.username;
+    if (SSEUserIds[username]) {
+      const sentToRes = SSEUserIds[username];
+      sentToRes.write(`data: re-initialize\n\n`);
+      sentToRes.flush();
+    }
+  }
+
   for (const taskId of categoryToDelete.tasks) {
     await Task.findByIdAndDelete(taskId);
   }
