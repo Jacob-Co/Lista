@@ -10,8 +10,9 @@ import Login from './components/Login'
 import Logout from './components/Logout'
 import FriendsList from './components/FriendsList'
 import FriendCategoriesView from './components/FriendCategoriesView'
-import serverSideEvents from './services/serverSideEvents'
-import SSEListener from './SSEListener';
+// import serverSideEvents from './services/serverSideEvents'
+// import SSEListener from './SSEListener';
+import SSEListener from './components/SSEListener'
 
 const TwoColumn = styled.div`
   display: flex;
@@ -34,15 +35,15 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.token);
 
-  useEffect(() => {
-    if (user) {
-      serverSideEvents.getStreamCode()
-        .then(code => {
-          let SSE = serverSideEvents.establishSSE(code, user.username);
-          SSEListener(SSE);
-        })
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     serverSideEvents.getStreamCode()
+  //       .then(code => {
+  //         let SSE = serverSideEvents.establishSSE(code, user.username);
+  //         SSEListener(SSE);
+  //       })
+  //   }
+  // }, [user]);
 
   useEffect(() => {
     const localUser = window.localStorage.getItem('localTicketUser');
@@ -58,6 +59,7 @@ function App() {
     { 
       user !== null
       ? <TwoColumn>
+          <SSEListener username={user.username} />
           <LeftColumn>
             <Switch>
               <Route path="/">
