@@ -57,7 +57,7 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
           ? <TaskList tasks={category.tasks} category={category}/>
           : ""
         }
-        { category.sentTo ? <SendToDiv>{`from: ${category.user.username}`}</SendToDiv> : ""}
+        { category.sentTo ? <SendToDiv>{`from: ${category.user.username === username ? 'me' : category.user.username}`}</SendToDiv> : ""}
         { viewOnly || category.extraInfo !== null
           ? "" 
           : <div><RemoveButton onClick={handleRemove}>remove</RemoveButton></div>
