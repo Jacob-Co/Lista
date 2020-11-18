@@ -9,9 +9,12 @@ const SSEUserIds = require('../utils/SSEUserIds');
 const fixDisplayedCategories = async (categories, message, userId) => {
   categories = sortCategories(categories, userId);
 
-  if (!categories[0] || 
-      (!categories[0].workingOn && !categories[0].sentToWorkingOn) ||
-      (categories[0].index != 0 && categories[0].sentToIndex != 0)
+  if (!categories[0] ||
+      userId === categories[0].user.toString() 
+        ? !categories[0].workingOn 
+        : !categories[0].sentToWorkingOn
+      // (!categories[0].workingOn && !categories[0].sentToWorkingOn) ||
+      // (categories[0].index != 0 && categories[0].sentToIndex != 0) // use userId
      ){
     const nullCategory = new Category({ 
       name: `--${message}--`,
