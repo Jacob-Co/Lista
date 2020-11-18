@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const compression = require('compression');
 require('express-async-errors');
 
 const categoryRouter = require('./controllers/categories')
@@ -26,6 +27,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(tokenExtractor);
+app.use(compression());
 app.use(express.static('build'));
 app.use('/api/categories', categoryRouter);
 app.use('/api/tasks', taskRouter);
