@@ -34,6 +34,7 @@ const FriendCategoriesView = () => {
   const friendCategories = useSelector(state => state.friendCategories);
   const friend = useSelector(state => state.friends
     .find(friend => friend.id === id))
+  const myUsername = useSelector(state => state.token.username);
 
   useEffect(() => {
     dispatch(initializeFriendCategories(id));
@@ -62,8 +63,8 @@ const FriendCategoriesView = () => {
                 ? <TaskList tasks={category.tasks}> 
                     {category.sentTo
                       ? <SendToDiv>{category.sentTo.username === friend.username 
-                        ? `from: ${category.user.username}` 
-                        :  `sent to: ${category.sentTo.username}`}</SendToDiv> 
+                        ? `from: ${category.user.username === myUsername ? 'me' : category.user.username}` 
+                        :  `sent to: ${category.sentTo.username === myUsername ? 'me' : category.user.username}`}</SendToDiv> 
                       : ""
                     }
                   </TaskList>
