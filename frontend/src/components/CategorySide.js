@@ -29,7 +29,7 @@ const SendFormWrapper = styled.div`
 `
 
 const SendToDiv = styled.div`
-  margin-left: 3rem;
+  margin-left: 1rem;
   font-size: 1.02em;
   font-style: italic;
 `
@@ -112,15 +112,16 @@ const CategorySide = ({
                   deleteCategory={deleteCategory}
                   makeTaskWorkingOn={makeTaskWorkingOn}
                   categoryArrayIndex={arrayIndex}
-                />
+                >
+                  {category.sentTo
+                    ? <SendToDiv>{category.sentTo.username === username 
+                      ? `from: ${category.user.username}` 
+                      :  `sent to: ${category.sentTo.username}`}</SendToDiv> 
+                    : ""}
+                </DroppableTaskList>
               </div>
             }
           </ContentDiv>
-          {category.sentTo
-            ? <SendToDiv>{category.sentTo.username === username 
-              ? `from: ${category.user.username}` 
-              :  `sent to: ${category.sentTo.username}`}</SendToDiv> 
-            : ""}
           <Toggable ref={sendFormRef}>
             <SendFormWrapper>
               <SendForm 
