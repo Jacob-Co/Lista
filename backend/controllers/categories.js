@@ -234,9 +234,17 @@ categoryRouter.patch('/accomplished/:id', async (req, res) => {
 });
 
 categoryRouter.patch('/sentTo/:id', async (req, res) => {
+  const sentToId = req.body.sentTo;
+  let prevUsername;
+  if (!sentToId) { // send an SSE to prev sentTo User
+    const returnCategory = await Category.findById(req.params.id)
+      .populate({ path : 'sentTo', select: 'username'});
+    prevUsername = returnCategory.sentTo.username;
+  }
+
   const returnCategory = await genericPatchHelper('sentTo', req);
   if (returnCategory.error) return res.status(400).json(returnCategory);
-  const sentToId = req.body.sentTo;
+
   if (sentToId) {
     const sentToCategories = await getAllDisplayedCategories(sentToId);
     for (const category of sentToCategories) {
@@ -253,10 +261,13 @@ categoryRouter.patch('/sentTo/:id', async (req, res) => {
     await returnCategory.populate({ path : 'sentTo', select: 'username'}).execPopulate();
     if (SSEUserIds[returnCategory.sentTo.username]) {
       const sentToRes = SSEUserIds[returnCategory.sentTo.username];
-      const command = 'NEW_SENT_TO_CATEGORY';
-      const sentToCategory = returnCategory;
-      const data = JSON.stringify({ command, sentToCategory});
-      sentToRes.write(`data: ${data}\n\n`);
+      sentToRes.write(`data: re-initialize\n\n`);
+      sentToRes.flush();
+    }
+  } else {
+    if (SSEUserIds[prevUsername]) {
+      const sentToRes = SSEUserIds[prevUsername];
+      sentToRes.write(`data: re-initialize\n\n`);
       sentToRes.flush();
     }
   }
