@@ -257,6 +257,7 @@ categoryRouter.patch('/sentTo/:id', async (req, res) => {
       const sentToCategory = returnCategory;
       const data = JSON.stringify({ command, sentToCategory});
       sentToRes.write(`data: ${data}\n\n`);
+      sentToRes.flush();
     }
   }
 
