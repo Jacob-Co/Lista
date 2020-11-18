@@ -63,7 +63,7 @@ const CategorySide = ({
     if (isNotOwned) {
       return[toggleDone]
     } else if (isAccomplished && isSent) {
-      return [deleteFunction]
+      return [unsend, deleteFunction]
     } else if (isAccomplished) {
       return [toggleDone, deleteFunction]
     } else if (isSent) {
