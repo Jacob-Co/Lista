@@ -12,11 +12,20 @@ const FriendCategories = styled.div`
   margin-left: .75rem;
 `
 
-const CategoryHeader = styled.div`
-  font-size: 1.1em;
-  font-weight: bold;
+const CategoryDiv = styled.div`
   margin-left: .75rem;
   padding-bottom: .75rem;
+`
+
+const CategorySpan = styled.span`
+  font-size: 1.1em;
+  font-weight: bold;
+`
+
+const SendToDiv = styled.div`
+  margin-left: 1rem;
+  font-size: 1.02em;
+  font-style: italic;
 `
 
 const FriendCategoriesView = () => {
@@ -47,14 +56,27 @@ const FriendCategoriesView = () => {
       }
       <h2>Other Categories:</h2>
       {friendCategories.length > 0 
-        ? friendCategories.slice(1).map(category => <div key={category.id}>
-            <CategoryHeader>{category.name}
+        ? friendCategories.slice(1).map(category => <CategoryDiv key={category.id}>
+            <div><CategorySpan>{category.name}</CategorySpan>
               {category.tasks.length > 0
-                ? <TaskList tasks={category.tasks}/>
-                : ""
+                ? <TaskList tasks={category.tasks}> 
+                    {category.sentTo
+                      ? <SendToDiv>{category.sentTo.username === friend.username 
+                        ? `from: ${category.user.username}` 
+                        :  `sent to: ${category.sentTo.username}`}</SendToDiv> 
+                      : ""
+                    }
+                  </TaskList>
+                : <>{category.sentTo
+                  ? <SendToDiv>{category.sentTo.username === friend.username 
+                    ? `from: ${category.user.username}` 
+                    :  `sent to: ${category.sentTo.username}`}</SendToDiv> 
+                  : ""
+                  }</>
               }
-            </CategoryHeader>
-          </div>)
+            </div>
+
+          </CategoryDiv>)
         : 'Loading'}
       <Link to="/"><button>back</button></Link>
       <button onClick={handleRefresh}>refresh</button>
