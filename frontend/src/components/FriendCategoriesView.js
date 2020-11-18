@@ -28,6 +28,11 @@ const SendToDiv = styled.div`
   font-style: italic;
 `
 
+const RefreshDiv = styled.div`
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+`
+
 const FriendCategoriesView = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -56,6 +61,7 @@ const FriendCategoriesView = () => {
         : 'Loading'
       }
       <h2>Other Categories:</h2>
+      <RefreshDiv><button onClick={handleRefresh}>refresh</button></RefreshDiv>
       {friendCategories.length > 0 
         ? friendCategories.slice(1).map(category => <CategoryDiv key={category.id}>
             <div><CategorySpan>{category.name}</CategorySpan>
@@ -80,7 +86,6 @@ const FriendCategoriesView = () => {
           </CategoryDiv>)
         : 'Loading'}
       <Link to="/"><button>back</button></Link>
-      <button onClick={handleRefresh}>refresh</button>
     </FriendCategories>
   );
 };
