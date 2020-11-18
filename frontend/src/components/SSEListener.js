@@ -30,7 +30,6 @@ const SSEListener =  ({ username }) => {
     .then(code => {
       sse = serverSideEvents.establishSSE(code, username);
       sse.onmessage = e => {
-        console.log(e.data)
         if (e.data === 'logout') {
           dispatch(logout());
           history.push('/');

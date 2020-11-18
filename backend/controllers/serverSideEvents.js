@@ -57,6 +57,11 @@ serverSERouter.get('/stream/:code/:username', (req, res) => {
     delete userIds[username]
     console.log(`Remaining: ${Object.keys(userIds)}`)
   });
+  if (userIds[username]) {
+    const sentToRes = userIds[username]
+    sentToRes.write('data: logout\n\n');
+    sentToRes.flush();
+  }
   userIds[username] = res;
   console.log(Object.keys(userIds))
 })
