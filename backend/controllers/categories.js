@@ -248,6 +248,9 @@ categoryRouter.patch('/sentTo/:id', async (req, res) => {
   const returnCategory = await genericPatchHelper('sentTo', req);
   if (returnCategory.error) return res.status(400).json(returnCategory);
 
+  returnCategory.sentToWorkingOn = false;
+  await returnCategory.save();
+
   if (sentToId) {
     const sentToCategories = await getAllDisplayedCategories(sentToId);
     for (const category of sentToCategories) {
