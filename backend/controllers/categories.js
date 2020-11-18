@@ -91,10 +91,11 @@ categoryRouter.get('/friend/:id', async (req,res) => {
   const friend = await User.findById(req.params.id);
   if (!friend.friends.some(id => id.toString() === token.id)) return res.status(400).json({ error: 'You are not friends' });
   
-  let friendCategories = await Category.find({ user: friend._id});
-  friendCategories = await fixDisplayedCategories(friendCategories, 'none');
-  res.status(200).json(friendCategories)
-})
+  const categories = await getAllDisplayedCategories(friend.id);
+  const returnCategories = await fixDisplayedCategories(categories, 'None', friend.id);
+
+  res.status(200).json(returnCategories);
+});
 
 categoryRouter.get('/sentTo', async (req, res) => {
   const { token } = req;
