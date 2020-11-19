@@ -2,7 +2,7 @@ import serverSideEvents from '../services/serverSideEvents';
 
 const connectToSSE = async (username) => {
   const streamCode = await serverSideEvents.getStreamCode();
-  const sse = await serverSideEvents.establishSSE(sse, username);
+  const sse = await serverSideEvents.establishSSE(streamCode, username);
   return sse;
 }
 
@@ -23,7 +23,7 @@ export const closeSSEConnection = () => {
   }
 }
 
-const sseReducer = (state, action) => {
+const sseReducer = (state = null, action) => {
   switch (action.type) {
     case 'INIT_SSE':
       return action.data;
