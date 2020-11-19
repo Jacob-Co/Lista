@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 
-import serverSideEvents from '../services/serverSideEvents';
+import { initializeSSE, closeSSEConnection, setSSEOnMessage } from '../reducer/sseReducer'
 import { initializeCategories } from '../reducer/categoryReducer';
 import { logout } from '../reducer/tokenReducer';
 
@@ -18,37 +18,55 @@ const useInterval = (callback, miliSeconds) => {
       let intervalId = setInterval(savedCallback.current, miliSeconds);
       return () => clearInterval(intervalId);
     }
-  }, [miliSeconds])
+  })
 }
 
 const SSEListener =  ({ username }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  let sse;
-  const connectToSSE = () => {
-    serverSideEvents.getStreamCode()
-    .then(code => {
-      sse = serverSideEvents.establishSSE(code, username);
-      sse.onmessage = e => {
-        if (e.data === 'logout') {
-          dispatch(logout());
-          history.push('/');
-        } else {
-          dispatch(initializeCategories());
-        }
+  const sse = useSelector(state => state.sse);
+  // const connectToSSE = () => {
+  //   serverSideEvents.getStreamCode()
+  //   .then(code => {
+  //     sse = serverSideEvents.establishSSE(code, username);
+  //     sse.onmessage = e => {
+  //       if (e.data === 'logout') {
+  //         dispatch(logout());
+  //         history.push('/');
+  //       } else {
+  //         dispatch(initializeCategories());
+  //       }
+  //     }
+  //   })
+  // }
+
+  useEffect(() => {
+    dispatch(initializeSSE(username))
+  }, [dispatch])
+
+  if (sse) {
+    dispatch(setSSEOnMessage(e => {
+      if (e.data === 'logout') {
+        dispatch(closeSSEConnection());
+        dispatch(logout());
+        history.push('/');
+      } else {
+        dispatch(initializeCategories());
       }
-    })
+    }))
   }
 
-  connectToSSE();
-
-  useInterval(() => {
-    if (sse.readyState === 2 || !navigator.onLine) {
-      sse.close();
-      connectToSSE();
-      if (sse.readyState !== 2 || navigator.onLine) dispatch(initializeCategories());
-    };
-  }, 3000);
+  // useInterval(() => {
+  //   if 
+  //   if (sse) {
+  //     if (sse.readyState === 2 || !navigator.onLine) {
+  //       dispatch(closeSSEConnection);
+  //       dispatch(initializeSSE);
+  //       console.log(`here`)
+  //       if (sse.readyState !== 2 || navigator.onLine) dispatch(initializeCategories());
+  //     };
+  //   }
+  // }, 3000);
 
   return(<></>)
 }
