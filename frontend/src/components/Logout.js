@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { closeSSEConnection } from '../reducer/sseReducer';
 import { logout } from '../reducer/tokenReducer'
 
 const LogoutDiv = styled.div`
@@ -17,6 +18,7 @@ const Logout = () => {
 
   const user = useSelector(state => state.token);
   const handleLogout = () => {
+    dispatch(closeSSEConnection());
     dispatch(logout());
     history.push('/');
   }
