@@ -17,10 +17,10 @@ export const initializeSSE = (username) => {
 }
 
 export const closeSSEConnection = () => {
-  dispatch({
+  return {
     type: 'CLOSE_SSE',
     data: null
-  })
+  }
 }
 
 const sseReducer = (state, action) => {
@@ -31,7 +31,7 @@ const sseReducer = (state, action) => {
       state.close();
       return action.data;
     default:
-      state;
+      return state;
   }
 }
 
