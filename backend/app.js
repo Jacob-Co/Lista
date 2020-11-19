@@ -36,6 +36,7 @@ app.use('/api/dates', dateRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/user', userRouter);
 app.use('/serverSide', serverSideEvents);
+app.use('/*', express.static('build'))
 app.use(errorHandler)
 
 module.exports = app;
