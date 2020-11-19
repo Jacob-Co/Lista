@@ -16,6 +16,13 @@ export const initializeSSE = (username) => {
   }
 }
 
+export const setSSEOnMessage = (callback) => {
+    return {
+      type: 'ON_MESSAGE',
+      data: callback
+    }
+}
+
 export const closeSSEConnection = () => {
   return {
     type: 'CLOSE_SSE',
@@ -30,6 +37,9 @@ const sseReducer = (state = null, action) => {
     case 'CLOSE_SSE':
       state.close();
       return action.data;
+    case 'ON_MESSAGE':
+      state.onmessage = action.data;
+      return state;
     default:
       return state;
   }
