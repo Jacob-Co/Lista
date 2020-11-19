@@ -8,6 +8,7 @@ import tokenReducer from './reducer/tokenReducer'
 import friendReducer from './reducer/friendReducer'
 import friendCategoryReducer from './reducer/friendCategoryReducer';
 import sentToItemReducer from './reducer/sentToItemReducer';
+import sseReducer from './reducer/sseReducer';
 
 
 const reducer = combineReducers({
@@ -16,7 +17,8 @@ const reducer = combineReducers({
   token: tokenReducer,
   friends: friendReducer,
   friendCategories: friendCategoryReducer,
-  sentToItems: sentToItemReducer
+  sentToItems: sentToItemReducer,
+  sse: sseReducer 
 })
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)))
