@@ -53,16 +53,27 @@ serverSERouter.get('/stream/:code/:username', (req, res) => {
     'Cache-Control': 'no-cache'
   }
   res.writeHead(200, headers);
+
   res.socket.on('end', e => {
-    delete userIds[username]
-    console.log(`Remaining: ${Object.keys(userIds)}`)
+    if (res === userIds[username]) {
+      delete userIds[username]
+      console.log(`${username} logged off`);
+    } else {
+      console.log(`${username} logged on another location`);
+    }
+    
+    console.log(Object.keys(userIds))
   });
-  if (userIds[username]) {
-    const sentToRes = userIds[username]
+
+  const previousRes = userIds[username];
+  userIds[username] = res;
+
+  if (previousRes) {
+    const sentToRes = previousRes
     sentToRes.write('data: logout\n\n');
     sentToRes.flush();
   }
-  userIds[username] = res;
+
   console.log(Object.keys(userIds))
 })
 
