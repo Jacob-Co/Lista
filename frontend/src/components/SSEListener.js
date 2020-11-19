@@ -25,20 +25,8 @@ const SSEListener =  ({ username }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const sse = useSelector(state => state.sse);
-  // const connectToSSE = () => {
-  //   serverSideEvents.getStreamCode()
-  //   .then(code => {
-  //     sse = serverSideEvents.establishSSE(code, username);
-  //     sse.onmessage = e => {
-  //       if (e.data === 'logout') {
-  //         dispatch(logout());
-  //         history.push('/');
-  //       } else {
-  //         dispatch(initializeCategories());
-  //       }
-  //     }
-  //   })
-  // }
+  let currentReadyState;
+  let onlineState = navigator.onLine;
 
   useEffect(() => {
     dispatch(initializeSSE(username))
@@ -53,20 +41,19 @@ const SSEListener =  ({ username }) => {
       } else {
         dispatch(initializeCategories());
       }
-    }))
+    }));
+    currentReadyState = sse.readyState;
   }
 
-  // useInterval(() => {
-  //   if 
-  //   if (sse) {
-  //     if (sse.readyState === 2 || !navigator.onLine) {
-  //       dispatch(closeSSEConnection);
-  //       dispatch(initializeSSE);
-  //       console.log(`here`)
-  //       if (sse.readyState !== 2 || navigator.onLine) dispatch(initializeCategories());
-  //     };
-  //   }
-  // }, 3000);
+  useInterval(() => {
+    // Redispatch initializeCategory after going offline then online again
+    if (navigator.onLine === false) {
+      onlineState = false;
+    } else if (navigator.onLine === true && onlineState === false) {
+      onlineState = true;
+      dispatch(initializeCategories());
+    }
+  }, 3000);
 
   return(<></>)
 }
