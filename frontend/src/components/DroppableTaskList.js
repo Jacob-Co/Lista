@@ -57,7 +57,8 @@ const DroppableTaskList = ({category, deleteCategory, makeTaskWorkingOn, categor
                         <Task
                         task={task}
                         category={category}
-                        arrayIndex={position}
+                        categoryArrayIndex={categoryArrayIndex}
+                        taskArrayIndex={position}
                         makeTaskWorkingOn={makeTaskWorkingOn}
                         />
                       </div>
