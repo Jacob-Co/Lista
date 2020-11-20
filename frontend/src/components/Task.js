@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
 
 import { removeTask } from '../reducer/categoryReducer';
+import OptionBox from './OptionBox';
 
 const Task = ({ task, category, arrayIndex }) => {
   const dispatch = useDispatch();
@@ -19,10 +20,12 @@ const Task = ({ task, category, arrayIndex }) => {
         <div
         ref={provided.innerRef}
           {...provided.draggableProps}
-          
+          style={{"display": "flex", "alignItems": "center"}}
         >
-          <span {...provided.dragHandleProps}>&gt; {task.name}</span>
-          --<button onClick={handleDeleteTask}>X</button>
+          <OptionBox />
+          <span {...provided.dragHandleProps}>{task.name}</span>
+          {/* &gt; */}
+          {/* --<button onClick={handleDeleteTask}>X</button> */}
         </div>
       )}
     </Draggable>
