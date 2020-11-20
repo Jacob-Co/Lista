@@ -5,7 +5,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import { removeTask } from '../reducer/categoryReducer';
 import OptionBox from './OptionBox';
 
-const Task = ({ task, category, arrayIndex, makeTaskWorkingOn}) => {
+const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArrayIndex}) => {
   const dispatch = useDispatch();
 
   const handleDeleteTask = () => {
@@ -15,7 +15,7 @@ const Task = ({ task, category, arrayIndex, makeTaskWorkingOn}) => {
   }
 
   return(
-    <Draggable draggableId={task.id} index={arrayIndex}>
+    <Draggable draggableId={task.id} index={taskArrayIndex}>
       {provided => (
         <div
         ref={provided.innerRef}
@@ -24,7 +24,7 @@ const Task = ({ task, category, arrayIndex, makeTaskWorkingOn}) => {
         >
           <OptionBox />
           <span {...provided.dragHandleProps}
-            onDoubleClick={() => makeTaskWorkingOn(category, task, arrayIndex)}
+            onDoubleClick={() => makeTaskWorkingOn(category, task, categoryArrayIndex)}
           >
             {task.name}
           </span>
