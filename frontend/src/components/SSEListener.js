@@ -25,24 +25,29 @@ const SSEListener =  ({ username }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const sse = useSelector(state => state.sse);
-  let currentReadyState;
   let onlineState = navigator.onLine;
+  let hasSSE = false;
+
+
+  const SSEMessageCallback = e => {
+    if (e.data === 'logout') {
+      dispatch(closeSSEConnection());
+      dispatch(logout());
+      history.push('/');
+    } else {
+      dispatch(initializeCategories());
+    }
+  };
+  
 
   useEffect(() => {
+    console.log(`useEffect`)
     dispatch(initializeSSE(username))
   }, [dispatch])
 
   if (sse) {
-    dispatch(setSSEOnMessage(e => {
-      if (e.data === 'logout') {
-        dispatch(closeSSEConnection());
-        dispatch(logout());
-        history.push('/');
-      } else {
-        dispatch(initializeCategories());
-      }
-    }));
-    currentReadyState = sse.readyState;
+    dispatch(setSSEOnMessage(SSEMessageCallback));
+    hasSSE = true;
   }
 
   useInterval(() => {
@@ -53,7 +58,15 @@ const SSEListener =  ({ username }) => {
       onlineState = true;
       dispatch(initializeCategories());
     }
-  }, 3000);
+
+    // Close connection if readyState 2 and try to establish a new SSE
+    if (sse && sse.readyState === 2) {
+      hasSSE = false;
+      dispatch(closeSSEConnection());
+    } else if (!hasSSE && !sse) {
+      dispatch(initializeSSE(username));
+    } 
+  }, 1000);
 
   return(<></>)
 }
