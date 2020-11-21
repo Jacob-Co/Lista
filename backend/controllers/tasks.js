@@ -3,6 +3,25 @@ const Task = require('../models/task');
 const User = require('../models/users');
 const Category = require('../models/category');
 
+const genericPatchHelper = async (propertyToUpdate, req) => {
+  const { token } = req;
+  if (!token) return { error: "Requires a token"};
+
+  const { body } = req;
+
+  const taskToUpdate = await Task.findById(req.params.id);
+  if (!taskToUpdate) return { "error": "No Task found"};
+  if (taskToUpdate.user.toString() !== token.id &&
+    taskToUpdate.sentTo.toString() !== token.id) {
+      return { "error": "Invalid access" }
+  }
+
+  taskToUpdate[propertyToUpdate] = body[propertyToUpdate];
+  const returnCategory = await taskToUpdate.save();
+
+  return returnCategory;
+}
+
 taskRouter.post('/', async (req, res) => {
   const { token } = req;
   if (!token) return res.status(401).json({ error: 'Requires Token'});
