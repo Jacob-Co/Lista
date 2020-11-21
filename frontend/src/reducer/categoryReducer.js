@@ -217,7 +217,7 @@ export const removeWorkingOnTask = (categoryId, categoryList) => {
   }
 }
 
-// PATCH
+// CATEGORY PATCH
 
 export const patchAccomplishedCategory = (categoryId, categoryList, accomplishedStatus) => {
   return async (dispatch) => {
@@ -290,8 +290,22 @@ const categoryReducer = (state = [], action) => {
       });
     case 'UPDATE_CATEGORY_LIST':
       return action.data;
+    case 'UPDATE_TASK':
+
     default:
       return state
+  }
+}
+
+// TASK PATCH
+
+export const patchAccomplishedTask = (taskId, accomplished) => {
+  return async (dispatch) => {
+    const returnTask = await tasks.updateAccomplished(taskId, accomplished);
+    dispatch({
+      type: 'UPDATE_TASK',
+      data: returnTask
+    })
   }
 }
 
