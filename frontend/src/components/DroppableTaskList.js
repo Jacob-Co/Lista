@@ -4,6 +4,7 @@ import { Droppable } from 'react-beautiful-dnd';
 
 import Toggable from './Toggable';
 import Task from './Task';
+import utils from './utils';
 
 
 const TaskDiv = styled.div`
@@ -11,8 +12,10 @@ const TaskDiv = styled.div`
   margin-bottom: 1rem;
 `
 
+
 const DroppableTaskList = React.forwardRef(({category, makeTaskWorkingOn, categoryArrayIndex, children}, ref) => {
   const taskToggable = useRef();
+  const taskListSpan = useRef();
 
   const displayTasks = () => {
     taskToggable.current.toggleVisibility(true);
@@ -22,15 +25,24 @@ const DroppableTaskList = React.forwardRef(({category, makeTaskWorkingOn, catego
     taskToggable.current.toggleVisibility();
   }
 
+  const hideTasks = () => {
+    taskToggable.current.toggleVisibility(false);
+  }
+
   useImperativeHandle(ref, () => {
     return {
       displayTasks
     }
   })
 
+  utils.useOutsideEventListener(taskListSpan, hideTasks);
+
   return (
-    <>
-      {category.tasks.length > 0 ? <button onClick={toggleTasks}>&or;</button> : ''}
+    <span ref={taskListSpan}>
+      {category.tasks.length > 0 
+        ? <button onClick={toggleTasks}>&or;</button> 
+        : ''
+      }
       {children}
       <div>
         <Droppable droppableId={`${category.id}`} type="tasks">
@@ -64,7 +76,7 @@ const DroppableTaskList = React.forwardRef(({category, makeTaskWorkingOn, catego
           )}
         </Droppable>
       </div>
-    </>
+    </span>
   )
 })
 
