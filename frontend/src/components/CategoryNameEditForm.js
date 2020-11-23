@@ -2,19 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { patchCategoryName } from '../reducer/categoryReducer';
-
-const useOutsideEventListener = (ref, callback) => {
-  useEffect(() => {
-    const hideForm = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) callback();
-    }
-
-    document.addEventListener('mousedown', hideForm);
-    return () => {
-      document.removeEventListener('mousedown', hideForm);
-    }
-  }, [ref])
-}
+import utils from './utils';
 
 const CategoryNameEditForm = ({ category, categoryList, toggleEditing }) => {
   const [ name, setName] = useState(category.name);
@@ -22,7 +10,7 @@ const CategoryNameEditForm = ({ category, categoryList, toggleEditing }) => {
   const inputRef = useRef();
   const formRef = useRef();
 
-  useOutsideEventListener(formRef, toggleEditing);
+  utils.useOutsideEventListener(formRef, toggleEditing);
 
   useEffect(() => {
     setTimeout(() => {
