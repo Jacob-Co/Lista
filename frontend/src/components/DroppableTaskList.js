@@ -14,9 +14,9 @@ const TaskDiv = styled.div`
 const DroppableTaskList = React.forwardRef(({category, makeTaskWorkingOn, categoryArrayIndex, children}, ref) => {
   const taskToggable = useRef();
 
-  // const showTasks = () => {
-  //   taskToggable.current.toggleVisibility(true);
-  // }
+  const displayTasks = () => {
+    taskToggable.current.toggleVisibility(true);
+  }
 
   const toggleTasks = () => {
     taskToggable.current.toggleVisibility();
@@ -24,6 +24,7 @@ const DroppableTaskList = React.forwardRef(({category, makeTaskWorkingOn, catego
 
   useImperativeHandle(ref, () => {
     return {
+      displayTasks
     }
   })
 
