@@ -22,7 +22,9 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
           {...provided.draggableProps}
           style={{"display": "flex", "alignItems": "center"}}
         >
-          <OptionBox />
+          <OptionBox optionsArray={
+            [['Delete', handleDeleteTask]]
+          }/>
           <span {...provided.dragHandleProps}
             onDoubleClick={() => makeTaskWorkingOn(category, task, categoryArrayIndex)}
           >
