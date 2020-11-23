@@ -291,7 +291,18 @@ const categoryReducer = (state = [], action) => {
     case 'UPDATE_CATEGORY_LIST':
       return action.data;
     case 'UPDATE_TASK':
-
+      const updatedTask = action.data;
+      const targetCategoryId = updatedTask.category.toString();
+      state = state.map(category => {
+        if (category.id === targetCategoryId) {
+          category.tasks = category.tasks.map(task => {
+            if (task.id === updatedTask.id) return task;
+            return task;
+          })
+        }
+        return category;
+      })
+      return state;
     default:
       return state
   }
