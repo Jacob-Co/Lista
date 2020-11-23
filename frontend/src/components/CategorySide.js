@@ -82,6 +82,10 @@ const CategorySide = ({
     return [toggleDone, edit, sendTo, deleteFunction, showTaskForm];
   }
 
+  const showTasks = () => {
+    taskListRef.current.displayTasks();
+  }
+
   return (
     <Draggable draggableId={category.id} index={arrayIndex}>
       {provided => (
@@ -128,11 +132,15 @@ const CategorySide = ({
                       ? `from: ${category.user.username}` 
                       :  `sent to: ${category.sentTo.username}`}</SendToDiv> 
                     : ""}
+                  <TaskForm 
+                    ref={taskFormRef}
+                    category={category}
+                    showTasks={showTasks}
+                    />
                 </DroppableTaskList>
               </div>
             }
           </ContentDiv>
-          <TaskForm ref={taskFormRef}/>
           <Toggable ref={sendFormRef}>
             <SendFormWrapper>
               <SendForm 
