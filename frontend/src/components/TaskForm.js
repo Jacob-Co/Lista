@@ -25,10 +25,11 @@ const TaskForm = React.forwardRef(({category, showTasks}, ref) => {
     focusOnName();
   }
 
-  // const hideTaskForm = () => {
+  const hideTaskForm = () => {
+    toggableRef.current.toggleVisibility(false);
+  };
 
-  // };
-  // utils.useOutsideEventListener(taskFormRef, )
+  utils.useOutsideEventListener(taskFormRef, hideTaskForm);
 
   useImperativeHandle(ref, () => {
     return { displayTaskForm }
