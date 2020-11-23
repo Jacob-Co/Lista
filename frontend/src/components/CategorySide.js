@@ -54,7 +54,12 @@ const CategorySide = ({
   }
 
   const optionsToBePassed = (isAccomplished, isSent, isNotOwned) => {
-    const toggleDone = ['Toggle Done', () => toggleAccomplishedCategory(category.id, !category.accomplished)];
+    const toggleDone = ['Toggle Done', () => {
+      for (const task of category.tasks) {
+        if (!task.accomplished) return alert('Cannot toggle done, not all tasks are accomplished');
+      }
+      toggleAccomplishedCategory(category.id, !category.accomplished)
+    }];
     const edit = ['Edit', () => toggleEditing()];
     const sendTo = ['Send to', () => sendFormRef.current.toggleVisibility(true)];
     const deleteFunction = ['Delete', () => deleteCategory(category)];
