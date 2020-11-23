@@ -80,11 +80,9 @@ taskRouter.patch('/recurring/:id', async (req, res) => {
 })
 
 taskRouter.patch('/name/:id', async (req, res) => {
-  const filter = { _id: req.params.id }
-  const modifier = { name: req.body.name }
-  const options = { new: true }
-  const updatedTask = await Task.findOneAndUpdate(filter, modifier, options)
-  res.status(202).json(updatedTask)
+  const returnTask = await genericPatchHelper('name', req);
+  if (returnTask.error) return res.status(400).json(returnTask);
+  return res.json(returnTask);
 })
 
 taskRouter.patch('/content/:id', async (req, res) => {
