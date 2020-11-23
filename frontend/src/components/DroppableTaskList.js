@@ -2,7 +2,6 @@ import React, { useImperativeHandle, useRef } from 'react';
 import styled from 'styled-components';
 import { Droppable } from 'react-beautiful-dnd';
 
-import TaskForm from './TaskForm';
 import Toggable from './Toggable';
 import Task from './Task';
 
@@ -15,7 +14,6 @@ const TaskDiv = styled.div`
 const DroppableTaskList = React.forwardRef(({category, deleteCategory, makeTaskWorkingOn, categoryArrayIndex, children}, ref) => {
   const taskToggable = useRef();
   const createTaskToggable = useRef();
-  const taskFormRef = useRef();
 
   const showTasks = () => {
     taskToggable.current.toggleVisibility(true);
@@ -26,21 +24,13 @@ const DroppableTaskList = React.forwardRef(({category, deleteCategory, makeTaskW
     taskToggable.current.toggleVisibility();
   }
 
-  const showCreateTask = () => {
-    createTaskToggable.current.toggleVisibility()
-    taskFormRef.current.focusOnName();
-  }
-
   useImperativeHandle(ref, () => {
     return {
-      showCreateTask
     }
   })
 
   return (
     <>
-      {/* <button onClick={() => {deleteCategory(category)}}>X</button> */}
-      {/* { category.sentTo ? "" : <button onClick={showCreateTask}>+</button>} */}
       {category.tasks.length > 0 ? <button onClick={toggleTasks}>&or;</button> : ''}
       {children}
       <div>
@@ -50,9 +40,6 @@ const DroppableTaskList = React.forwardRef(({category, deleteCategory, makeTaskW
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              <Toggable ref={createTaskToggable}>
-                <TaskDiv><TaskForm category={category} showTasks={showTasks} ref={taskFormRef}/></TaskDiv>
-              </Toggable>
               <Toggable ref={taskToggable}>
               { category.tasks.length > 0 
                 ? <TaskDiv className="tasks">
