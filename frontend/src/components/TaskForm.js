@@ -1,14 +1,18 @@
 import React, { useState, useRef, useImperativeHandle } from 'react'
 import { useDispatch } from 'react-redux'
 
+import Toggable from './Toggable'
 import { createNewTask } from '../reducer/categoryReducer'
+import utils from './utils';
 
 const TaskForm = React.forwardRef(({category, showTasks}, ref) => {
   const dispatch = useDispatch();
 
   const [name, setName] = useState('')
   const [content, setContent] = useState('')
-  const nameInput = useRef()
+  const nameInput = useRef();
+  const taskFormRef = useRef();
+  const toggableRef = useRef();
 
   const focusOnName = () => {
     setTimeout(() => {
@@ -16,8 +20,18 @@ const TaskForm = React.forwardRef(({category, showTasks}, ref) => {
     }, 100);
   }
 
+  const displayTaskForm = () => {
+    toggableRef.current.toggleVisibility(true);
+    focusOnName();
+  }
+
+  // const hideTaskForm = () => {
+
+  // };
+  // utils.useOutsideEventListener(taskFormRef, )
+
   useImperativeHandle(ref, () => {
-    return { focusOnName }
+    return { displayTaskForm }
   })
 
   const handleFormSubmit = (event) => {
@@ -32,33 +46,24 @@ const TaskForm = React.forwardRef(({category, showTasks}, ref) => {
   }
 
   return(
-    <div>
-      <h3>Creating a new task</h3>
-      <form onSubmit={handleFormSubmit}>
-        <div>
-          name
-          <input
-            ref={nameInput}
-            type="text"
-            id="name"
-            name="Name"
-            value={name}
-            onChange={({target}) => setName(target.value)}
-          />
-        </div>
-
-        {/* <div>
-          content
-          <input
-            type="text"
-            id="content"
-            name="Content"
-            value={content}
-            onChange={({target}) => setContent(target.value)}
-          />
-        </div> */}
-        <button>create</button>
-      </form>
+    <div ref={taskFormRef}>
+      <Toggable ref={toggableRef}>
+        <h3>Creating a new task</h3>
+        <form onSubmit={handleFormSubmit}>
+          <div>
+            name
+            <input
+              ref={nameInput}
+              type="text"
+              id="name"
+              name="Name"
+              value={name}
+              onChange={({target}) => setName(target.value)}
+            />
+          </div>
+          <button>create</button>
+        </form>
+      </Toggable>
     </div>
   )
 })
