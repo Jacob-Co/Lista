@@ -36,6 +36,7 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
             <OptionBox optionsArray={
               [
                 ['Toggle Done', () => dispatch(patchAccomplishedTask(task.id, !task.accomplished))],
+                ['Edit', toggleEditing],
                 ['Delete', handleDeleteTask]
               ]
             }/>
