@@ -26,22 +26,25 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
         <div
         ref={provided.innerRef}
           {...provided.draggableProps}
-          style={{"display": "flex", "alignItems": "center"}}
         >
-          <OptionBox optionsArray={
-            [
-              ['Toggle Done', () => dispatch(patchAccomplishedTask(task.id, !task.accomplished))],
-              ['Delete', handleDeleteTask]
-            ]
-          }/>
-          <span {...provided.dragHandleProps}
-            onDoubleClick={() => {
-              if (task.accomplished) return alert('Cannot work on accomplished task');
-              makeTaskWorkingOn(category, task, categoryArrayIndex) 
-            }}
-          >
-            <TaskNameSpan isAccomplished={task.accomplished}>{task.name}</TaskNameSpan>
-          </span>
+          <div style={{"display": "flex", "alignItems": "center"}}>
+            <OptionBox optionsArray={
+              [
+                ['Toggle Done', () => dispatch(patchAccomplishedTask(task.id, !task.accomplished))],
+                ['Delete', handleDeleteTask]
+              ]
+            }/>
+            <TaskNameSpan 
+              isAccomplished={task.accomplished}
+              onDoubleClick={() => {
+                if (task.accomplished) return alert('Cannot work on accomplished task');
+                makeTaskWorkingOn(category, task, categoryArrayIndex) 
+              }}
+              {...provided.dragHandleProps}
+            >
+              {task.name}
+            </TaskNameSpan>
+          </div>
         </div>
       )}
     </Draggable>
