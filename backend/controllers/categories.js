@@ -303,6 +303,7 @@ categoryRouter.patch('/sentTo/:id', async (req, res) => {
     }
   }
 
+  await returnCategory.populate('tasks').execPopulate();
   return res.json(returnCategory);
 });
 
