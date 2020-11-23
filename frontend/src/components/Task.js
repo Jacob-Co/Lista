@@ -4,6 +4,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 
 import { removeTask } from '../reducer/categoryReducer';
+import { patchAccomplishedTask } from '../reducer/categoryReducer';
 import OptionBox from './OptionBox';
 
 const TaskNameSpan = styled.span`
@@ -28,10 +29,16 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
           style={{"display": "flex", "alignItems": "center"}}
         >
           <OptionBox optionsArray={
-            [['Delete', handleDeleteTask]]
+            [
+              ['Toggle Done', () => dispatch(patchAccomplishedTask(task.id, !task.accomplished))],
+              ['Delete', handleDeleteTask]
+            ]
           }/>
           <span {...provided.dragHandleProps}
-            onDoubleClick={() => makeTaskWorkingOn(category, task, categoryArrayIndex)}
+            onDoubleClick={() => {
+              if (task.accomplished) return alert('Cannot work on accomplished task');
+              makeTaskWorkingOn(category, task, categoryArrayIndex) 
+            }}
           >
             <TaskNameSpan isAccomplished={task.accomplished}>{task.name}</TaskNameSpan>
           </span>
