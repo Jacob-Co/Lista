@@ -21,6 +21,7 @@ const TaskForm = React.forwardRef(({category, showTasks}, ref) => {
   }
 
   const displayTaskForm = () => {
+    showTasks();
     toggableRef.current.toggleVisibility(true);
     focusOnName();
   }
