@@ -8,8 +8,10 @@ import OptionBox from './OptionBox';
 import UniversalEditForm from './UniversalEditForm';
 import Toggable from './Toggable';
 import SendForm from './SendForm';
-import { patchSentTo } from '../reducer/categoryReducer';
 import TaskForm from './TaskForm';
+// reducers
+import { patchSentTo } from '../reducer/categoryReducer';
+import { patchCategoryName } from '../reducer/categoryReducer';
 
 const CategoryName = styled.span`
   font-size: 1.07em;
@@ -85,6 +87,10 @@ const CategorySide = ({
   const showTasks = () => {
     taskListRef.current.displayTasks();
   }
+  
+  const newCategoryNameReducer = (newName) => {
+    return patchCategoryName(category.id, categoryList, newName);
+  }
 
   return (
     <Draggable draggableId={category.id} index={arrayIndex}>
@@ -103,9 +109,9 @@ const CategorySide = ({
             />
             { isEditing 
               ? <UniversalEditForm
-                  category={category}
-                  categoryList={categoryList}
+                  orignalValue={category.name}
                   toggleEditing={toggleEditing}
+                  newValueReducer={newCategoryNameReducer}
                 />
               : <div>
                 <span {...provided.dragHandleProps}>
