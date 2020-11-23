@@ -40,7 +40,7 @@ const DroppableTaskList = React.forwardRef(({category, deleteCategory, makeTaskW
   return (
     <>
       {/* <button onClick={() => {deleteCategory(category)}}>X</button> */}
-      { category.sentTo ? "" : <button onClick={showCreateTask}>+</button>}
+      {/* { category.sentTo ? "" : <button onClick={showCreateTask}>+</button>} */}
       {category.tasks.length > 0 ? <button onClick={toggleTasks}>&or;</button> : ''}
       {children}
       <div>
