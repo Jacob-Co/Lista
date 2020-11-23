@@ -10,9 +10,10 @@ const genericPatchHelper = async (propertyToUpdate, req) => {
   const { body } = req;
 
   const taskToUpdate = await Task.findById(req.params.id);
+  const categoryOfTask = await Category.findById(taskToUpdate.category)
   if (!taskToUpdate) return { "error": "No Task found"};
   if (taskToUpdate.user.toString() !== token.id &&
-    taskToUpdate.sentTo.toString() !== token.id) {
+      categoryOfTask.sentTo.toString() !== token.id) {
       return { "error": "Invalid access" }
   }
 
