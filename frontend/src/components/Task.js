@@ -21,6 +21,10 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
     }
   }
 
+  const toggleEditing = () => {
+    setIsEditing(!isEditing);
+  }
+
   return(
     <Draggable draggableId={task.id} index={taskArrayIndex}>
       {provided => (
