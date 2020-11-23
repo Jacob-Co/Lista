@@ -296,7 +296,7 @@ const categoryReducer = (state = [], action) => {
       state = state.map(category => {
         if (category.id === targetCategoryId) {
           category.tasks = category.tasks.map(task => {
-            if (task.id === updatedTask.id) return task;
+            if (task.id === updatedTask.id) return updatedTask;
             return task;
           })
         }
