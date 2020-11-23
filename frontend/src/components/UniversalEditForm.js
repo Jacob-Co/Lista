@@ -1,11 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { patchCategoryName } from '../reducer/categoryReducer';
 import utils from './utils';
 
-const CategoryNameEditForm = ({ category, categoryList, toggleEditing, newValueReducer }) => {
-  const [ name, setName] = useState(category.name);
+const CategoryNameEditForm = ({ orignalValue, toggleEditing, newValueReducer }) => {
+  const [ name, setName] = useState(orignalValue);
   const dispatch = useDispatch();
   const inputRef = useRef();
   const formRef = useRef();
