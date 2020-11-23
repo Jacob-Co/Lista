@@ -9,6 +9,7 @@ import CategoryNameEditForm from './CategoryNameEditForm';
 import Toggable from './Toggable';
 import SendForm from './SendForm';
 import { patchSentTo } from '../reducer/categoryReducer';
+import TaskForm from './TaskForm';
 
 const CategoryName = styled.span`
   font-size: 1.07em;
@@ -47,6 +48,7 @@ const CategorySide = ({
   const [isEditing, setIsEditing] = useState(false);
   const sendFormRef = useRef();
   const taskListRef = useRef();
+  const taskFormRef = useRef();
   const dispatch = useDispatch();
   const username = useSelector(state => state.token.username);
 
@@ -65,7 +67,7 @@ const CategorySide = ({
     const sendTo = ['Send to', () => sendFormRef.current.toggleVisibility(true)];
     const deleteFunction = ['Delete', () => deleteCategory(category)];
     const unsend = ['Unsend', () => dispatch(patchSentTo(category.id, null))];
-    const showTaskForm = ['New Task', () => taskListRef.current.showCreateTask()];
+    const showTaskForm = ['New Task', () => taskFormRef.current.displayTaskForm()];
 
     if (isNotOwned) {
       return[toggleDone]
@@ -130,6 +132,7 @@ const CategorySide = ({
               </div>
             }
           </ContentDiv>
+          <TaskForm ref={taskFormRef}/>
           <Toggable ref={sendFormRef}>
             <SendFormWrapper>
               <SendForm 
