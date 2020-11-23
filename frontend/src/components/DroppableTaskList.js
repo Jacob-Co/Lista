@@ -11,7 +11,7 @@ const TaskDiv = styled.div`
   margin-bottom: 1rem;
 `
 
-const DroppableTaskList = React.forwardRef(({category, deleteCategory, makeTaskWorkingOn, categoryArrayIndex, children}, ref) => {
+const DroppableTaskList = React.forwardRef(({category, makeTaskWorkingOn, categoryArrayIndex, children}, ref) => {
   const taskToggable = useRef();
   const createTaskToggable = useRef();
 
