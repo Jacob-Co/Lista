@@ -46,6 +46,7 @@ const CategorySide = ({
 
   const [isEditing, setIsEditing] = useState(false);
   const sendFormRef = useRef();
+  const taskListRef = useRef();
   const dispatch = useDispatch();
   const username = useSelector(state => state.token.username);
 
@@ -117,6 +118,7 @@ const CategorySide = ({
                   deleteCategory={deleteCategory}
                   makeTaskWorkingOn={makeTaskWorkingOn}
                   categoryArrayIndex={arrayIndex}
+                  ref={taskListRef}
                 >
                   {category.sentTo
                     ? <SendToDiv>{category.sentTo.username === username 
