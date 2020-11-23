@@ -33,12 +33,12 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
     return patchTaskName(task.id, newName)
   }
 
-  const optionsToBePassed = (isAccomplished) => {
+  const optionsToBePassed = (isAccomplished, isSentToMe) => {
     const toggleDone = ['Toggle Done', () => dispatch(patchTaskAccomplished(task.id, !task.accomplished))];
     const edit = ['Edit', toggleEditing];
     const deleteTask = ['Delete', handleDeleteTask];
 
-    if (isAccomplished) {
+    if (isAccomplished && isSentToMe) {
       return [toggleDone];
     }
 
@@ -59,10 +59,10 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
           {...provided.draggableProps}
         >
           <div style={{"display": "flex", "alignItems": "center"}}>
-            {isSentToMe 
+            {category.sentTo && !isSentToMe()
               ? <>&#10132;</>
               : <OptionBox 
-                  optionsArray={optionsToBePassed(task.accomplished)}
+                  optionsArray={optionsToBePassed(task.accomplished, isSentToMe())}
                   checked={task.accomplished}
                 />
             }
