@@ -65,7 +65,7 @@ const CategorySide = ({
     const sendTo = ['Send to', () => sendFormRef.current.toggleVisibility(true)];
     const deleteFunction = ['Delete', () => deleteCategory(category)];
     const unsend = ['Unsend', () => dispatch(patchSentTo(category.id, null))];
-    const showTaskForm = ['New Task', () => taskListRef.current.showCreateTask];
+    const showTaskForm = ['New Task', () => taskListRef.current.showCreateTask()];
 
     if (isNotOwned) {
       return[toggleDone]
