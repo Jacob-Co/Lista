@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 
@@ -17,6 +17,7 @@ const TaskNameSpan = styled.span`
 const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArrayIndex}) => {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
+  const myUsername = useSelector(state => state.token.username);
 
   const handleDeleteTask = () => {
     if (window.confirm(`Delete ${task.name}?`)) {
@@ -44,6 +45,12 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
     return [toggleDone, edit, deleteTask];
   }
 
+  const isSentToMe = () => {
+    if (!category.sentTo) return false;
+    if (category.sentTo.username === myUsername) return true;
+    return false;
+  }
+
   return(
     <Draggable draggableId={task.id} index={taskArrayIndex}>
       {provided => (
@@ -52,10 +59,13 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
           {...provided.draggableProps}
         >
           <div style={{"display": "flex", "alignItems": "center"}}>
-            <OptionBox 
-              optionsArray={optionsToBePassed(task.accomplished)}
-              checked={task.accomplished}
-            />
+            {isSentToMe 
+              ? <>&#10132;</>
+              : <OptionBox 
+                  optionsArray={optionsToBePassed(task.accomplished)}
+                  checked={task.accomplished}
+                />
+            }
             { isEditing 
               ? <UniversalEditForm
                   orignalValue={task.name}
