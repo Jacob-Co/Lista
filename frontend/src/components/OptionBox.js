@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 import Toggable from './Toggable';
+import utils from './utils';
 
 const CheckBox = styled.span`
   font-size: 1.2em;
@@ -21,21 +22,6 @@ const OptionDiv = styled.div`
   cursor: pointer
 `
 
-const useOutsideEventListener = (ref, callback) => {
-  useEffect(() => {
-    const hideOptionBox = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        callback();
-      }
-    }
-
-    document.addEventListener('mousedown', hideOptionBox);
-    return () => {
-      document.removeEventListener('mousedown', hideOptionBox);
-    }
-  }, [ref])
-};
-
 const OptionBox = ({ optionsArray = [], checked }) => {
   const optionBoxRef = useRef();
   const wholeCompRef = useRef();
@@ -48,7 +34,7 @@ const OptionBox = ({ optionsArray = [], checked }) => {
     optionBoxRef.current.toggleVisibility()
   }
 
-  useOutsideEventListener(wholeCompRef, hideOptionBox);
+  utils.useOutsideEventListener(wholeCompRef, hideOptionBox);
 
   return(
     <div style={{"position": "relative"}} ref={wholeCompRef}>
