@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const useOutsideEventListener = (ref, callback) => {
+export const useOutsideEventListener = (ref, callback) => {
   useEffect(() => {
     const hideForm = (event) => {
       if (ref.current && !ref.current.contains(event.target)) callback();
@@ -12,5 +12,3 @@ const useOutsideEventListener = (ref, callback) => {
     }
   }, [ref])
 }
-
-export default { useOutsideEventListener };
