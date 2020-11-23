@@ -1,4 +1,4 @@
-import React, { Children, useRef } from 'react';
+import React, { useImperativeHandle, useRef } from 'react';
 import styled from 'styled-components';
 import { Droppable } from 'react-beautiful-dnd';
 
@@ -12,7 +12,7 @@ const TaskDiv = styled.div`
   margin-bottom: 1rem;
 `
 
-const DroppableTaskList = ({category, deleteCategory, makeTaskWorkingOn, categoryArrayIndex, children}) => {
+const DroppableTaskList = React.forwardRef(({category, deleteCategory, makeTaskWorkingOn, categoryArrayIndex, children}, ref) => {
   const taskToggable = useRef();
   const createTaskToggable = useRef();
   const taskFormRef = useRef();
@@ -30,6 +30,12 @@ const DroppableTaskList = ({category, deleteCategory, makeTaskWorkingOn, categor
     createTaskToggable.current.toggleVisibility()
     taskFormRef.current.focusOnName();
   }
+
+  useImperativeHandle(ref, () => {
+    return {
+      showCreateTask
+    }
+  })
 
   return (
     <>
@@ -74,6 +80,6 @@ const DroppableTaskList = ({category, deleteCategory, makeTaskWorkingOn, categor
       </div>
     </>
   )
-}
+})
 
 export default DroppableTaskList;
