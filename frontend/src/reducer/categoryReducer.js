@@ -106,8 +106,6 @@ export const switchTaskIndexes = (sourceIdx, destinationIdx, categoryList, categ
       if (category.id === categoryId) {
         let counter = 0;
         for (let task of quickUpdatedTasks) {
-          console.log(`task.id: ${task.id}`)
-          console.log(`previosTask.id: ${previousTasks[counter].id}`)
           if (task.id !== previousTasks[counter].id) {
             task = await tasks.updateIndex(task.id, counter);
           }
