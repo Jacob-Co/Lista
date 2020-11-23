@@ -96,14 +96,8 @@ taskRouter.patch('/content/:id', async (req, res) => {
 })
 
 taskRouter.patch('/accomplished/:id', async (req, res) => {
-  // const filter = { _id: req.params.id }
-  // const modifier = { accomplished: req.body.accomplished }
-  // const options = { new: true }
-  // const updatedTask = await Task.findOneAndUpdate(filter, modifier, options)
-  // res.status(202).json(updatedTask)
   const returnTask = await genericPatchHelper('accomplished', req);
   if (returnTask.error) return res.status(400).json(returnTask);
-
   return returnTask;
 })
 
