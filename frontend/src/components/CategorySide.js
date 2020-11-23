@@ -64,7 +64,8 @@ const CategorySide = ({
     const edit = ['Edit', () => toggleEditing()];
     const sendTo = ['Send to', () => sendFormRef.current.toggleVisibility(true)];
     const deleteFunction = ['Delete', () => deleteCategory(category)];
-    const unsend = ['Unsend', () => dispatch(patchSentTo(category.id, null))]
+    const unsend = ['Unsend', () => dispatch(patchSentTo(category.id, null))];
+    const showTaskForm = ['New Task', () => taskListRef.current.showCreateTask];
 
     if (isNotOwned) {
       return[toggleDone]
@@ -76,7 +77,7 @@ const CategorySide = ({
       return [unsend]
     }
 
-    return [toggleDone, edit, sendTo, deleteFunction];
+    return [toggleDone, edit, sendTo, deleteFunction, showTaskForm];
   }
 
   return (
