@@ -5,7 +5,7 @@ import { Draggable } from 'react-beautiful-dnd';
 
 import DroppableTaskList from './DroppableTaskList';
 import OptionBox from './OptionBox';
-import CategoryNameEditForm from './CategoryNameEditForm';
+import UniversalEditForm from './UniversalEditForm';
 import Toggable from './Toggable';
 import SendForm from './SendForm';
 import { patchSentTo } from '../reducer/categoryReducer';
@@ -102,7 +102,7 @@ const CategorySide = ({
               checked={ category.accomplished }
             />
             { isEditing 
-              ? <CategoryNameEditForm
+              ? <UniversalEditForm
                   category={category}
                   categoryList={categoryList}
                   toggleEditing={toggleEditing}
