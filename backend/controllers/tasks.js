@@ -98,7 +98,7 @@ taskRouter.patch('/content/:id', async (req, res) => {
 taskRouter.patch('/accomplished/:id', async (req, res) => {
   const returnTask = await genericPatchHelper('accomplished', req);
   if (returnTask.error) return res.status(400).json(returnTask);
-  return returnTask;
+  return res.json(returnTask);
 })
 
 taskRouter.patch('/overdue/:id', async (req, res) => {
