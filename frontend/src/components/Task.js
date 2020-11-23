@@ -52,7 +52,10 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
           {...provided.draggableProps}
         >
           <div style={{"display": "flex", "alignItems": "center"}}>
-            <OptionBox optionsArray={optionsToBePassed(task.accomplished)}/>
+            <OptionBox 
+              optionsArray={optionsToBePassed(task.accomplished)}
+              checked={task.accomplished}
+            />
             { isEditing 
               ? <UniversalEditForm
                   orignalValue={task.name}
