@@ -79,7 +79,7 @@ const CategorySide = ({
       return [unsend]
     }
 
-    return [toggleDone, edit, sendTo, deleteFunction, showTaskForm];
+    return [toggleDone, edit, showTaskForm, sendTo, deleteFunction];
   }
 
   const showTasks = () => {
