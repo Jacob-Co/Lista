@@ -308,7 +308,7 @@ const categoryReducer = (state = [], action) => {
 
 // TASK PATCH
 
-const genericPatchTask = (taskServiceFunction ,taskId, newValue) => {
+const genericTaskPatch = (taskServiceFunction ,taskId, newValue) => {
   return async (dispatch) => {
     const returnTask = await taskServiceFunction(taskId, newValue);
     dispatch({
@@ -318,12 +318,12 @@ const genericPatchTask = (taskServiceFunction ,taskId, newValue) => {
   }
 }
 
-export const patchAccomplishedTask = (taskId, accomplished) => {
-  return genericPatchTask(tasks.updateAccomplished, taskId, accomplished);
+export const patchTaskAccomplished = (taskId, accomplished) => {
+  return genericTaskPatch(tasks.updateAccomplished, taskId, accomplished);
 }
 
-export const patchNameTask = (taskId, name) => {
-  return genericPatchTask(tasks.updateName, taskId, name);
+export const patchTaskName = (taskId, name) => {
+  return genericTaskPatch(tasks.updateName, taskId, name);
 }
 
 export default categoryReducer
