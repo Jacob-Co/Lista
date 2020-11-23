@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
@@ -13,6 +13,7 @@ const TaskNameSpan = styled.span`
 
 const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArrayIndex}) => {
   const dispatch = useDispatch();
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleDeleteTask = () => {
     if (window.confirm(`Delete ${task.name}?`)) {
