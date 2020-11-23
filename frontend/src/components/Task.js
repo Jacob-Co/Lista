@@ -1,9 +1,14 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
 
 import { removeTask } from '../reducer/categoryReducer';
 import OptionBox from './OptionBox';
+
+const TaskNameSpan = styled.span`
+  text-decoration-line: ${props => (props.isAccomplished ? 'line-through' : 'none')}
+`
 
 const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArrayIndex}) => {
   const dispatch = useDispatch();
@@ -28,10 +33,8 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
           <span {...provided.dragHandleProps}
             onDoubleClick={() => makeTaskWorkingOn(category, task, categoryArrayIndex)}
           >
-            {task.name}
+            <TaskNameSpan isAccomplished={task.accomplished}>{task.name}</TaskNameSpan>
           </span>
-          {/* &gt; */}
-          {/* --<button onClick={handleDeleteTask}>X</button> */}
         </div>
       )}
     </Draggable>
