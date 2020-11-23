@@ -25,4 +25,10 @@ const updateAccomplished = async (id, accomplished) => {
   return res.data;
 }
 
-export default { createTask, deleteTask, updateIndex, updateAccomplished };
+const updateName = async (id, name) => {
+  const config = { headers: { Authorization: getToken() }};
+  const res = await axios.patch(`${baseUrl}/name/${id}`, { name }, config);
+  return res.data;
+}
+
+export default { createTask, deleteTask, updateIndex, updateAccomplished, updateName };
