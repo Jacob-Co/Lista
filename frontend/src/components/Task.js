@@ -59,7 +59,7 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
           {...provided.draggableProps}
         >
           <div style={{"display": "flex", "alignItems": "center"}}>
-            {category.sentTo && !isSentToMe()
+            {(category.sentTo && !isSentToMe()) || category.accomplished
               ? <>&#10132;</>
               : <OptionBox 
                   optionsArray={optionsToBePassed(task.accomplished, isSentToMe())}
