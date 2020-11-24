@@ -4,12 +4,13 @@ import { useDispatch } from 'react-redux'
 import { createNewTask } from '../reducer/categoryReducer'
 import utils from './utils';
 
-const TaskForm = ({category, showTasks}) => {
+const TaskForm = ({category, showTasks, toggleCreatingTask}) => {
   const dispatch = useDispatch();
 
   const [name, setName] = useState('')
   const [content, setContent] = useState('')
   const nameInput = useRef();
+  const taskFormRef = useRef();
 
   const focusOnName = () => {
     setTimeout(() => {
@@ -27,7 +28,7 @@ const TaskForm = ({category, showTasks}) => {
     // toggableRef.current.toggleVisibility(false);
   };
 
-  // utils.useOutsideEventListener(taskFormRef, hideTaskForm);
+  utils.useOutsideEventListener(taskFormRef, toggleCreatingTask);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -36,12 +37,11 @@ const TaskForm = ({category, showTasks}) => {
       dispatch(createNewTask({name, content, category: category.id, index}));
       setName('');
       setContent('');
-      showTasks();
     }
   }
 
   return(
-    <div>
+    <div ref={taskFormRef}>
         <h3>Creating a new task</h3>
         <form onSubmit={handleFormSubmit}>
           <div>
