@@ -58,7 +58,7 @@ const CategoryList = () => {
   }
 
   const makeTaskWorkingOn = (category, task, categoryArrayPosition) => {
-    dispatch(switchTaskWorkingOn(category, task, categoryList, categoryArrayPosition));
+    dispatch(switchTaskWorkingOn(category, task, categoryList, categoryArrayPosition, username));
   }
 
   return (
