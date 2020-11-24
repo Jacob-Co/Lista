@@ -49,6 +49,7 @@ const CategorySide = ({
 
   const [isEditing, setIsEditing] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const [isCreatingTask, setIsCreatingTask] = useState(false);
   const taskListRef = useRef();
   const dispatch = useDispatch();
   const username = useSelector(state => state.token.username);
@@ -59,6 +60,10 @@ const CategorySide = ({
 
   const toggleSending = () => {
     setIsSending(!isSending);
+  }
+
+  const toggleCreatingTask = () => {
+    setIsCreatingTask(!isCreatingTask);
   }
 
   const optionsToBePassed = (isAccomplished, isSent, isNotOwned) => {
@@ -72,7 +77,7 @@ const CategorySide = ({
     const sendTo = ['Send to', () => toggleSending()];
     const deleteFunction = ['Delete', () => deleteCategory(category)];
     const unsend = ['Unsend', () => dispatch(patchSentTo(category.id, null))];
-    const showTaskForm = ['New Task', () => ''];
+    const showTaskForm = ['New Task', () => toggleCreatingTask()];
 
     if (isNotOwned) {
       return[toggleDone]
@@ -146,10 +151,14 @@ const CategorySide = ({
                           </Link>
                       }</SendToDiv> 
                     : ""}
-                  <TaskForm 
-                    category={category}
-                    showTasks={showTasks}
-                    />
+                  {isCreatingTask
+                    ? <TaskForm 
+                        category={category}
+                        showTasks={showTasks}
+                        toggleCreatingTask={toggleCreatingTask}
+                      />
+                    : ""
+                  }
                 </DroppableTaskList>
               </div>
             }
