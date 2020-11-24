@@ -1,7 +1,7 @@
 const taskRouter = require('express').Router();
 const Task = require('../models/task');
-const User = require('../models/users');
 const Category = require('../models/category');
+const SSEUserIds = require('../utils/SSEUserIds');
 
 const genericPatchHelper = async (propertyToUpdate, req) => {
   const { token } = req;
@@ -97,6 +97,18 @@ taskRouter.patch('/content/:id', async (req, res) => {
 taskRouter.patch('/accomplished/:id', async (req, res) => {
   const returnTask = await genericPatchHelper('accomplished', req);
   if (returnTask.error) return res.status(400).json(returnTask);
+  const returnCategory = await Category.findById(returnTask.category);
+
+  if (returnCategory.sentTo) {
+    await returnCategory.populate({ path: 'user', select: 'username' }).execPopulate();
+    const username = returnCategory.user.username;
+    if (SSEUserIds[username]) {
+      const sentToRes = SSEUserIds[username];
+      sentToRes.write(`data: re-initialize\n\n`);
+      sentToRes.flush();
+    }
+  }
+
   return res.json(returnTask);
 })
 
