@@ -101,7 +101,6 @@ const CategorySide = ({
   }
 
   const handleDblClickCategory = () => {
-    console.log(category.sentTo && category.sentTo.username !== username)
     if (category.sentTo && category.sentTo.username !== username) {
       return alert('Cannot work on items you sent to others!');
     } else if (category.accomplished) {
