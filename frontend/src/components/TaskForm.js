@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { createNewTask } from '../reducer/categoryReducer'
 import utils from './utils';
+
 
 const TaskForm = ({category, showTasks, toggleCreatingTask}) => {
   const dispatch = useDispatch();
@@ -18,15 +19,11 @@ const TaskForm = ({category, showTasks, toggleCreatingTask}) => {
     }, 100);
   }
 
-  const displayTaskForm = () => {
+  focusOnName();
+  
+  useEffect(() => {
     showTasks();
-    // toggableRef.current.toggleVisibility(true);
-    focusOnName();
-  }
-
-  const hideTaskForm = () => {
-    // toggableRef.current.toggleVisibility(false);
-  };
+  }, [showTasks])
 
   utils.useOutsideEventListener(taskFormRef, toggleCreatingTask);
 
