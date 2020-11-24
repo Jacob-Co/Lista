@@ -1,18 +1,15 @@
-import React, { useState, useRef, useImperativeHandle } from 'react'
+import React, { useState, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 
-import Toggable from './Toggable'
 import { createNewTask } from '../reducer/categoryReducer'
 import utils from './utils';
 
-const TaskForm = React.forwardRef(({category, showTasks}, ref) => {
+const TaskForm = ({category, showTasks}) => {
   const dispatch = useDispatch();
 
   const [name, setName] = useState('')
   const [content, setContent] = useState('')
   const nameInput = useRef();
-  const taskFormRef = useRef();
-  const toggableRef = useRef();
 
   const focusOnName = () => {
     setTimeout(() => {
@@ -22,19 +19,15 @@ const TaskForm = React.forwardRef(({category, showTasks}, ref) => {
 
   const displayTaskForm = () => {
     showTasks();
-    toggableRef.current.toggleVisibility(true);
+    // toggableRef.current.toggleVisibility(true);
     focusOnName();
   }
 
   const hideTaskForm = () => {
-    toggableRef.current.toggleVisibility(false);
+    // toggableRef.current.toggleVisibility(false);
   };
 
-  utils.useOutsideEventListener(taskFormRef, hideTaskForm);
-
-  useImperativeHandle(ref, () => {
-    return { displayTaskForm }
-  })
+  // utils.useOutsideEventListener(taskFormRef, hideTaskForm);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -48,8 +41,7 @@ const TaskForm = React.forwardRef(({category, showTasks}, ref) => {
   }
 
   return(
-    <div ref={taskFormRef}>
-      <Toggable ref={toggableRef}>
+    <div>
         <h3>Creating a new task</h3>
         <form onSubmit={handleFormSubmit}>
           <div>
@@ -65,9 +57,8 @@ const TaskForm = React.forwardRef(({category, showTasks}, ref) => {
           </div>
           <button>create</button>
         </form>
-      </Toggable>
     </div>
   )
-})
+}
 
 export default TaskForm
