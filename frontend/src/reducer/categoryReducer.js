@@ -142,6 +142,7 @@ const updateCategoryIndexOnDb = async (categoriesToBeUpdated, username) => {
 
   for (const category of categoriesToBeUpdated) {
     const isSentCategory = category.sentTo && (category.sentTo.username === username);
+    console.log(isSentCategory);
     const properIndex = isSentCategory ? 'sentToIndex' : 'index'
     if (category[properIndex] !== counter) {
       if (category.extraInfo) continue;
@@ -185,7 +186,7 @@ const localRemoveWorkingOnTask = async (categoryId, categoryList) => {
   return updatedCategoryList;
 }
 
-export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryArrayPosition) => {
+export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryArrayPosition, username) => {
   return async (dispatch) => {
     paramCategory.taskWorkingOn = task;
     const updatedCategoryList = categoryList.map(category => {
@@ -200,7 +201,7 @@ export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryA
       data: quickUpdatedCategoryList
     });
     await categories.patchTaskWorkingOn(paramCategory.id, task.id);
-    await updateCategoryIndexOnDb(quickUpdatedCategoryList);
+    await updateCategoryIndexOnDb(quickUpdatedCategoryList, username);
   }
 }
 
