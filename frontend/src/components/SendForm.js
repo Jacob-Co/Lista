@@ -8,12 +8,12 @@ import utils from './utils';
 const ButtonHolder = styled.div`
   margin-left: 1.5rem;
 `
-const SendForm = ({ hideSendForm, item }) => {
+const SendForm = ({ removeSendForm, item }) => {
   const dispatch = useDispatch();
   const friends = useSelector(state => state.friends);
   const sendFormRef = useRef();
 
-  utils.useOutsideEventListener(sendFormRef, hideSendForm);
+  utils.useOutsideEventListener(sendFormRef, removeSendForm);
 
   return(
     <div ref={sendFormRef}>
@@ -22,7 +22,7 @@ const SendForm = ({ hideSendForm, item }) => {
         {friends.map(friend => <button
           key={friend.id}
           onClick={() => {
-            hideSendForm();
+            removeSendForm();
             dispatch(patchSentTo(item.id, friend.id));
           }}
         >
