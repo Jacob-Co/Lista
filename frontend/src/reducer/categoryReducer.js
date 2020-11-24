@@ -137,10 +137,10 @@ const quickSwitchCategories = (sourceIdx, desitnationIdx, categoryList) => {
   return newCategoryList
 }
 
-const updateCategoryIndexOnDb = async (categoryToBeUpdated, username) => {
+const updateCategoryIndexOnDb = async (categoriesToBeUpdated, username) => {
   let counter = 0;
 
-  for (const category of categoryToBeUpdated) {
+  for (const category of categoriesToBeUpdated) {
     const isSentCategory = category.sentTo && (category.sentTo.username === username);
     const properIndex = isSentCategory ? 'sentToIndex' : 'index'
     if (category[properIndex] !== counter) {
