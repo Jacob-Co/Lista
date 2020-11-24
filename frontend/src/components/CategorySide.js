@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components";
 import { Draggable } from 'react-beautiful-dnd';
+import { Link } from 'react-router-dom'
 
 import DroppableTaskList from './DroppableTaskList';
 import OptionBox from './OptionBox';
@@ -135,8 +136,13 @@ const CategorySide = ({
                 >
                   {category.sentTo
                     ? <SendToDiv>{category.sentTo.username === username 
-                      ? `from: ${category.user.username}` 
-                      :  `sent to: ${category.sentTo.username}`}</SendToDiv> 
+                        ? <Link to={`/friend/categories/${category.user.id}`}>
+                            {`from: ${category.user.username}`}
+                          </Link>
+                        : <Link to={`/friend/categories/${category.sentTo.id}`}>
+                            {`sent to: ${category.sentTo.username}`}
+                          </Link>
+                      }</SendToDiv> 
                     : ""}
                   <TaskForm 
                     ref={taskFormRef}
