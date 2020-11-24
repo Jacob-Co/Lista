@@ -6,9 +6,9 @@ const useOutsideEventListener = (ref, callback) => {
       if (ref.current && !ref.current.contains(event.target)) callback();
     }
 
-    document.addEventListener('mousedown', hideForm);
+    document.addEventListener('click', hideForm);
     return () => {
-      document.removeEventListener('mousedown', hideForm);
+      document.removeEventListener('click', hideForm);
     }
   }, [ref])
 }
