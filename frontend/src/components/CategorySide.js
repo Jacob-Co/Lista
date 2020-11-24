@@ -100,6 +100,17 @@ const CategorySide = ({
     return patchCategoryName(category.id, categoryList, newName);
   }
 
+  const handleDblClickCategory = () => {
+    console.log(category.sentTo && category.sentTo.username !== username)
+    if (category.sentTo && category.sentTo.username !== username) {
+      return alert('Cannot work on items you sent to others!');
+    } else if (category.accomplished) {
+      return alert('Cannot work on accomplished categories');
+    } else {
+      return makeWorkingOn(arrayIndex); 
+    }
+  }
+
   return (
     <Draggable draggableId={category.id} index={arrayIndex}>
       {provided => (
@@ -124,11 +135,7 @@ const CategorySide = ({
               : <div>
                 <span {...provided.dragHandleProps}>
                   <CategoryName 
-                    onDoubleClick={() => {
-                      (category.sentTo && category.sentTo.username !== username)
-                        ? alert('Cannot work on items you sent to others!')
-                        : makeWorkingOn(arrayIndex)
-                    }}
+                    onDoubleClick={handleDblClickCategory}
                     isAccomplished={category.accomplished}
                   >
                     {category.name}
