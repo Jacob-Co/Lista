@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 import DroppableTaskList from './DroppableTaskList';
 import OptionBox from './OptionBox';
 import UniversalEditForm from './UniversalEditForm';
-import Toggable from './Toggable';
 import SendForm from './SendForm';
 import TaskForm from './TaskForm';
 // reducers
@@ -49,7 +48,7 @@ const CategorySide = ({
     }) => {
 
   const [isEditing, setIsEditing] = useState(false);
-  const sendFormRef = useRef();
+  const [isSending, setIsSending] = useState(false);
   const taskListRef = useRef();
   const taskFormRef = useRef();
   const dispatch = useDispatch();
@@ -57,6 +56,10 @@ const CategorySide = ({
 
   const toggleEditing = () => {
     setIsEditing(!isEditing);
+  }
+
+  const toggleSending = () => {
+    setIsSending(!isSending);
   }
 
   const optionsToBePassed = (isAccomplished, isSent, isNotOwned) => {
@@ -67,7 +70,7 @@ const CategorySide = ({
       toggleAccomplishedCategory(category.id, !category.accomplished)
     }];
     const edit = ['Edit', () => toggleEditing()];
-    const sendTo = ['Send to', () => sendFormRef.current.toggleVisibility(true)];
+    const sendTo = ['Send to', () => toggleSending()];
     const deleteFunction = ['Delete', () => deleteCategory(category)];
     const unsend = ['Unsend', () => dispatch(patchSentTo(category.id, null))];
     const showTaskForm = ['New Task', () => taskFormRef.current.displayTaskForm()];
@@ -153,14 +156,15 @@ const CategorySide = ({
               </div>
             }
           </ContentDiv>
-          <Toggable ref={sendFormRef}>
-            <SendFormWrapper>
-              <SendForm 
-                hideSendForm={() => sendFormRef.current.toggleVisibility(false)}
-                item={category}
-              />
-            </SendFormWrapper>
-          </Toggable>
+          {isSending
+            ? <SendFormWrapper>
+                <SendForm 
+                  toggleSending={toggleSending}
+                  item={category}
+                />
+              </SendFormWrapper>
+            : ''
+          }
         </DropDown>
       )}
     </Draggable>
