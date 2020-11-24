@@ -50,7 +50,6 @@ const CategorySide = ({
   const [isEditing, setIsEditing] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const taskListRef = useRef();
-  const taskFormRef = useRef();
   const dispatch = useDispatch();
   const username = useSelector(state => state.token.username);
 
@@ -73,7 +72,7 @@ const CategorySide = ({
     const sendTo = ['Send to', () => toggleSending()];
     const deleteFunction = ['Delete', () => deleteCategory(category)];
     const unsend = ['Unsend', () => dispatch(patchSentTo(category.id, null))];
-    const showTaskForm = ['New Task', () => taskFormRef.current.displayTaskForm()];
+    const showTaskForm = ['New Task', () => ''];
 
     if (isNotOwned) {
       return[toggleDone]
@@ -148,7 +147,6 @@ const CategorySide = ({
                       }</SendToDiv> 
                     : ""}
                   <TaskForm 
-                    ref={taskFormRef}
                     category={category}
                     showTasks={showTasks}
                     />
