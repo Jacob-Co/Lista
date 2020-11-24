@@ -22,6 +22,10 @@ const CategorySpan = styled.span`
   font-weight: bold;
 `
 
+const AccomplishedSpan = styled.span`
+  text-decoration-line: ${props => (props.isAccomplished ? 'line-through' : 'none')}
+`
+
 const SendToDiv = styled.div`
   margin-left: 1rem;
   font-size: 1.02em;
@@ -64,7 +68,12 @@ const FriendCategoriesView = () => {
       <RefreshDiv><button onClick={handleRefresh}>refresh</button></RefreshDiv>
       {friendCategories.length > 0 
         ? friendCategories.slice(1).map(category => <CategoryDiv key={category.id}>
-            <div><CategorySpan>{category.name}</CategorySpan>
+            <div>
+              <CategorySpan>
+                <AccomplishedSpan isAccomplished={category.accomplished}>
+                  {category.name}
+                </AccomplishedSpan>
+              </CategorySpan>
               {category.tasks.length > 0
                 ? <TaskList tasks={category.tasks}> 
                     {category.sentTo
