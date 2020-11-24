@@ -8,6 +8,10 @@ const TasksDiv = styled.div`
   margin-left: 1.5rem;
 `
 
+const AccomplishedSpan = styled.span`
+  text-decoration-line: ${props => (props.isAccomplished ? 'line-through' : 'none')}
+`
+
 const TaskList = ({tasks, category, children}) => {
   const taskToggableRef = useRef();
   const taskFormToggableRef = useRef();
@@ -38,7 +42,11 @@ const TaskList = ({tasks, category, children}) => {
         </Toggable>
         <Toggable ref={taskToggableRef}>
           <h4>Tasks:</h4>
-          {tasks.map(task => <div key={task.id}>&gt; {task.name}</div>)}
+          {tasks.map(task => <div key={task.id}>
+              <AccomplishedSpan isAccomplished={task.accomplished}>
+                &gt; {task.name}
+              </AccomplishedSpan>
+            </div>)}
         </Toggable>
       </TasksDiv>
     </>
