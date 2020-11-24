@@ -38,7 +38,7 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
     const edit = ['Edit', toggleEditing];
     const deleteTask = ['Delete', handleDeleteTask];
 
-    if (isAccomplished && isSentToMe) {
+    if (isAccomplished || isSentToMe) {
       return [toggleDone];
     }
 
