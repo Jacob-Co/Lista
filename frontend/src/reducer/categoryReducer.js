@@ -146,11 +146,13 @@ const updateCategoryIndexOnDb = async (categoriesToBeUpdated, username) => {
     const properIndex = isSentCategory ? 'sentToIndex' : 'index'
     if (category[properIndex] !== counter) {
       if (category.extraInfo) continue;
+
       if (counter === 0) {
         await categories.patchWorkingOn(category.id, isSentCategory);
         counter += 1;
         continue;
       }
+
       isSentCategory
         ? await categories.patchSentToIndex(category.id, counter)
         : await categories.patchIndex(category.id, counter);
@@ -205,16 +207,16 @@ export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryA
   }
 }
 
-export const removeWorkingOnTask = (categoryId, categoryList) => {
-  return async (dispatch) => {
-    const updatedCategoryList = localRemoveWorkingOnTask(categoryId, categoryList);
+// export const removeWorkingOnTask = (categoryId, categoryList) => {
+//   return async (dispatch) => {
+//     const updatedCategoryList = await localRemoveWorkingOnTask(categoryId, categoryList);
   
-    dispatch({
-      type: 'UPDATE_CATEGORY_LIST',
-      data: updatedCategoryList
-    });
-  }
-}
+//     dispatch({
+//       type: 'UPDATE_CATEGORY_LIST',
+//       data: updatedCategoryList
+//     });
+//   }
+// }
 
 // CATEGORY PATCH
 
