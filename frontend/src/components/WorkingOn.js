@@ -42,7 +42,6 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
 
   const handleRemove = () => {
     if (!category.workingOn && category.extraInfo !== null) return;
-    if (category.taskWorkingOn) dispatch(removeWorkingOnTask(category.id, categoryList));
     dispatch(switchCategoryIndexes(0, 0, categoryList, username))
   }
 
