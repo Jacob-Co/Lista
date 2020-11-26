@@ -116,15 +116,42 @@ export const switchTaskIndexes = (sourceIdx, destinationIdx, categoryList, categ
   }
 }
 
-const quickSwitchCategories = (sourceIdx, desitnationIdx, categoryList) => {
-  let newCategoryList = categoryList.slice();
-  newCategoryList.splice(sourceIdx, 1);
-  if (desitnationIdx === 0 && categoryList[0].extraInfo) {
-    newCategoryList.splice(desitnationIdx, 1, categoryList[sourceIdx]);
+export const updateCategoryWorkingOn = (category, myUsername, { isWorkingOn }) => {
+  const isCategoryMine = category.sentTo &&
+    category.sentTo.username !== myUsername
+  if (isCategoryMine) {
+    category.workingOn = isWorkingOn;
   } else {
-    newCategoryList.splice(desitnationIdx, 0, categoryList[sourceIdx]);
+    category.sentToWorkingOn = isWorkingOn;
   }
-  if (sourceIdx === 0) {
+  if (!isWorkingOn) category.taskWorkingOn = null;
+
+  return category;
+}
+
+const quickSwitchCategories = (sourceIdx, destinationIdx, categoryList, myUsername) => {
+  let newCategoryList = categoryList.slice();
+  const workingOnIdx = 0;
+
+  let sourceCategory = newCategoryList.splice(sourceIdx, 1)[0];
+  let destinationCategory = categoryList[destinationIdx];
+
+  const isDestinationCategoryPlaceHolder = !!destinationCategory.extraInfo;
+
+  if (destinationIdx === workingOnIdx) {
+    sourceCategory = updateCategoryWorkingOn(sourceCategory, myUsername, { isWorkingOn: true });
+    if (!isDestinationCategoryPlaceHolder) {
+      destinationCategory = updateCategoryWorkingOn(destinationCategory, myUsername, { isWorkingOn: false });
+    }
+  }
+  
+  if (isDestinationCategoryPlaceHolder) {
+    newCategoryList.splice(destinationIdx, 1, sourceCategory);
+  } else {
+    newCategoryList.splice(destinationIdx, 0, sourceCategory);
+  }
+
+  if (sourceIdx === workingOnIdx) {
     const placeHolderCategory = {
       id: 'placeHolder',
       name: 'Double click an item to place here',
@@ -133,8 +160,11 @@ const quickSwitchCategories = (sourceIdx, desitnationIdx, categoryList) => {
       extraInfo: 'placeHolder'
     };
     newCategoryList.splice(0, 0, placeHolderCategory);
+    sourceCategory = updateCategoryWorkingOn(sourceCategory, myUsername, { isWorkingOn: false });
   }
-  return newCategoryList
+
+  console.log(newCategoryList)
+  return newCategoryList;
 }
 
 const updateCategoryIndexOnDb = async (categoriesToBeUpdated, username) => {
@@ -142,60 +172,40 @@ const updateCategoryIndexOnDb = async (categoriesToBeUpdated, username) => {
 
   for (const category of categoriesToBeUpdated) {
     const isSentToMe = category.sentTo && (category.sentTo.username === username);
-    console.log(category.name + " " + isSentToMe);
-    const properIndex = isSentToMe ? 'sentToIndex' : 'index'
     if (category.extraInfo) {
       counter += 1;
       continue;
     }
+
+    if (isSentToMe) {
+      await categories.patchSentToIndex(category.id, counter);
+    } else {
+      await categories.patchIndex(category.id, counter);
+    }
+
     if (counter === 0) {
-      console.log(`counter 0`)
       await categories.patchWorkingOn(category.id, isSentToMe, true);
       counter += 1;
       continue;
     } 
-    
-    if (isSentToMe) {
-      console.log(`is sent to me`)
-      await categories.patchSentToIndex(category.id, counter);
-      if (category.sentToWorkingOn) await categories.patchWorkingOn(category.id, isSentToMe, false);
-      if (category.taskWorkingOn) await categories.patchTaskWorkingOn(category.id, null);
-    } else {
-      await categories.patchIndex(category.id, counter);
-      console.log('reducer' + category.workingOn)
-      if (category.workingOn) await categories.patchWorkingOn(category.id, isSentToMe, false);
-      if (!category.sentTo) {
-        if (category.taskWorkingOn) await categories.patchTaskWorkingOn(category.id, null);
-      }
-    }
+
+    await categories.patchWorkingOn(category.id, isSentToMe, false);
+    await categories.patchTaskWorkingOn(category.id, null);
 
     counter += 1;
   }
 };
 
-export const switchCategoryIndexes = (sourceIdx, desitnationIdx, categoryList, username) => {
+export const switchCategoryIndexes = (sourceIdx, destinationIdx, categoryList, username) => {
   return async(dispatch) => {
-    const quickUpdatedCategoryList = quickSwitchCategories(sourceIdx, desitnationIdx, categoryList);
+    const quickUpdatedCategoryList = quickSwitchCategories(sourceIdx, destinationIdx, categoryList, username);
     dispatch({
       type: 'UPDATE_CATEGORY_LIST',
       data: quickUpdatedCategoryList
     })
 
-    // if (categoryList[sourceIdx].taskWorkingOn) categoryList = await localRemoveWorkingOnTask(categoryList[sourceIdx].id, categoryList);
     await updateCategoryIndexOnDb(quickUpdatedCategoryList, username);
   }
-}
-
-const localRemoveWorkingOnTask = async (categoryId, categoryList) => {
-  const updatedCategoryList = categoryList.map(category => {
-    if (category.id === categoryId) {
-      category.taskWorkingOn = null;
-    }
-    return category;
-  })
-
-  await categories.patchTaskWorkingOn(categoryId, null);
-  return updatedCategoryList;
 }
 
 export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryArrayPosition, username) => {
@@ -207,7 +217,7 @@ export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryA
       }
       return category
     });
-    const quickUpdatedCategoryList = quickSwitchCategories(categoryArrayPosition, 0, updatedCategoryList);
+    const quickUpdatedCategoryList = quickSwitchCategories(categoryArrayPosition, 0, updatedCategoryList, username);
     dispatch({
       type: 'UPDATE_CATEGORY_LIST',
       data: quickUpdatedCategoryList
@@ -216,17 +226,6 @@ export const switchTaskWorkingOn = (paramCategory, task, categoryList, categoryA
     await updateCategoryIndexOnDb(quickUpdatedCategoryList, username);
   }
 }
-
-// export const removeWorkingOnTask = (categoryId, categoryList) => {
-//   return async (dispatch) => {
-//     const updatedCategoryList = await localRemoveWorkingOnTask(categoryId, categoryList);
-  
-//     dispatch({
-//       type: 'UPDATE_CATEGORY_LIST',
-//       data: updatedCategoryList
-//     });
-//   }
-// }
 
 // CATEGORY PATCH
 
