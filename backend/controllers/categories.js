@@ -192,24 +192,14 @@ categoryRouter.patch('/workingOn/:id', async (req, res) => {
   if (!token) return res.status(401).json({ error: "Requires a token"});
 
   const { isSentCategory, isWorkingOn } = req.body;
-  
-  // // reassign old workingOn if available
-  // const filter2 = { user: token.id, workingOn: true };
-  // const modify2 = { index: 1, workingOn: false };
-  // await Category.findOneAndUpdate(filter2, modify2);
-
-  // // reassign old sentToWorkingOn if available
-  // const filter3 = { sentTo: token.id, sentToWorkingOn: true };
-  // const modify3 = { sentToIndex: 1, sentToWorkingOn: false };
-  // await Category.findOneAndUpdate(filter3, modify3);
 
   const filter = isSentCategory
     ? { sentTo: token.id, _id: req.params.id }
     : { user: token.id, _id: req.params.id };
 
   const modify = isSentCategory
-    ? { sentToIndex: 0, sentToWorkingOn: isWorkingOn }
-    : { index: 0, workingOn: isWorkingOn };
+    ? { sentToWorkingOn: isWorkingOn }
+    : { workingOn: isWorkingOn}
 
   const options = { new: true };
   const newWorkingOn = await Category.findOneAndUpdate(filter, modify, options);
