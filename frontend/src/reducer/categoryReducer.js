@@ -141,37 +141,47 @@ const updateCategoryIndexOnDb = async (categoriesToBeUpdated, username) => {
   let counter = 0;
 
   for (const category of categoriesToBeUpdated) {
-    const isSentCategory = category.sentTo && (category.sentTo.username === username);
-    console.log(isSentCategory);
-    const properIndex = isSentCategory ? 'sentToIndex' : 'index'
-    if (category[properIndex] !== counter) {
-      if (category.extraInfo) continue;
-
-      if (counter === 0) {
-        await categories.patchWorkingOn(category.id, isSentCategory);
-        counter += 1;
-        continue;
-      }
-
-      isSentCategory
-        ? await categories.patchSentToIndex(category.id, counter)
-        : await categories.patchIndex(category.id, counter);
+    const isSentToMe = category.sentTo && (category.sentTo.username === username);
+    console.log(category.name + " " + isSentToMe);
+    const properIndex = isSentToMe ? 'sentToIndex' : 'index'
+    if (category.extraInfo) {
       counter += 1;
-    } else {
-      counter += 1;
+      continue;
     }
+    if (counter === 0) {
+      console.log(`counter 0`)
+      await categories.patchWorkingOn(category.id, isSentToMe, true);
+      counter += 1;
+      continue;
+    } 
+    
+    if (isSentToMe) {
+      console.log(`is sent to me`)
+      await categories.patchSentToIndex(category.id, counter);
+      if (category.sentToWorkingOn) await categories.patchWorkingOn(category.id, isSentToMe, false);
+      if (category.taskWorkingOn) await categories.patchTaskWorkingOn(category.id, null);
+    } else {
+      await categories.patchIndex(category.id, counter);
+      console.log('reducer' + category.workingOn)
+      if (category.workingOn) await categories.patchWorkingOn(category.id, isSentToMe, false);
+      if (!category.sentTo) {
+        if (category.taskWorkingOn) await categories.patchTaskWorkingOn(category.id, null);
+      }
+    }
+
+    counter += 1;
   }
 };
 
 export const switchCategoryIndexes = (sourceIdx, desitnationIdx, categoryList, username) => {
   return async(dispatch) => {
-    if (categoryList[sourceIdx].taskWorkingOn) categoryList = await localRemoveWorkingOnTask(categoryList[sourceIdx].id, categoryList);
     const quickUpdatedCategoryList = quickSwitchCategories(sourceIdx, desitnationIdx, categoryList);
     dispatch({
       type: 'UPDATE_CATEGORY_LIST',
       data: quickUpdatedCategoryList
     })
 
+    // if (categoryList[sourceIdx].taskWorkingOn) categoryList = await localRemoveWorkingOnTask(categoryList[sourceIdx].id, categoryList);
     await updateCategoryIndexOnDb(quickUpdatedCategoryList, username);
   }
 }
