@@ -31,9 +31,9 @@ const patchIndex = async (id, index) => {
   return res.data;
 }
 
-const patchWorkingOn = async (id, isSentCategory) => {
+const patchWorkingOn = async (id, isSentCategory, isWorkingOn) => {
   const config = { headers: { Authorization: getToken() }}
-  const res = await axios.patch(`${baseUrl}/workingOn/${id}`, { isSentCategory }, config);
+  const res = await axios.patch(`${baseUrl}/workingOn/${id}`, { isSentCategory, isWorkingOn }, config);
   return res.data;
 }
 
