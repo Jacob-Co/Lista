@@ -338,4 +338,8 @@ export const patchTaskName = (taskId, name) => {
   return genericTaskPatch(tasks.updateName, taskId, name);
 }
 
+export const patchTaskSentTo = (taskId, receiverId) => {
+  return genericTaskPatch(tasks.updateSentTo, taskId, receiverId);
+}
+
 export default categoryReducer
