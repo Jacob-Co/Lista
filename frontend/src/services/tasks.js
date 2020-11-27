@@ -31,4 +31,10 @@ const updateName = async (id, name) => {
   return res.data;
 }
 
-export default { createTask, deleteTask, updateIndex, updateAccomplished, updateName };
+const updateSentTo = async (id, receiverId) => {
+  const config = { headers: { Authorization: getToken() }};
+  const res = await axios.patch(`${baseUrl}/sent/${id}`, { receiverId }, config);
+  return res.data;
+}
+
+export default { createTask, deleteTask, updateIndex, updateAccomplished, updateName, updateSentTo };
