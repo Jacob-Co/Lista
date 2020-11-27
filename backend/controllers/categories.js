@@ -10,11 +10,14 @@ const utils = require('./utils');
 const fixDisplayedCategories = async (categories, message, userId) => {
   categories = sortCategories(categories, userId);
 
-  if (!categories[0] ||
-      userId === categories[0].user.toString() 
+  const categoriesIsEmpty = !categories[0];
+  const noWorkingOnCategories = categoriesIsEmpty ||
+    ( userId === categories[0].user.toString()
         ? !categories[0].workingOn 
-        : !categories[0].sentToWorkingOn
-     ){
+        :!categories[0].sentToWorkingOn
+    );
+
+  if (noWorkingOnCategories){
     const nullCategory = new Category({ 
       name: `--${message}--`,
       index: 0,
