@@ -3,6 +3,7 @@ const Category = require('../models/category');
 const Task = require('../models/task');
 const User = require('../models/users');
 const SSEUserIds = require('../utils/SSEUserIds');
+const utils = require('./utils');
 
 // Helper Methods
 
@@ -13,8 +14,6 @@ const fixDisplayedCategories = async (categories, message, userId) => {
       userId === categories[0].user.toString() 
         ? !categories[0].workingOn 
         : !categories[0].sentToWorkingOn
-      // (!categories[0].workingOn && !categories[0].sentToWorkingOn) ||
-      // (categories[0].index != 0 && categories[0].sentToIndex != 0) // use userId
      ){
     const nullCategory = new Category({ 
       name: `--${message}--`,
@@ -47,13 +46,6 @@ const sortCategories = (categories, userId) => {
   return categories;
 }
 
-const getAllDisplayedCategories = async (userId) => {
-  let categories = await Category.find({ user: userId})
-  const sentToCategories = await Category.find({ sentTo: userId });
-  categories = categories.concat(sentToCategories);
-  return categories;
-}
-
 const genericPatchHelper = async (propertyToUpdate, req) => {
   const { token } = req;
   if (!token) return { error: "Requires a token"};
@@ -78,7 +70,7 @@ categoryRouter.get('/', async (req, res) => {
   const { token } = req;
   if (!token) return res.status(400).json({error: 'Requires token'});
 
-  const categories = await getAllDisplayedCategories(token.id);
+  const categories = await utils.getAllDisplayedCategories(token.id);
   const returnCategories = await fixDisplayedCategories(categories, 'Double click an item to place here', token.id);
 
   res.status(200).json(returnCategories);
@@ -91,7 +83,7 @@ categoryRouter.get('/friend/:id', async (req,res) => {
   const friend = await User.findById(req.params.id);
   if (!friend.friends.some(id => id.toString() === token.id)) return res.status(400).json({ error: 'You are not friends' });
   
-  const categories = await getAllDisplayedCategories(friend.id);
+  const categories = await utils.getAllDisplayedCategories(friend.id);
   const returnCategories = await fixDisplayedCategories(categories, 'None', friend.id);
 
   res.status(200).json(returnCategories);
@@ -267,7 +259,7 @@ categoryRouter.patch('/sentTo/:id', async (req, res) => {
   await returnCategory.save();
 
   if (sentToId) {
-    const sentToCategories = await getAllDisplayedCategories(sentToId);
+    const sentToCategories = await utils.getAllDisplayedCategories(sentToId);
     for (const category of sentToCategories) {
       if (category.id === returnCategory.id) {
         category.sentToIndex = 1;
