@@ -92,7 +92,8 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
                   {task.name}
                 </TaskNameSpan>
             }
-            { isSending
+          </div>
+          { isSending
               ? <SendForm
                   toggleSending={toggleSending}
                   item={task}
@@ -100,7 +101,6 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
                 />
               : ''
             }
-          </div>
         </div>
       )}
     </Draggable>
