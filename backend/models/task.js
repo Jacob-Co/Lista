@@ -52,6 +52,14 @@ const taskSchema = new mongoose.Schema({
   index: {
     type: Number,
     default: null
+  },
+  sentTo: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  representativeCategoryId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category'
   }
 })
 
