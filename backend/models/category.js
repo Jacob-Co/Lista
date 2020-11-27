@@ -48,7 +48,20 @@ const categorySchema = new mongoose.Schema({
   accomplished: {
     type: Boolean,
     default: false,
-  }
+  },
+  isSentTask: {
+    type: Boolean,
+    default: false,
+  },
+  sentTaskOwnerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  sentTaskOwnerUsername: String,
+  OriginalTaskId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Task'
+  },
 });
 
 categorySchema.set('toJSON', {
