@@ -156,7 +156,7 @@ taskRouter.patch('/sent/:id', async (req, res) => {
   const receiverUser = await User.findById(receiverId);
 
   if (receiverUser) {
-    await utils.incrementAllCategoriesByOne(receiverUser);
+    await utils.incrementAllCategoriesByOne(receiverId);
     const { token } = req;
     const ownerUser = await User.findById(token.id);
 
