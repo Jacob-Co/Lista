@@ -174,6 +174,7 @@ const CategorySide = ({
                 <SendForm 
                   toggleSending={toggleSending}
                   item={category}
+                  actionReducer={patchSentTo}
                 />
               </SendFormWrapper>
             : ''
