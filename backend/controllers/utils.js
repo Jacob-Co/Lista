@@ -11,7 +11,7 @@ const incrementAllCategoriesByOne = async (userId) => {
   const displayedCategories = await getAllDisplayedCategories(userId);
 
   for (const category of displayedCategories) {
-    const indexToIncrement = category.user.toString() === sentToId ? 'index' : 'sentToIndex';
+    const indexToIncrement = category.user.toString() === userId ? 'index' : 'sentToIndex';
     if (category[indexToIncrement] === 0) continue;
     category[indexToIncrement] += 1;
     await category.save();
