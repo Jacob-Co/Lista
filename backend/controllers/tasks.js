@@ -161,7 +161,7 @@ taskRouter.patch('/sent/:id', async (req, res) => {
     const ownerUser = await User.findById(token.id);
 
     const newCategory = new Category({ 
-      name: receiverUser.username,
+      name: updatedTask.name,
       user: receiverId,
       index: 1,
       isSentTask: true,
