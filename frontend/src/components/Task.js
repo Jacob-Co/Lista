@@ -39,16 +39,19 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
     return patchTaskName(task.id, newName)
   }
 
-  const optionsToBePassed = (isAccomplished, isSentToMe) => {
+  const optionsToBePassed = (isAccomplished, isSentToMe, isSentToFriend) => {
     const toggleDone = ['Toggle Done', () => dispatch(patchTaskAccomplished(task.id, !task.accomplished))];
     const edit = ['Edit', toggleEditing];
     const deleteTask = ['Delete', handleDeleteTask];
     const sendTask = ['Send to', toggleSending];
+    const unsendTask = ['Unsend', dispatch(patchTaskSentTo(task.id, null))];
 
     if (isAccomplished) {
       return [toggleDone, deleteTask];
     } else if (isSentToMe) {
       return [toggleDone]
+    } else if (isSentToFriend) {
+      return [unsendTask]
     }
 
     return [toggleDone, edit, sendTask, deleteTask];
@@ -58,6 +61,10 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
     if (!category.sentTo) return false;
     if (category.sentTo.username === myUsername) return true;
     return false;
+  }
+
+  const isSentToFriend = () => {
+    return !!task.representativeCategoryId
   }
 
   return(
@@ -71,7 +78,7 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
             {(category.sentTo && !isSentToMe()) || category.accomplished
               ? <>&#10132;</>
               : <OptionBox 
-                  optionsArray={optionsToBePassed(task.accomplished, isSentToMe())}
+                  optionsArray={optionsToBePassed(task.accomplished, isSentToMe(), isSentToFriend())}
                   checked={task.accomplished}
                 />
             }
