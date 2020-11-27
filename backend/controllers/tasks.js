@@ -4,6 +4,7 @@ const Category = require('../models/category');
 const User = require('../models/users');
 const SSEUserIds = require('../utils/SSEUserIds');
 const utils = require('./utils');
+const { update } = require('../models/task');
 
 const genericPatchHelper = async (propertyToUpdate, req) => {
   const { token } = req;
@@ -179,6 +180,21 @@ taskRouter.patch('/sent/:id', async (req, res) => {
       sentToRes.write('data: re-initialize\n\n');
       sentToRes.flush();
     }
+  } else {
+    const representativeCategoryId = updatedTask.representativeCategoryId;
+    const categoryToDelete = await Category.findById(representativeCategoryId)
+      .populate('user');
+    const receiverUsername = categoryToDelete.user.username;
+    await Category.deleteOne({ _id: representativeCategoryId });
+    const sentToRes = SSEUserIds[receiverUsername];
+
+    if (sentToRes) {
+      sentToRes.write('data: re-initialize\n\n');
+      sentToRes.flush();
+    }
+    
+    updatedTask.representativeCategoryId = null;
+    await updatedTask.save();
   }
 
   return res.json(updatedTask);
