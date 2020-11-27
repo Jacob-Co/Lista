@@ -5,8 +5,9 @@ import styled from 'styled-components';
 
 import OptionBox from './OptionBox';
 import UniversalEditForm from './UniversalEditForm';
+import SendForm from './SendForm';
 //reducers
-import { removeTask, patchTaskAccomplished, patchTaskName } from '../reducer/categoryReducer';
+import { removeTask, patchTaskAccomplished, patchTaskName, patchTaskSentTo } from '../reducer/categoryReducer';
 
 
 
@@ -90,6 +91,14 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
                 >
                   {task.name}
                 </TaskNameSpan>
+            }
+            { isSending
+              ? <SendForm
+                  toggleSending={toggleSending}
+                  item={task}
+                  actionReducer={patchTaskSentTo}
+                />
+              : ''
             }
           </div>
         </div>
