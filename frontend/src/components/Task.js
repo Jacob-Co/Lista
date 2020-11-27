@@ -39,12 +39,16 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
     return patchTaskName(task.id, newName)
   }
 
+  const handleUnsendTask = () => {
+    dispatch(patchTaskSentTo(task.id, null));
+  }
+
   const optionsToBePassed = (isAccomplished, isSentToMe, isSentToFriend) => {
     const toggleDone = ['Toggle Done', () => dispatch(patchTaskAccomplished(task.id, !task.accomplished))];
     const edit = ['Edit', toggleEditing];
     const deleteTask = ['Delete', handleDeleteTask];
     const sendTask = ['Send to', toggleSending];
-    const unsendTask = ['Unsend', dispatch(patchTaskSentTo(task.id, null))];
+    const unsendTask = ['Unsend', handleUnsendTask];
 
     if (isAccomplished) {
       return [toggleDone, deleteTask];
