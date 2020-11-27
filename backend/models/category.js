@@ -58,7 +58,7 @@ const categorySchema = new mongoose.Schema({
     ref: 'User'
   },
   sentTaskOwnerUsername: String,
-  OriginalTaskId: {
+  originalTaskId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Task'
   },
