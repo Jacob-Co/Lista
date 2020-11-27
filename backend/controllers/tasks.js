@@ -1,7 +1,9 @@
 const taskRouter = require('express').Router();
 const Task = require('../models/task');
 const Category = require('../models/category');
+const User = require('../models/users');
 const SSEUserIds = require('../utils/SSEUserIds');
+const utils = require('./utils');
 
 const genericPatchHelper = async (propertyToUpdate, req) => {
   const { token } = req;
@@ -145,6 +147,42 @@ taskRouter.patch('/category/:id', async (req, res) => {
 
   res.status(202).json(updatedTask)
 })
+
+taskRouter.patch('/sent/:id', async (req, res) => {
+  const updatedTask = await genericPatchHelper('sentTo', req);
+  if (updatedTask.error) return res.status(400).json(updatedTask);
+
+  const { receiverId } = req.body;
+  const receiverUser = await User.findById(receiverId);
+
+  if (receiverUser) {
+    await utils.incrementAllCategoriesByOne(receiverUser);
+    const { token } = req;
+    const ownerUser = await User.findById(token.id);
+
+    const newCategory = new Category({ 
+      name: receiverUser.username,
+      user: receiverId,
+      index: 1,
+      isSentTask: true,
+      sentTaskOwnerId: token.id,
+      sentTaskOwnerUsername: ownerUser.username,
+      originalTaskId: req.params.id,
+    });
+    await newCategory.save();
+
+    updatedTask.representativeCategoryId = newCategory._id;
+    await updatedTask.save();
+
+    const sentToRes = SSEUserIds[receiverUser.username];
+    if (sentToRes) {
+      sentToRes.write('data: re-initialize\n\n');
+      sentToRes.flush();
+    }
+  }
+
+  return res.json(updatedTask);
+});
 
 taskRouter.delete('/:id', async (req, res) => {
   const taskToDelete = await Task.findById(req.params.id);
