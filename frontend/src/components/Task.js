@@ -17,6 +17,7 @@ const TaskNameSpan = styled.span`
 const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArrayIndex}) => {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   const myUsername = useSelector(state => state.token.username);
 
   const handleDeleteTask = () => {
@@ -29,6 +30,10 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
     setIsEditing(!isEditing);
   }
 
+  const toggleSending = () => {
+    setIsSending(!isSending);
+  }
+
   const newTaskNameReducer = (newName) => {
     return patchTaskName(task.id, newName)
   }
@@ -37,6 +42,7 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
     const toggleDone = ['Toggle Done', () => dispatch(patchTaskAccomplished(task.id, !task.accomplished))];
     const edit = ['Edit', toggleEditing];
     const deleteTask = ['Delete', handleDeleteTask];
+    const sendTask = ['Send to', toggleSending];
 
     if (isAccomplished) {
       return [toggleDone, deleteTask];
@@ -44,7 +50,7 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
       return [toggleDone]
     }
 
-    return [toggleDone, edit, deleteTask];
+    return [toggleDone, edit, sendTask, deleteTask];
   }
 
   const isSentToMe = () => {
