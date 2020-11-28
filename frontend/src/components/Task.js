@@ -106,11 +106,11 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
           </div>
           { isSending
               ? <SendForm
-                  toggleSending={toggleSending}
+                  toggleSending={() => setTimeout(toggleSending, 1)}
                   item={task}
                   actionReducer={patchTaskSentTo}
                 />
-              : ''
+              : <div></div>
             }
         </div>
       )}
