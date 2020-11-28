@@ -240,7 +240,7 @@ categoryRouter.patch('/accomplished/:id', async (req, res) => {
   if (returnCategory.isSentTask) {
     const originalTask = await Task.findById(returnCategory.originalTaskId);
     const username = returnCategory.sentTaskOwnerUsername;
-    originalTask.accomplished = true;
+    originalTask.accomplished = req.body.accomplished;
     await originalTask.save();
     SSEUtils.reinitializeDisplay(username);
   }
