@@ -153,7 +153,7 @@ taskRouter.patch('/sent/:id', async (req, res) => {
   const updatedTask = await genericPatchHelper('sentTo', req);
   if (updatedTask.error) return res.status(400).json(updatedTask);
 
-  const { receiverId } = req.body;
+  const receiverId = req.body.sentTo;
   const receiverUser = await User.findById(receiverId);
 
   if (receiverUser) {
