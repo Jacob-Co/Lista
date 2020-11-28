@@ -79,7 +79,7 @@ const CategorySide = ({
     const unsend = ['Unsend', () => dispatch(patchSentTo(category.id, null))];
     const showTaskForm = ['New Task', () => toggleCreatingTask()];
 
-    if (isNotOwned) {
+    if (isNotOwned || isSentTask) {
       return[toggleDone]
     } else if (isAccomplished && isSent) {
       return [unsend, deleteFunction]
@@ -87,8 +87,6 @@ const CategorySide = ({
       return [toggleDone, deleteFunction]
     } else if (isSent) {
       return [unsend]
-    } else if (isSentTask) {
-      return [toggleDone];
     }
 
     return [toggleDone, edit, showTaskForm, sendTo, deleteFunction];
