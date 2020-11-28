@@ -33,7 +33,7 @@ const updateName = async (id, name) => {
 
 const updateSentTo = async (id, receiverId) => {
   const config = { headers: { Authorization: getToken() }};
-  const res = await axios.patch(`${baseUrl}/sent/${id}`, { receiverId }, config);
+  const res = await axios.patch(`${baseUrl}/sent/${id}`, { sentTo: receiverId }, config);
   return res.data;
 }
 
