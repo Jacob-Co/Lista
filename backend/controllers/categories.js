@@ -234,9 +234,22 @@ categoryRouter.patch('/taskWorkingOn/:id', async (req, res) => {
 categoryRouter.patch('/accomplished/:id', async (req, res) => {
   const returnCategory = await genericPatchHelper('accomplished', req);
   if (returnCategory.error) return res.status(400).json(returnCategory);
+
   if (returnCategory.sentTo) {
     await returnCategory.populate({ path: 'user', select: 'username' }).execPopulate();
     const username = returnCategory.user.username;
+    if (SSEUserIds[username]) {
+      const sentToRes = SSEUserIds[username];
+      sentToRes.write(`data: re-initialize\n\n`);
+      sentToRes.flush();
+    }
+  }
+
+  if (returnCategory.isSentTask) {
+    const originalTask = await Task.findById(returnCategory.originalTaskId);
+    const username = returnCategory.sentTaskOwnerUsername;
+    originalTask.accomplished = true;
+    await originalTask.save();
     if (SSEUserIds[username]) {
       const sentToRes = SSEUserIds[username];
       sentToRes.write(`data: re-initialize\n\n`);
