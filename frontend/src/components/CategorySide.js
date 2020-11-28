@@ -150,12 +150,19 @@ const CategorySide = ({
                   {category.sentTo
                     ? <SendToDiv>{category.sentTo.username === username 
                         ? <Link to={`/friend/categories/${category.user.id}`}>
-                            {`from: ${category.user.username}`}
+                            {`category from: ${category.user.username}`}
                           </Link>
                         : <Link to={`/friend/categories/${category.sentTo.id}`}>
                             {`sent to: ${category.sentTo.username}`}
                           </Link>
                       }</SendToDiv> 
+                    : ""}
+                  {category.isSentTask
+                    ? <SendToDiv>
+                        <Link to={`/friend/categories/${category.sentTaskOwnerId}`}>
+                          {`task from: ${category.sentTaskOwnerUsername}`}
+                        </Link>
+                      </SendToDiv> 
                     : ""}
                   {isCreatingTask
                     ? <TaskForm 
