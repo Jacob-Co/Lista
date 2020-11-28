@@ -120,7 +120,7 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
             {task.sentTo
               ? <SendToDiv>
                   <Link to={`/friend/categories/${task.sentTo}`}>
-                    {`sent to: ${''}`}
+                    {`sent to: ${task.sentToUsername}`}
                   </Link>
                 </SendToDiv> 
               : ""
