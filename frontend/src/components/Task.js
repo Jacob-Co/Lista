@@ -29,7 +29,7 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [isSending, setIsSending] = useState(false);
-  const myToken = useSelector(state => state.token.username);
+  const myToken = useSelector(state => state.token);
   const myUsername = myToken.username;
   const myId = myToken.id;
 
