@@ -2,7 +2,7 @@ const taskRouter = require('express').Router();
 const Task = require('../models/task');
 const Category = require('../models/category');
 const User = require('../models/users');
-const SSEUserIds = require('../utils/SSEUserIds');
+const SSEUtils = require('../utils/SSEUserIds');
 const utils = require('./utils');
 const { update } = require('../models/task');
 
@@ -105,11 +105,7 @@ taskRouter.patch('/accomplished/:id', async (req, res) => {
   if (returnCategory.sentTo) {
     await returnCategory.populate({ path: 'user', select: 'username' }).execPopulate();
     const username = returnCategory.user.username;
-    if (SSEUserIds[username]) {
-      const sentToRes = SSEUserIds[username];
-      sentToRes.write(`data: re-initialize\n\n`);
-      sentToRes.flush();
-    }
+    SSEUtils.reinitializeDisplay(username);
   }
 
   return res.json(returnTask);
@@ -176,23 +172,14 @@ taskRouter.patch('/sent/:id', async (req, res) => {
     updatedTask.representativeCategoryId = newCategory._id;
     await updatedTask.save();
 
-    const sentToRes = SSEUserIds[receiverUser.username];
-    if (sentToRes) {
-      sentToRes.write('data: re-initialize\n\n');
-      sentToRes.flush();
-    }
+    SSEUtils.reinitializeDisplay(receiverUser.username);
   } else {
     const representativeCategoryId = updatedTask.representativeCategoryId;
     const categoryToDelete = await Category.findById(representativeCategoryId)
       .populate('user');
     const receiverUsername = categoryToDelete.user.username;
     await Category.deleteOne({ _id: representativeCategoryId });
-    const sentToRes = SSEUserIds[receiverUsername];
-
-    if (sentToRes) {
-      sentToRes.write('data: re-initialize\n\n');
-      sentToRes.flush();
-    }
+    SSEUtils.reinitializeDisplay(receiverUsername);
     
     updatedTask.representativeCategoryId = null;
     await updatedTask.save();

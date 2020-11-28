@@ -4,7 +4,7 @@ const SSEUtil = require('../utils/SSEUserIds')
 
 // Store open connections here
 let accessCodes = [];
-const userIds = SSEUtil.getUserIds;
+const userIds = SSEUtil.getUserIds();
 
 const generateRandomCode = () => {
   const randomCodes = [

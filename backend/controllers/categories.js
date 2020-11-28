@@ -2,7 +2,7 @@ const categoryRouter = require('express').Router();
 const Category = require('../models/category');
 const Task = require('../models/task');
 const User = require('../models/users');
-const SSEUserIds = require('../utils/SSEUserIds');
+const SSEUtils = require('../utils/SSEUserIds');
 const utils = require('./utils');
 
 // Helper Methods
@@ -138,11 +138,7 @@ categoryRouter.delete('/:id', async (req, res) => {
   if (categoryToDelete.sentTo) {
     await categoryToDelete.populate({ path: 'sentTo', select: 'username' }).execPopulate();
     const username = categoryToDelete.sentTo.username;
-    if (SSEUserIds[username]) {
-      const sentToRes = SSEUserIds[username];
-      sentToRes.write(`data: re-initialize\n\n`);
-      sentToRes.flush();
-    }
+    SSEUtils.reinitializeDisplay(username)
   }
 
   for (const taskId of categoryToDelete.tasks) {
@@ -238,11 +234,7 @@ categoryRouter.patch('/accomplished/:id', async (req, res) => {
   if (returnCategory.sentTo) {
     await returnCategory.populate({ path: 'user', select: 'username' }).execPopulate();
     const username = returnCategory.user.username;
-    if (SSEUserIds[username]) {
-      const sentToRes = SSEUserIds[username];
-      sentToRes.write(`data: re-initialize\n\n`);
-      sentToRes.flush();
-    }
+    SSEUtils.reinitializeDisplay(username);
   }
 
   if (returnCategory.isSentTask) {
@@ -250,11 +242,7 @@ categoryRouter.patch('/accomplished/:id', async (req, res) => {
     const username = returnCategory.sentTaskOwnerUsername;
     originalTask.accomplished = true;
     await originalTask.save();
-    if (SSEUserIds[username]) {
-      const sentToRes = SSEUserIds[username];
-      sentToRes.write(`data: re-initialize\n\n`);
-      sentToRes.flush();
-    }
+    SSEUtils.reinitializeDisplay(username);
   }
   return res.json(returnCategory);
 });
@@ -288,17 +276,9 @@ categoryRouter.patch('/sentTo/:id', async (req, res) => {
       await category.save();
     }
     await returnCategory.populate({ path : 'sentTo', select: 'username'}).execPopulate();
-    if (SSEUserIds[returnCategory.sentTo.username]) {
-      const sentToRes = SSEUserIds[returnCategory.sentTo.username];
-      sentToRes.write(`data: re-initialize\n\n`);
-      sentToRes.flush();
-    }
+    SSEUtils.reinitializeDisplay(returnCategory.sentTo.username)
   } else {
-    if (SSEUserIds[prevUsername]) {
-      const sentToRes = SSEUserIds[prevUsername];
-      sentToRes.write(`data: re-initialize\n\n`);
-      sentToRes.flush();
-    }
+    SSEUtils.reinitializeDisplay(prevUsername);
   }
 
   await returnCategory.populate('tasks').execPopulate();
