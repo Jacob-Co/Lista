@@ -66,7 +66,7 @@ const CategorySide = ({
     setIsCreatingTask(!isCreatingTask);
   }
 
-  const optionsToBePassed = (isAccomplished, isSent, isNotOwned) => {
+  const optionsToBePassed = (isAccomplished, isSent, isNotOwned, isSentTask) => {
     const toggleDone = ['Toggle Done', () => {
       for (const task of category.tasks) {
         if (!task.accomplished) return alert('Cannot toggle done, not all tasks are accomplished');
@@ -87,6 +87,8 @@ const CategorySide = ({
       return [toggleDone, deleteFunction]
     } else if (isSent) {
       return [unsend]
+    } else if (isSentTask) {
+      return [toggleDone];
     }
 
     return [toggleDone, edit, showTaskForm, sendTo, deleteFunction];
@@ -121,7 +123,8 @@ const CategorySide = ({
           <ContentDiv style={{"display": "flex"}}>
             <OptionBox optionsArray={optionsToBePassed(category.accomplished,
                 category.sentTo,
-                (category.sentTo && category.sentTo.username === username)
+                (category.sentTo && category.sentTo.username === username),
+                category.isSentTask
               )}
               checked={ category.accomplished }
             />
