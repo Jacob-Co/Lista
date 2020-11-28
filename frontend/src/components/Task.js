@@ -108,8 +108,12 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
                 : <TaskNameSpan 
                     isAccomplished={task.accomplished}
                     onDoubleClick={() => {
-                      if (task.accomplished) return alert('Cannot work on accomplished task');
-                      makeTaskWorkingOn(category, task, categoryArrayIndex) 
+                      if (isSentToFriend()) {
+                        return alert('Cannot work on sent task')
+                      } else if (task.accomplished) {
+                        return alert('Cannot work on accomplished task')
+                      }
+                      makeTaskWorkingOn(category, task, categoryArrayIndex);
                     }}
                     {...provided.dragHandleProps}
                   >
