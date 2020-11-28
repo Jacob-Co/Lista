@@ -60,7 +60,8 @@ const taskSchema = new mongoose.Schema({
   representativeCategoryId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Category'
-  }
+  },
+  sentToUsername: String
 })
 
 taskSchema.set('toJSON', {
