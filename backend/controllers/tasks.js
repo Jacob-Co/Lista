@@ -172,6 +172,7 @@ taskRouter.patch('/sent/:id', async (req, res) => {
     });
     await newCategory.save();
 
+    updatedTask.sentToUsername = receiverUser.username;
     updatedTask.representativeCategoryId = newCategory._id;
     await updatedTask.save();
 

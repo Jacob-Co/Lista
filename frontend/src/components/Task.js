@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom'
 
 import OptionBox from './OptionBox';
 import UniversalEditForm from './UniversalEditForm';
@@ -9,17 +10,28 @@ import SendForm from './SendForm';
 //reducers
 import { removeTask, patchTaskAccomplished, patchTaskName, patchTaskSentTo } from '../reducer/categoryReducer';
 
-
+const SendToDiv = styled.div`
+  margin-left: 1rem;
+  font-size: 1.02em;
+  font-style: italic;
+`
 
 const TaskNameSpan = styled.span`
   text-decoration-line: ${props => (props.isAccomplished ? 'line-through' : 'none')}
+`
+
+const ColumnarDiv = styled.div`
+  display: flex;
+  flex-direction: column;
 `
 
 const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArrayIndex}) => {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [isSending, setIsSending] = useState(false);
-  const myUsername = useSelector(state => state.token.username);
+  const myToken = useSelector(state => state.token.username);
+  const myUsername = myToken.username;
+  const myId = myToken.id;
 
   const handleDeleteTask = () => {
     if (window.confirm(`Delete ${task.name}?`)) {
@@ -78,32 +90,42 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
         ref={provided.innerRef}
           {...provided.draggableProps}
         >
-          <div style={{"display": "flex", "alignItems": "center"}}>
-            {(category.sentTo && !isSentToMe()) || category.accomplished
-              ? <>&#10132;</>
-              : <OptionBox 
-                  optionsArray={optionsToBePassed(task.accomplished, isSentToMe(), isSentToFriend())}
-                  checked={task.accomplished}
-                />
+          <ColumnarDiv>
+            <div style={{"display": "flex", "alignItems": "center"}}>
+              {(category.sentTo && !isSentToMe()) || category.accomplished
+                ? <>&#10132;</>
+                : <OptionBox 
+                    optionsArray={optionsToBePassed(task.accomplished, isSentToMe(), isSentToFriend())}
+                    checked={task.accomplished}
+                  />
+              }
+              { isEditing 
+                ? <UniversalEditForm
+                    orignalValue={task.name}
+                    toggleEditing={toggleEditing}
+                    newValueReducer={newTaskNameReducer}
+                  />
+                : <TaskNameSpan 
+                    isAccomplished={task.accomplished}
+                    onDoubleClick={() => {
+                      if (task.accomplished) return alert('Cannot work on accomplished task');
+                      makeTaskWorkingOn(category, task, categoryArrayIndex) 
+                    }}
+                    {...provided.dragHandleProps}
+                  >
+                    {task.name}
+                  </TaskNameSpan>
+              }
+            </div>
+            {task.sentTo
+              ? <SendToDiv>
+                  <Link to={`/friend/categories/${task.sentTo}`}>
+                    {`sent to: ${''}`}
+                  </Link>
+                </SendToDiv> 
+              : ""
             }
-            { isEditing 
-              ? <UniversalEditForm
-                  orignalValue={task.name}
-                  toggleEditing={toggleEditing}
-                  newValueReducer={newTaskNameReducer}
-                />
-              : <TaskNameSpan 
-                  isAccomplished={task.accomplished}
-                  onDoubleClick={() => {
-                    if (task.accomplished) return alert('Cannot work on accomplished task');
-                    makeTaskWorkingOn(category, task, categoryArrayIndex) 
-                  }}
-                  {...provided.dragHandleProps}
-                >
-                  {task.name}
-                </TaskNameSpan>
-            }
-          </div>
+          </ColumnarDiv>
           { isSending
               ? <SendForm
                   toggleSending={() => setTimeout(toggleSending, 1)}
