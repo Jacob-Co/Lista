@@ -62,12 +62,12 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
     const sendTask = ['Send to', toggleSending];
     const unsendTask = ['Unsend', handleUnsendTask];
 
-    if (isAccomplished) {
-      return [toggleDone, deleteTask];
-    } else if (isSentToMe) {
-      return [toggleDone]
+    if (isSentToMe) {
+      return [toggleDone];
     } else if (isSentToFriend) {
-      return [unsendTask]
+      return [unsendTask];
+    } else if (isAccomplished) {
+      return [toggleDone]
     }
 
     return [toggleDone, edit, sendTask, deleteTask];
