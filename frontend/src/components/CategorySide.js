@@ -66,7 +66,7 @@ const CategorySide = ({
     setIsCreatingTask(!isCreatingTask);
   }
 
-  const optionsToBePassed = (isAccomplished, isSent, isNotOwned, isSentTask) => {
+  const optionsToBePassed = (isAccomplished, isSent, isNotOwned, isSentTask, hasSentTask) => {
     const toggleDone = ['Toggle Done', () => {
       for (const task of category.tasks) {
         if (!task.accomplished) return alert('Cannot toggle done, not all tasks are accomplished');
@@ -79,7 +79,9 @@ const CategorySide = ({
     const unsend = ['Unsend', () => dispatch(patchSentTo(category.id, null))];
     const showTaskForm = ['New Task', () => toggleCreatingTask()];
 
-    if (isNotOwned || isSentTask) {
+    if (hasSentTask) {
+      return [toggleDone, edit, showTaskForm, deleteFunction];
+    } else if (isNotOwned || isSentTask) {
       return[toggleDone]
     } else if (isAccomplished && isSent) {
       return [unsend]
@@ -110,6 +112,11 @@ const CategorySide = ({
     }
   }
 
+  const hasSentTask = (category) => {
+    const sentTask = category.tasks.find(task => !!task.sentTo === true);
+    return !!sentTask
+  }
+
   return (
     <Draggable draggableId={category.id} index={arrayIndex}>
       {provided => (
@@ -122,7 +129,8 @@ const CategorySide = ({
             <OptionBox optionsArray={optionsToBePassed(category.accomplished,
                 category.sentTo,
                 (category.sentTo && category.sentTo.username === username),
-                category.isSentTask
+                category.isSentTask,
+                hasSentTask(category)
               )}
               checked={ category.accomplished }
             />
