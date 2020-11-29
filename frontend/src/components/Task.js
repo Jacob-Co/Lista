@@ -115,9 +115,8 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
                       }
                       makeTaskWorkingOn(category, task, categoryArrayIndex);
                     }}
-                    {...provided.dragHandleProps}
                   >
-                    {task.name}
+                    {category.sentTo ? <>{task.name}</> : <span {...provided.dragHandleProps}>{task.name}</span>}
                   </TaskNameSpan>
               }
             </div>
