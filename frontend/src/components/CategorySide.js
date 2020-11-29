@@ -173,6 +173,10 @@ const CategorySide = ({
                         </Link>
                       </SendToDiv> 
                     : ""}
+                  {hasSentTask(category) 
+                    ? <SendToDiv>contains sent tasks</SendToDiv>
+                    : ''
+                  }
                   {isCreatingTask
                     ? <TaskForm 
                         category={category}
