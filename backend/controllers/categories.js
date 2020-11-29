@@ -281,7 +281,11 @@ categoryRouter.patch('/sentTo/:id', async (req, res) => {
     SSEUtils.reinitializeDisplay(prevUsername);
   }
 
-  await returnCategory.populate('tasks').execPopulate();
+  if (returnCategory.tasks) {
+    await returnCategory.populate('tasks').execPopulate();
+    returnCategory.tasks = returnCategory.tasks.sort((task1, task2) => task1.index - task2.index);
+  }
+  
   return res.json(returnCategory);
 });
 
