@@ -22,7 +22,15 @@ const OptionDiv = styled.div`
   cursor: pointer
 `
 
-const OptionBox = ({ optionsArray = [], checked }) => {
+const emptyBox = () => {
+  return <>&#9744;</>
+}
+
+const checkedBox = () => {
+  return <>&#9745;</>
+}
+
+const OptionBox = ({ optionsArray = [], checked, icon = emptyBox(), accomplishedIcon = checkedBox()}) => {
   const optionBoxRef = useRef();
   const wholeCompRef = useRef();
 
@@ -39,7 +47,7 @@ const OptionBox = ({ optionsArray = [], checked }) => {
   return(
     <div style={{"position": "relative"}} ref={wholeCompRef}>
       <div onClick={showOptionBox}>
-        { checked ? <CheckBox>&#9745;</CheckBox> : <CheckBox>&#9744;</CheckBox>}
+        { checked ? <CheckBox>{accomplishedIcon}</CheckBox> : <CheckBox>{icon}</CheckBox>}
       </div>
       <Toggable ref={optionBoxRef}>
         <OptionBoxContent>
