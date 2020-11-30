@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import styled from 'styled-components';
-import { newDate, advanceUNIX } from '../reducer/dateReducer';
+
+import { newDate, advanceUNIX, setDisplay } from '../reducer/dateReducer';
 
 const ClockContainer = styled.div`
   display: flex;
@@ -11,12 +11,20 @@ const ClockContainer = styled.div`
   height: 100%;
 `
 
-const Clock = styled.div`
-  font-size: 1.3em;
+const ClockDiv = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+`
+
+const TimeDiv = styled.div`
+  font-size: 1.3em;
+  margin-right: .5em;
+`
+const MoreInfoDiv = styled.div`
+  font-size: 1.05em;
+  border: 2px solid black;
+  border-radius: 50%;
+  cursor: help;
 `
 
 const useInterval = (callback, delay) => {
@@ -42,29 +50,40 @@ const useInterval = (callback, delay) => {
 const HomeClock = () => {
   const dispatch = useDispatch()
   const date = useSelector(state => state.date);
+  const displayType = useSelector( state => state.date.display );
 
   useInterval(() => {
     dispatch(advanceUNIX(date.UNIX));
-    // console.log(date.original.getDay() !== new Date(date.UNIX).getDay())
-    // console.log(date.original.getDay())
-    // console.log(new Date(date.UNIX).getDay())
     if (date.original.getDay() !== new Date(date.UNIX).getDay()) {
       window.location.reload();
     }
   }, 1000)
 
-  function formatClock(unix) {
+  function formatClock(unix, type) {
+    console.log(type)
     const newDateObj = new Date(unix)
     const dateArr = newDateObj.toString().split(" ");
-    const dayInfo = `${dateArr[0]} ${dateArr[1]} ${dateArr[2]}, ${dateArr[3]}`
+    const dateInfo = `${dateArr[0]} ${dateArr[1]} ${dateArr[2]}, ${dateArr[3]}`
     const timeZone = dateArr.slice(6).join(" ");
     const time = dateArr[4];
-    // console.log(timeZone)
-    return (<Clock>
-      <h3>{dayInfo}</h3>
-      <h1>{time}</h1>
-      <h3>{timeZone}</h3>
-    </Clock>)
+    let timeOptions;
+    let nextDisplay;
+
+    if (type === 'date') {
+      timeOptions = dateInfo;
+      nextDisplay = 'time zone';
+    } else if (type === 'time zone') {
+      timeOptions = timeZone;
+      nextDisplay = 'time';
+    } else {
+      timeOptions = time;
+      nextDisplay = 'date';
+    }
+
+    return (<ClockDiv>
+      <TimeDiv>{timeOptions}</TimeDiv>
+      <MoreInfoDiv onClick={() => dispatch(setDisplay(nextDisplay))}>&#8505;</MoreInfoDiv>
+    </ClockDiv>)
   }
 
   useEffect(() => {
@@ -80,7 +99,7 @@ const HomeClock = () => {
 
   return (
     <ClockContainer>
-      {formatClock(date.UNIX)}
+      {formatClock(date.UNIX, displayType)}
     </ClockContainer>
   )
 }
