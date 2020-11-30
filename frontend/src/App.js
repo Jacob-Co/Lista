@@ -56,7 +56,14 @@ function App() {
 
   return (
     <>
-    { 
+    { user !== null
+      ? <div>
+          <SSEListener username={user.username} />
+          <CategoryList />
+        </div>
+      : <Login/>
+    }
+    {/* { 
       user !== null
       ? <TwoColumn>
           <SSEListener username={user.username} />
@@ -81,7 +88,7 @@ function App() {
           </RightColumn>
         </TwoColumn>
       : <Login/>
-    }
+    } */}
     </>
   );
 }
