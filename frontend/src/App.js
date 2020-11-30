@@ -35,16 +35,6 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.token);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     serverSideEvents.getStreamCode()
-  //       .then(code => {
-  //         let SSE = serverSideEvents.establishSSE(code, user.username);
-  //         SSEListener(SSE);
-  //       })
-  //   }
-  // }, [user]);
-
   useEffect(() => {
     const localUser = window.localStorage.getItem('localTicketUser');
     if (localUser) {
