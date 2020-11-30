@@ -54,19 +54,20 @@ function App() {
   return (
     <>
     { user !== null
-      ? <>
+      ? <div>
+          <NavBar/>
           <Switch>
+            <Route path="/friends">
+              <h1>Friends</h1>
+            </Route>
             <Route path="/">
-              <div>
-                <NavBar/>
-                <MainContentDiv>
-                  <SSEListener username={user.username} />
-                  <CategoryList />
-                </MainContentDiv>
-              </div>
+              <MainContentDiv>
+                <SSEListener username={user.username} />
+                <CategoryList />
+              </MainContentDiv>
             </Route>
           </Switch>
-        </>
+        </div>
       : <Login/>
     }
     {/* { 
