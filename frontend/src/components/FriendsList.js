@@ -7,7 +7,6 @@ import { initializeFriends } from '../reducer/friendReducer';
 import { initializeFriendCategories } from '../reducer/friendCategoryReducer';
 
 const FriendListDiv = styled.div`
-  position: absolute;
   bottom: 1rem;
   right: 3rem;
 `
@@ -22,7 +21,7 @@ const FriendsList = () => {
 
   return (
     <FriendListDiv>
-      <h3>Friends: </h3>
+      <h2>Friends: </h2>
       {friends.map(friend =>
         <div key={friend.id}>{friend.username}
             <Link to={`/friend/categories/${friend.id}`}>
