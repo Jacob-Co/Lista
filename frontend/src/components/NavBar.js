@@ -45,7 +45,7 @@ const handleFriends = () => {
     <NavBarDiv>
       <RightDiv>
         <OptionBox
-          optionsArray={[['Logout', handleLogout], ['friends', handleFriends]]}
+          optionsArray={[['Logout', handleLogout], ['Friends', handleFriends]]}
           icon={<>&#x2630;</>}
         />
         <ListaHeader>Lista</ListaHeader>
