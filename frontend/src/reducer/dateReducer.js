@@ -17,12 +17,21 @@ export const advanceUNIX = (UNIX) => {
   }
 }
 
+export const setDisplay = (display) => {
+  return {
+    type: 'SET_DISPLAY',
+    data: display
+  }
+}
+
 const dateReducer = (state = {}, action) => {
   switch (action.type) {
     case "SET_DATE":
       return action.data;
+    case "SET_DISPLAY":
+      return { ...state, display: action.data }
     case "ADVANCE":
-      return {...state, UNIX: action.data}
+      return { ...state, UNIX: action.data }
     default:
       return state
   }
