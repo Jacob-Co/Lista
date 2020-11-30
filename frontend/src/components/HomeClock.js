@@ -17,7 +17,7 @@ const ClockDiv = styled.div`
 `
 
 const TimeDiv = styled.div`
-  font-size: 1.3em;
+  font-size: ${props => (props.type === 'time zone' ? '1em' : '1.3em')};
   margin-right: .5em;
 `
 const MoreInfoDiv = styled.div`
@@ -81,7 +81,7 @@ const HomeClock = () => {
     }
 
     return (<ClockDiv>
-      <TimeDiv>{timeOptions}</TimeDiv>
+      <TimeDiv type={type}>{timeOptions}</TimeDiv>
       <MoreInfoDiv onClick={() => dispatch(setDisplay(nextDisplay))}>&#8505;</MoreInfoDiv>
     </ClockDiv>)
   }
