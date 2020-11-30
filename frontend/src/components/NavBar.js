@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import OptionBox from './OptionBox';
@@ -30,6 +30,7 @@ const LeftDiv = styled.div`
 const NavBar = () => {
 const dispatch = useDispatch();
 const history = useHistory();
+const urlExtension = useLocation().pathname;
 
 const handleLogout = () => {
   dispatch(closeSSEConnection());
@@ -41,11 +42,24 @@ const handleFriends = () => {
   history.push('/friends');
 }
 
+const handleHome = () => {
+  history.push('/');
+}
+
+const optionsToBePassed = (urlExtension) => {
+  const logout = ['Logout', handleLogout];
+  const viewFriendsList = ['Friends', handleFriends];
+  const returnHome = ['Home', handleHome];
+
+  if (urlExtension === '/friends') return [logout, returnHome]
+  return [logout, viewFriendsList]
+}
+
   return (
     <NavBarDiv>
       <RightDiv>
         <OptionBox
-          optionsArray={[['Logout', handleLogout], ['Friends', handleFriends]]}
+          optionsArray={optionsToBePassed(urlExtension)}
           icon={<>&#x2630;</>}
         />
         <ListaHeader>Lista</ListaHeader>
