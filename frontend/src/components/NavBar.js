@@ -37,11 +37,15 @@ const handleLogout = () => {
   history.push('/');
 }
 
+const handleFriends = () => {
+  history.push('/friends');
+}
+
   return (
     <NavBarDiv>
       <RightDiv>
         <OptionBox
-          optionsArray={[['Logout', handleLogout]]}
+          optionsArray={[['Logout', handleLogout], ['friends', handleFriends]]}
           icon={<>&#x2630;</>}
         />
         <ListaHeader>Lista</ListaHeader>
