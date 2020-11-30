@@ -13,6 +13,7 @@ import FriendCategoriesView from './components/FriendCategoriesView'
 // import serverSideEvents from './services/serverSideEvents'
 // import SSEListener from './SSEListener';
 import SSEListener from './components/SSEListener'
+import NavBar from './components/NavBar';
 
 const TwoColumn = styled.div`
   display: flex;
@@ -48,6 +49,7 @@ function App() {
     <>
     { user !== null
       ? <div>
+          <NavBar/>
           <SSEListener username={user.username} />
           <CategoryList />
         </div>
