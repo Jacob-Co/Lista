@@ -5,7 +5,7 @@ export const newDate = () => {
     const {UNIX} = await dates.getDate();
     dispatch({
       type: "SET_DATE",
-      data: {UNIX, original: new Date(UNIX)}
+      data: {UNIX, original: new Date(UNIX), display: 'time'}
     })
   }
 }
