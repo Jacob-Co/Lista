@@ -32,6 +32,12 @@ const RightColumn = styled.div`
   border-left: 2px solid;
 `
 
+const MainContentDiv = styled.div`
+  margin: 0 auto 1rem auto;
+  width: 95%;
+  max-width: 700px;
+`
+
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.token);
@@ -50,8 +56,10 @@ function App() {
     { user !== null
       ? <div>
           <NavBar/>
-          <SSEListener username={user.username} />
-          <CategoryList />
+          <MainContentDiv>
+            <SSEListener username={user.username} />
+            <CategoryList />
+          </MainContentDiv>
         </div>
       : <Login/>
     }
