@@ -54,8 +54,9 @@ const optionsToBePassed = (urlExtension) => {
   const viewFriendsList = ['Friends', handleFriends];
   const returnHome = ['Home', handleHome];
 
-  if (urlExtension === '/friends') return [returnHome, logout]
-  return [viewFriendsList, logout]
+  if (urlExtension === '/friends') return [returnHome, logout];
+  if (urlExtension === '/') return [viewFriendsList, logout];
+  return [returnHome, viewFriendsList, logout]
 }
 
   return (
