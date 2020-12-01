@@ -22,7 +22,7 @@ const TimeDiv = styled.div`
 `
 const MoreInfoDiv = styled.div`
   font-size: 1.05em;
-  border: 2px solid black;
+  border: 2px solid;
   border-radius: 50%;
   cursor: help;
 `
