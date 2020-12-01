@@ -56,13 +56,13 @@ function App() {
     { user !== null
       ? <div>
           <NavBar/>
+          <SSEListener username={user.username} />
           <MainContentDiv>
             <Switch>
               <Route path="/friends">
                 <FriendsList />
               </Route>
               <Route path="/">
-                  <SSEListener username={user.username} />
                   <CategoryList />
               </Route>
             </Switch>
