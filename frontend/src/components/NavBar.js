@@ -11,9 +11,12 @@ import { logout } from '../reducer/tokenReducer';
 const NavBarDiv = styled.div`
   display: flex;
   align-items: center;
-  padding-top: .5rem;
+  padding-top: .45rem;
   padding-left: .45rem;
-  justify-content: space-between
+  padding-bottom: .45rem;
+  justify-content: space-between;
+  background-color: #323233;
+  color: #c4c4c4;
 `
 const ListaHeader = styled.h1`
   margin: 0;
