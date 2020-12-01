@@ -11,7 +11,7 @@ import { logout } from '../reducer/tokenReducer';
 const NavBarDiv = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 1rem;
+  padding-top: .5rem;
   padding-left: .45rem;
   justify-content: space-between
 `
