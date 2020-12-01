@@ -66,6 +66,11 @@ function App() {
               <Route path="/friends">
                 <FriendsList />
               </Route>
+
+              <Route path="/friend/categories/:id">
+                <FriendCategoriesView />
+              </Route>
+
               <Route path="/">
                   <CategoryList />
               </Route>
