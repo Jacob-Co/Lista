@@ -60,12 +60,15 @@ const SSEListener =  ({ username }) => {
     }
 
     // Close connection if readyState 2 and try to establish a new SSE
-    if (sse && sse.readyState === 2) {
-      hasSSE = false;
-      dispatch(closeSSEConnection());
-    } else if (!hasSSE && !sse) {
-      dispatch(initializeSSE(username));
-    } 
+    // if (sse && sse.readyState === 2) {
+    //   console.log(`*******`)
+    //   console.log(sse.readyState);
+    //   console.log(`*******`)
+    //   hasSSE = false;
+    //   dispatch(closeSSEConnection());
+    // } else if (!hasSSE && !sse) {
+    //   dispatch(initializeSSE(username));
+    // } 
   }, 1000);
 
   return(<></>)
