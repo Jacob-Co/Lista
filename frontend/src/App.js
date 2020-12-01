@@ -37,6 +37,10 @@ const MainContentDiv = styled.div`
   width: 95%;
   max-width: 700px;
 `
+const MainDiv = styled.div`
+  background-color: #fbfbfd;
+  height: 100%;
+`
 
 function App() {
   const dispatch = useDispatch();
@@ -54,7 +58,7 @@ function App() {
   return (
     <>
     { user !== null
-      ? <div>
+      ? <MainDiv>
           <NavBar/>
           <SSEListener username={user.username} />
           <MainContentDiv>
@@ -67,7 +71,7 @@ function App() {
               </Route>
             </Switch>
           </MainContentDiv>
-        </div>
+        </MainDiv>
       : <Login/>
     }
     {/* { 
