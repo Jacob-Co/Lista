@@ -31,9 +31,9 @@ const SSEListener =  ({ username }) => {
 
   const SSEMessageCallback = e => {
     if (e.data === 'logout') {
-      dispatch(closeSSEConnection());
-      dispatch(logout());
-      history.push('/');
+      // dispatch(closeSSEConnection());
+      // dispatch(logout());
+      // history.push('/');
     } else {
       dispatch(initializeCategories());
     }
