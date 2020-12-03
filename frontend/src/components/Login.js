@@ -9,6 +9,7 @@ const StyledLoginDiv = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 22%;
+  font-family: sans-serif;
 `
 
 const ListaHeader = styled.h1`
