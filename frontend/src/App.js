@@ -39,6 +39,7 @@ const MainContentDiv = styled.div`
 `
 const MainDiv = styled.div`
   background-color: #fbfbfd;
+  font-family: sans-serif;
   height: 100%;
 `
 
