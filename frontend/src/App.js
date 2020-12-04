@@ -14,6 +14,7 @@ import FriendCategoriesView from './components/FriendCategoriesView'
 // import SSEListener from './SSEListener';
 import SSEListener from './components/SSEListener'
 import NavBar from './components/NavBar';
+import { initializeFriends } from './reducer/friendReducer';
 
 const TwoColumn = styled.div`
   display: flex;
@@ -53,6 +54,7 @@ function App() {
       const transformedUser = JSON.parse(localUser);
       dispatch(setUser(transformedUser));
     }
+    dispatch(initializeFriends());
   }, [dispatch]);
 
 
