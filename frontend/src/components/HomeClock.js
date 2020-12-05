@@ -80,7 +80,7 @@ const HomeClock = () => {
 
     return (<ClockDiv>
       <TimeDiv type={type}>{timeOptions}</TimeDiv>
-      <MoreInfoDiv onClick={() => dispatch(setDisplay(nextDisplay))}>&#10070;</MoreInfoDiv>
+      <MoreInfoDiv onClick={() => dispatch(setDisplay(nextDisplay))}>&#x1F5D3;</MoreInfoDiv>
     </ClockDiv>)
   }
 
