@@ -64,7 +64,7 @@ const FriendCategoriesView = () => {
         ? <WorkingOn category={friendCategories[0]} viewOnly={true}/>
         : 'Loading'
       }
-      <h2>Other Categories:</h2>
+      <h2>Other Projects:</h2>
       <RefreshDiv><button onClick={handleRefresh}>refresh</button></RefreshDiv>
       {friendCategories.length > 0 
         ? friendCategories.slice(1).map(category => <CategoryDiv key={category.id}>
