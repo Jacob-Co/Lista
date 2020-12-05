@@ -154,7 +154,7 @@ const quickSwitchCategories = (sourceIdx, destinationIdx, categoryList, myUserna
   if (sourceIdx === workingOnIdx) {
     const placeHolderCategory = {
       id: 'placeHolder',
-      name: 'Double click an item to place here',
+      name: '--Double click a Project or a Task to place here--',
       index: 0,
       workingOn: false,
       extraInfo: 'placeHolder'
