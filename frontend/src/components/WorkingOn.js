@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { switchCategoryIndexes, removeWorkingOnTask } from '../reducer/categoryReducer';
 
 import TaskList from './TaskList';
+import DroppableTaskList from './DroppableTaskList';
 
 const WorkingOnDiv = styled.div`
   padding-bottom: .5rem;
@@ -53,7 +54,11 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
         {category.taskWorkingOn ? <TaskName>{`Task -${category.taskWorkingOn.name}- from:`}</TaskName> : ""}
         <CategoryName>{category.name}</CategoryName>
         { category.tasks && category.tasks.length > 0
-          ? <TaskList tasks={category.tasks} category={category}/>
+          // ? <TaskList tasks={category.tasks} category={category}/>
+          ? <DroppableTaskList
+              category={category}
+              makeTaskWorkingOn={() => ''}
+            />
           : ""
         }
         { category.sentTo ? <SendToDiv>{`from: ${category.user.username === username ? 'me' : category.user.username}`}</SendToDiv> : ""}
