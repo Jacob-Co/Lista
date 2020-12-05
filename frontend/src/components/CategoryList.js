@@ -21,7 +21,7 @@ const StyledDroppable = styled.div`
 `
 
 const CategoryFormDiv = styled.div`
-  margin-left: 1rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
 `
 
@@ -80,8 +80,8 @@ const CategoryList = () => {
                   return (
                   <div key={category.id}>
                     <WorkingOn category={category} categoryList={categoryList}/>
-                    <h2>Your Projects:</h2>
                     <CategoryFormDiv><CategoryForm /></CategoryFormDiv>
+                    <h2>Your Projects:</h2>
                   </div>
                   )
                 }
