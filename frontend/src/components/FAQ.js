@@ -22,12 +22,12 @@ const FAQ = () => {
     }
 
     const quotes = reorder(
-      state.quotes,
+      items,
       result.source.index,
       result.destination.index
     );
 
-    setState({ quotes });
+    setItems({ quotes });
   }
 
   return(
