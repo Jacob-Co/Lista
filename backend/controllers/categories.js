@@ -74,7 +74,7 @@ categoryRouter.get('/', async (req, res) => {
   if (!token) return res.status(400).json({error: 'Requires token'});
 
   const categories = await utils.getAllDisplayedCategories(token.id);
-  const returnCategories = await fixDisplayedCategories(categories, 'Double click an item to place here', token.id);
+  const returnCategories = await fixDisplayedCategories(categories, 'Double click a Project or a Task to place here', token.id);
 
   res.status(200).json(returnCategories);
 });
