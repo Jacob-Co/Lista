@@ -35,7 +35,7 @@ const CategoryForm = () => {
   return (
     <div>
       <button onClick={expandForm}>
-        Click to Add New Category
+        Click to Add New Project
       </button>
       <form onSubmit={handleSubmit} style={visibility}>
         <div>
@@ -60,7 +60,7 @@ const CategoryForm = () => {
             onChange={({target}) => setSummary(target.value)}
           />
         </div> */}
-        <button>send</button>
+        <button>start</button>
       </form>
     </div>
   )
