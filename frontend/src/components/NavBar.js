@@ -49,14 +49,20 @@ const handleHome = () => {
   history.push('/');
 }
 
+const handleFAQs = () => {
+  history.push('/FAQ')
+}
+
 const optionsToBePassed = (urlExtension) => {
   const logout = ['Logout', handleLogout];
   const viewFriendsList = ['Friends', handleFriends];
   const returnHome = ['Home', handleHome];
+  const goToFAQs = ['FAQ', handleFAQs]
 
-  if (urlExtension === '/friends') return [returnHome, logout];
-  if (urlExtension === '/') return [viewFriendsList, logout];
-  return [returnHome, viewFriendsList, logout]
+  if (urlExtension === '/friends') return [returnHome, logout, goToFAQs];
+  if (urlExtension === '/') return [viewFriendsList, logout, goToFAQs];
+  if (urlExtension === '/FAQ') return [returnHome, viewFriendsList, logout];
+  return [returnHome, viewFriendsList, logout, goToFAQs]
 }
 
   return (
