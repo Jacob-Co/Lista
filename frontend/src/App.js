@@ -5,9 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import { setUser } from './reducer/tokenReducer'
 import CategoryList from './components/CategoryList'
-import HomeClock from './components/HomeClock'
 import Login from './components/Login'
-import Logout from './components/Logout'
 import FriendsList from './components/FriendsList'
 import FriendCategoriesView from './components/FriendCategoriesView'
 // import serverSideEvents from './services/serverSideEvents'
