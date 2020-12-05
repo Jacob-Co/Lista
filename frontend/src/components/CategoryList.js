@@ -77,7 +77,7 @@ const CategoryList = () => {
                   return (
                   <div key={category.id}>
                     <WorkingOn category={category} categoryList={categoryList}/>
-                    <h2>Your Categories:</h2>
+                    <h2>Your Projects:</h2>
                   </div>
                   )
                 }
