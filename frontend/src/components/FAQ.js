@@ -2,7 +2,18 @@ import React, { useState } from 'react'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 const FAQ = () => {
-  const [items, setItems] = useState(['item1', 'item2', 'item3', 'item4']);
+  const initial = Array.from({ length: 5 }, (v, k) => k).map(k => {
+    const custom = {
+      id: `id-${k}`,
+      content: `ITEM ${k}`
+    };
+  
+    return custom;
+  });
+
+  console.log(initial)
+
+  const [items, setItems] = useState(initial);
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -13,6 +24,7 @@ const FAQ = () => {
   };
 
   const onDragEnd = (result) => {
+    console.log(`**********`)
     if (!result.destination) {
       return;
     }
@@ -21,34 +33,37 @@ const FAQ = () => {
       return;
     }
 
-    const quotes = reorder(
+    console.log(`here`)
+
+    const newItems = reorder(
       items,
       result.source.index,
       result.destination.index
     );
 
-    setItems({ quotes });
+    setItems(newItems);
   }
 
   return(
     <div>
       <h2>FAQ:</h2>
       <div>
-        <h3>You can rearrange projects or tasks by dragging their names! Test Below:</h3>
+        <h3>1. You can rearrange projects or tasks by dragging their names! Test Below:</h3>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="list">
             {provided => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
-                {items.map((item, index) => {
+                {items.map((item, posIdx) => {
                   return(
-                    <Draggable draggableId={index} index={index}>
+                    <Draggable draggableId={item.id} index={posIdx} key={item.id}>
                       {provided => (
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
+                          style={{'margin-bottom': '.5rem', 'margin-left': '3rem'}}
                         >
-                          {item}
+                          {item.content}
                         </div>
                       )}
                     </Draggable>
