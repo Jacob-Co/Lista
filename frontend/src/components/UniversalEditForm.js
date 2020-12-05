@@ -32,7 +32,7 @@ const CategoryNameEditForm = ({ orignalValue, toggleEditing, newValueReducer }) 
         value={name}
         onChange={({target}) => setName(target.value)}
       />
-      <button>edit</button>
+      <button>save</button>
     </form>
   )
 }
