@@ -21,9 +21,7 @@ const TimeDiv = styled.div`
   margin-right: .5em;
 `
 const MoreInfoDiv = styled.div`
-  font-size: 1.05em;
-  border: 2px solid;
-  border-radius: 50%;
+  font-size: 1.35em;
   cursor: help;
 `
 
@@ -82,7 +80,7 @@ const HomeClock = () => {
 
     return (<ClockDiv>
       <TimeDiv type={type}>{timeOptions}</TimeDiv>
-      <MoreInfoDiv onClick={() => dispatch(setDisplay(nextDisplay))}>&#8505;</MoreInfoDiv>
+      <MoreInfoDiv onClick={() => dispatch(setDisplay(nextDisplay))}>&#10070;</MoreInfoDiv>
     </ClockDiv>)
   }
 
