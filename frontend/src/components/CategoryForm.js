@@ -35,7 +35,7 @@ const CategoryForm = () => {
   return (
     <div>
       <button onClick={expandForm}>
-        Click to Add New Project
+        Create a new Project
       </button>
       <form onSubmit={handleSubmit} style={visibility}>
         <div>
