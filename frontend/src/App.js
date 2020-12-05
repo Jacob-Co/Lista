@@ -8,10 +8,10 @@ import CategoryList from './components/CategoryList'
 import Login from './components/Login'
 import FriendsList from './components/FriendsList'
 import FriendCategoriesView from './components/FriendCategoriesView'
-// import serverSideEvents from './services/serverSideEvents'
-// import SSEListener from './SSEListener';
 import SSEListener from './components/SSEListener'
 import NavBar from './components/NavBar';
+import FAQ from './components/FAQ';
+
 import { initializeFriends } from './reducer/friendReducer';
 
 const TwoColumn = styled.div`
@@ -70,6 +70,10 @@ function App() {
 
               <Route path="/friend/categories/:id">
                 <FriendCategoriesView />
+              </Route>
+
+              <Route path="/FAQ">
+                <FAQ />
               </Route>
 
               <Route path="/">
