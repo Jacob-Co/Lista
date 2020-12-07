@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import Toggable from './Toggable';
@@ -33,6 +33,7 @@ const checkedBox = () => {
 const OptionBox = ({ optionsArray = [], checked, icon = emptyBox(), accomplishedIcon = checkedBox()}) => {
   const optionBoxRef = useRef();
   const wholeCompRef = useRef();
+  let clicks = 0;
 
   const hideOptionBox = () => {
     optionBoxRef.current.toggleVisibility(false);
@@ -46,7 +47,20 @@ const OptionBox = ({ optionsArray = [], checked, icon = emptyBox(), accomplished
 
   return(
     <div style={{"position": "relative"}} ref={wholeCompRef}>
-      <div onClick={showOptionBox}>
+      <div onClick={() => {
+        clicks += 1;
+
+        if (clicks > 1) return
+
+        setTimeout(() => {
+          if (clicks === 1) {
+            showOptionBox();
+          } else {
+            alert('double click');
+          }
+          clicks = 0;
+        }, 300)
+      }}>
         { checked ? <CheckBox>{accomplishedIcon}</CheckBox> : <CheckBox>{icon}</CheckBox>}
       </div>
       <Toggable ref={optionBoxRef}>
