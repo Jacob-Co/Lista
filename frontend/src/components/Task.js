@@ -25,6 +25,10 @@ const ColumnarDiv = styled.div`
   flex-direction: column;
 `
 
+const TaskDiv = styled.div`
+  margin-bottom: 1.85rem;
+`
+
 const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArrayIndex}) => {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
@@ -86,7 +90,7 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
   return(
     <Draggable draggableId={task.id} index={taskArrayIndex}>
       {provided => (
-        <div
+        <TaskDiv
         ref={provided.innerRef}
           {...provided.draggableProps}
         >
@@ -137,7 +141,7 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
                 />
               : <div></div>
             }
-        </div>
+        </TaskDiv>
       )}
     </Draggable>
   )
