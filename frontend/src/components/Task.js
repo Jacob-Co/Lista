@@ -26,7 +26,7 @@ const ColumnarDiv = styled.div`
 `
 
 const TaskDiv = styled.div`
-  margin-bottom: 1.85rem;
+  margin-bottom: .87rem;
 `
 
 const RowDiv = styled.div`
