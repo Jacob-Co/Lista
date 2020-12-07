@@ -95,7 +95,7 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
           {...provided.draggableProps}
         >
           <ColumnarDiv>
-            <div style={{"display": "flex", "alignItems": "center"}}>
+            <div style={{"display": "flex"}}>
               {(category.sentTo && !isSentToMe()) || category.accomplished
                 ? <>&#10132;</>
                 : <OptionBox 
