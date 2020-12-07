@@ -29,6 +29,11 @@ const TaskDiv = styled.div`
   margin-bottom: 1.85rem;
 `
 
+const RowDiv = styled.div`
+  display: flex;
+  align-items: baseline;
+`
+
 const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArrayIndex}) => {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
@@ -95,7 +100,7 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
           {...provided.draggableProps}
         >
           <ColumnarDiv>
-            <div style={{"display": "flex"}}>
+            <RowDiv>
               {(category.sentTo && !isSentToMe()) || category.accomplished
                 ? <>&#10132;</>
                 : <OptionBox 
@@ -123,7 +128,7 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
                     {category.sentTo ? <>{task.name}</> : <span {...provided.dragHandleProps}>{task.name}</span>}
                   </TaskNameSpan>
               }
-            </div>
+            </RowDiv>
             {task.sentTo
               ? <SendToDiv>
                   <Link to={`/friend/categories/${task.sentTo}`}>
