@@ -53,10 +53,14 @@ const OptionBox = ({ optionsArray = [], checked, icon = emptyBox(), accomplished
         if (clicks > 1) return
 
         setTimeout(() => {
-          if (clicks === 1) {
+          if (clicks === 1) { // if single click
             showOptionBox();
-          } else {
-            alert('double click');
+          } else { // if double click
+            if (optionsArray[0][0] === 'Toggle Done') {
+              optionsArray[0][1](); // toggle done will always be first if present
+            } else {
+              alert(`Cannot toggle done a sent item!`)
+            }
           }
           clicks = 0;
         }, 300)
