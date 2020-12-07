@@ -24,6 +24,8 @@ const DropDown = styled.div`
 `
 
 const ContentDiv = styled.div`
+  display: flex;
+  align-items: baseline;
   margin-left: 1.5rem;
 `
 
@@ -125,7 +127,7 @@ const CategorySide = ({
           // isDragging={snapshot.isDragging}
           {...provided.draggableProps}
         >
-          <ContentDiv style={{"display": "flex"}}>
+          <ContentDiv>
             <OptionBox optionsArray={optionsToBePassed(category.accomplished,
                 category.sentTo,
                 (category.sentTo && category.sentTo.username === username),
