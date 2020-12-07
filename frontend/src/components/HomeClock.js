@@ -66,21 +66,25 @@ const HomeClock = () => {
     const time = dateArr[4];
     let timeOptions;
     let nextDisplay;
+    let timeIcon;
 
     if (type === 'date') {
       timeOptions = dateInfo;
       nextDisplay = 'time zone';
+      timeIcon = <>&#x1F30E;</>
     } else if (type === 'time zone') {
       timeOptions = timeZone;
       nextDisplay = 'time';
+      timeIcon = <>&#x1F551;</>
     } else {
       timeOptions = time;
       nextDisplay = 'date';
+      timeIcon = <>&#x1F5D3;</>
     }
 
     return (<ClockDiv>
       <TimeDiv type={type}>{timeOptions}</TimeDiv>
-      <MoreInfoDiv onClick={() => dispatch(setDisplay(nextDisplay))}>&#x1F5D3;</MoreInfoDiv>
+      <MoreInfoDiv onClick={() => dispatch(setDisplay(nextDisplay))}>{timeIcon}</MoreInfoDiv>
     </ClockDiv>)
   }
 
