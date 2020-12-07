@@ -11,8 +11,6 @@ const FAQ = () => {
     return custom;
   });
 
-  console.log(initial)
-
   const [items, setItems] = useState(initial);
 
   const reorder = (list, startIndex, endIndex) => {
@@ -24,7 +22,6 @@ const FAQ = () => {
   };
 
   const onDragEnd = (result) => {
-    console.log(`**********`)
     if (!result.destination) {
       return;
     }
@@ -32,8 +29,6 @@ const FAQ = () => {
     if (result.destination.index === result.source.index) {
       return;
     }
-
-    console.log(`here`)
 
     const newItems = reorder(
       items,
@@ -61,9 +56,8 @@ const FAQ = () => {
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          style={{'margin-bottom': '.5rem', 'margin-left': '3rem'}}
                         >
-                          {item.content}
+                          <div style={{'marginBottom': '.5rem', 'marginLeft': '3rem'}}>{item.content}</div>
                         </div>
                       )}
                     </Draggable>
