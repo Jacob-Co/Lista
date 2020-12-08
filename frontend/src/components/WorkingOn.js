@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { switchCategoryIndexes, removeWorkingOnTask } from '../reducer/categoryReducer';
 
-import TaskList from './TaskList';
-import DroppableTaskList from './DroppableTaskList';
-import OptionBox from './OptionBox';
+import CategorySide from './CategorySide';
 
 const WorkingOnDiv = styled.div`
   padding-bottom: .5rem;
@@ -43,18 +41,13 @@ const SendToDiv = styled.div`
   font-style: italic;
 `
 
-const WorkingOn = ({ category, categoryList, viewOnly }) => {
+const WorkingOn = ({ category, categoryList, viewOnly, deleteCategory, arrayIndex, toggleAccomplishedCategory }) => {
   const dispatch = useDispatch();
   const username = useSelector(state => state.token.username);
-  const [isCreatingTask, setIsCreatingTask] = useState(false);
 
   const handleRemove = () => {
     if (!category.workingOn && category.extraInfo !== null) return;
     dispatch(switchCategoryIndexes(0, 0, categoryList, username))
-  }
-
-  const toggleCreatingTask = () => {
-    setIsCreatingTask(!isCreatingTask);
   }
 
   return(
@@ -63,7 +56,7 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
       <h2>Currently Working On:</h2>
       <ContentDiv>
         {category.taskWorkingOn ? <TaskName>{`Task -${category.taskWorkingOn.name}- from:`}</TaskName> : ""}
-        <OptionCategoryDiv>
+        {/* <OptionCategoryDiv>
           {category.extraInfo ? "" : <OptionBox />}
           <div>
             <CategoryName>{category.name}</CategoryName>
@@ -75,8 +68,20 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
               : ""
             }
           </div>
-        </OptionCategoryDiv>
-        { category.sentTo ? <SendToDiv>{`from: ${category.user.username === username ? 'me' : category.user.username}`}</SendToDiv> : ""}
+        </OptionCategoryDiv> */}
+        {/* { category.sentTo ? <SendToDiv>{`from: ${category.user.username === username ? 'me' : category.user.username}`}</SendToDiv> : ""} */}
+        {category.extraInfo 
+          ? <CategoryName>{category.name}</CategoryName> 
+          : <CategorySide
+              category={category}
+              categoryList={categoryList}
+              deleteCategory={deleteCategory}
+              arrayIndex={arrayIndex}
+              toggleAccomplishedCategory={toggleAccomplishedCategory}
+              makeWorkingOn={() => ''}
+              makeTaskWorkingOn={() => ''}
+            />
+        }
         { viewOnly || category.extraInfo !== null
           ? "" 
           : <div><RemoveButton onClick={handleRemove}>remove</RemoveButton></div>
