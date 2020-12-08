@@ -20,13 +20,11 @@ const CategoryName = styled.span`
 `
 
 const DropDown = styled.div`
-  margin-bottom: 1.5rem;
 `
 
 const ContentDiv = styled.div`
   display: flex;
   align-items: baseline;
-  margin-left: 1.5rem;
 `
 
 const SendFormWrapper = styled.div`

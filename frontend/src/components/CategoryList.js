@@ -15,13 +15,17 @@ import CategorySide from './CategorySide'
 import WorkingOn from './WorkingOn';
 
 const StyledDroppable = styled.div`
-  margin-right: 1rem;
   padding-bottom: .5rem;
   border-bottom: .15rem solid;
 `
 
 const CategoryFormDiv = styled.div`
   margin-top: 1rem;
+  margin-bottom: 1rem;
+`
+
+const CategoryDiv = styled.div`
+  margin-left: 1.5rem;
   margin-bottom: 1rem;
 `
 
@@ -75,6 +79,7 @@ const CategoryList = () => {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
+              
               {categoryList.map((category, position) => {
                 if (category === null || category === categoryList[0]) {
                   return (
@@ -92,17 +97,19 @@ const CategoryList = () => {
                   )
                 }
                 return (
-                  <CategorySide
-                    key={category.id}
-                    className="category"
-                    category={category}
-                    deleteCategory={deleteCategory}
-                    makeWorkingOn={makeWorkingOn}
-                    arrayIndex={position}
-                    makeTaskWorkingOn={makeTaskWorkingOn}
-                    toggleAccomplishedCategory={toggleAccomplishedCategory}
-                    categoryList={categoryList}
+                  <CategoryDiv>
+                    <CategorySide
+                      key={category.id}
+                      className="category"
+                      category={category}
+                      deleteCategory={deleteCategory}
+                      makeWorkingOn={makeWorkingOn}
+                      arrayIndex={position}
+                      makeTaskWorkingOn={makeTaskWorkingOn}
+                      toggleAccomplishedCategory={toggleAccomplishedCategory}
+                      categoryList={categoryList}
                     />
+                  </CategoryDiv>
                 )
               })}
               {provided.placeholder}
