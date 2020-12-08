@@ -5,6 +5,7 @@ import { switchCategoryIndexes, removeWorkingOnTask } from '../reducer/categoryR
 
 import TaskList from './TaskList';
 import DroppableTaskList from './DroppableTaskList';
+import OptionBox from './OptionBox';
 
 const WorkingOnDiv = styled.div`
   padding-bottom: .5rem;
@@ -17,6 +18,11 @@ const ContentDiv = styled.div`
 
 const RemoveButton = styled.button`
   margin: .75rem 0;
+`
+
+const OptionCategoryDiv = styled.div`
+  display: flex;
+  align-items: baseline;
 `
 
 const CategoryName = styled.span`
@@ -57,15 +63,19 @@ const WorkingOn = ({ category, categoryList, viewOnly }) => {
       <h2>Currently Working On:</h2>
       <ContentDiv>
         {category.taskWorkingOn ? <TaskName>{`Task -${category.taskWorkingOn.name}- from:`}</TaskName> : ""}
-        <CategoryName>{category.name}</CategoryName>
-        { category.tasks && category.tasks.length > 0
-          // ? <TaskList tasks={category.tasks} category={category}/>
-          ? <DroppableTaskList
-              category={category}
-              makeTaskWorkingOn={() => ''}
-            />
-          : ""
-        }
+        <OptionCategoryDiv>
+          {category.extraInfo ? "" : <OptionBox />}
+          <div>
+            <CategoryName>{category.name}</CategoryName>
+            { category.tasks && category.tasks.length > 0
+              ? <DroppableTaskList
+                  category={category}
+                  makeTaskWorkingOn={() => ''}
+                />
+              : ""
+            }
+          </div>
+        </OptionCategoryDiv>
         { category.sentTo ? <SendToDiv>{`from: ${category.user.username === username ? 'me' : category.user.username}`}</SendToDiv> : ""}
         { viewOnly || category.extraInfo !== null
           ? "" 
