@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { switchCategoryIndexes, removeWorkingOnTask } from '../reducer/categoryReducer';
@@ -40,10 +40,15 @@ const SendToDiv = styled.div`
 const WorkingOn = ({ category, categoryList, viewOnly }) => {
   const dispatch = useDispatch();
   const username = useSelector(state => state.token.username);
+  const [isCreatingTask, setIsCreatingTask] = useState(false);
 
   const handleRemove = () => {
     if (!category.workingOn && category.extraInfo !== null) return;
     dispatch(switchCategoryIndexes(0, 0, categoryList, username))
+  }
+
+  const toggleCreatingTask = () => {
+    setIsCreatingTask(!isCreatingTask);
   }
 
   return(
