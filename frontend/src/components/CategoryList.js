@@ -79,7 +79,13 @@ const CategoryList = () => {
                 if (category === null || category === categoryList[0]) {
                   return (
                   <div key={category.id}>
-                    <WorkingOn category={category} categoryList={categoryList}/>
+                    <WorkingOn 
+                      category={category} 
+                      categoryList={categoryList}
+                      deleteCategory={deleteCategory}
+                      arrayIndex={position}
+                      toggleAccomplishedCategory={toggleAccomplishedCategory}
+                    />
                     <CategoryFormDiv><CategoryForm /></CategoryFormDiv>
                     <h2>Your Projects:</h2>
                   </div>
