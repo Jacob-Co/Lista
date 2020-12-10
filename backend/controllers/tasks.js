@@ -199,11 +199,15 @@ taskRouter.patch('/sent/:id', async (req, res) => {
 
 taskRouter.delete('/:id', async (req, res) => {
   const taskToDelete = await Task.findById(req.params.id);
-  
+
   if (taskToDelete.category) {
     const category = await Category.findById(taskToDelete.category)
     category.tasks = category.tasks.filter(task => task.toString() != taskToDelete.id)
     await category.save()
+    if (category.sentTo) {
+        const sentToUser = await User.findById(category.sentTo)
+        SSEUtils.reinitializeDisplay(sentToUser.username);
+    }
   }
 
   await Task.findByIdAndRemove(req.params.id);
