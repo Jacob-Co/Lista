@@ -10,6 +10,7 @@ import { initializeCategories,
     switchTaskWorkingOn,
     patchAccomplishedCategory
   } from '../reducer/categoryReducer'
+import { initializeFriends } from '../reducer/friendReducer';
 import CategoryForm from './CategoryForm'
 import CategorySide from './CategorySide'
 import WorkingOn from './WorkingOn';
@@ -36,6 +37,7 @@ const CategoryList = () => {
 
   useEffect(() => {
     dispatch(initializeCategories())
+    dispatch(initializeFriends());
   }, [dispatch])
 
   const toggleAccomplishedCategory = (categoryId, accomplishedStatus) => {

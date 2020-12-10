@@ -12,8 +12,6 @@ import SSEListener from './components/SSEListener'
 import NavBar from './components/NavBar';
 import FAQ from './components/FAQ';
 
-import { initializeFriends } from './reducer/friendReducer';
-
 const TwoColumn = styled.div`
   display: flex;
   height: 100%;
@@ -51,7 +49,6 @@ function App() {
       const transformedUser = JSON.parse(localUser);
       dispatch(setUser(transformedUser));
     }
-    dispatch(initializeFriends());
   }, [dispatch]);
 
 
