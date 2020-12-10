@@ -86,6 +86,13 @@ taskRouter.patch('/recurring/:id', async (req, res) => {
 taskRouter.patch('/name/:id', async (req, res) => {
   const returnTask = await genericPatchHelper('name', req);
   if (returnTask.error) return res.status(400).json(returnTask);
+
+  const category = await Category.findById(returnTask.category);
+  if (category.sentTo) {
+      const sentToUser = await User.findById(category.sentTo)
+      SSEUtils.reinitializeDisplay(sentToUser.username);
+  }
+
   return res.json(returnTask);
 })
 
