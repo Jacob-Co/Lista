@@ -88,7 +88,7 @@ const CategorySide = ({
     } else if (isAccomplished) {
       return [toggleDone, deleteFunction]
     } else if (isSent) {
-      return [unsend]
+      return [unsend, edit, showTaskForm]
     }
 
     return [toggleDone, edit, showTaskForm, sendTo, deleteFunction];
