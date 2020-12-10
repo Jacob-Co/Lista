@@ -152,6 +152,10 @@ categoryRouter.delete('/:id', async (req, res) => {
 categoryRouter.patch('/name/:id', async (req, res) => {
   const returnCategory = await genericPatchHelper('name', req);
   if (returnCategory.error) return res.status(400).json(returnCategory);
+  if (returnCategory.sentTo) {
+    const sentToUser = await User.findById(returnCategory.sentTo);
+    SSEUtils.reinitializeDisplay(sentToUser.username);
+  }
   return res.json(returnCategory);
 })
 
