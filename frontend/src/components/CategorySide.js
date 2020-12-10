@@ -84,7 +84,7 @@ const CategorySide = ({
     } else if (isNotOwned || isSentTask) {
       return[toggleDone]
     } else if (isAccomplished && isSent) {
-      return [unsend]
+      return [unsend, edit, showTaskForm]
     } else if (isAccomplished) {
       return [toggleDone, deleteFunction]
     } else if (isSent) {
