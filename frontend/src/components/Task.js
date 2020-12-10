@@ -64,7 +64,7 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
     dispatch(patchTaskSentTo(task.id, null));
   }
 
-  const optionsToBePassed = (isAccomplished, isSentToMe, isSentToFriend) => {
+  const optionsToBePassed = (isAccomplished, isSentToMe, isSentToFriend, isSentCategory) => {
     const toggleDone = ['Toggle Done', () => dispatch(patchTaskAccomplished(task.id, !task.accomplished))];
     const edit = ['Edit', toggleEditing];
     const deleteTask = ['Delete', handleDeleteTask];
@@ -77,6 +77,8 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
       return [unsendTask];
     } else if (isAccomplished) {
       return [toggleDone]
+    } else if (isSentCategory) {
+      return [edit, deleteTask];
     }
 
     return [toggleDone, edit, sendTask, deleteTask];
@@ -101,13 +103,17 @@ const Task = ({ task, category, taskArrayIndex, makeTaskWorkingOn, categoryArray
         >
           <ColumnarDiv>
             <RowDiv>
-              {(category.sentTo && !isSentToMe()) || category.accomplished
+              {/* {(category.sentTo && !isSentToMe()) || category.accomplished
                 ? <>&#10132;</>
                 : <OptionBox 
                     optionsArray={optionsToBePassed(task.accomplished, isSentToMe(), isSentToFriend())}
                     checked={task.accomplished}
                   />
-              }
+              } */}
+              <OptionBox 
+                    optionsArray={optionsToBePassed(task.accomplished, isSentToMe(), isSentToFriend(), category.sentTo)}
+                    checked={task.accomplished}
+              />
               { isEditing 
                 ? <UniversalEditForm
                     orignalValue={task.name}
