@@ -38,11 +38,11 @@ taskRouter.post('/', async (req, res) => {
     const categoryToUpdate = await Category.findById(category);
     categoryToUpdate.tasks = categoryToUpdate.tasks.concat(returnedTask.id);
     await categoryToUpdate.save();
+    if (categoryToUpdate.sentTo) {
+      const sentToUser = await User.findById(categoryToUpdate.sentTo);
+      SSEUtils.reinitializeDisplay(sentToUser.username);
+    }
   }
-
-  // const user = await User.findById(token.id);
-  // user.tasks = user.tasks.concat(returnedTask.id);
-  // await user.save();
 
   res.status(201).json(returnedTask);
 })
