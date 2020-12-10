@@ -104,8 +104,10 @@ taskRouter.patch('/accomplished/:id', async (req, res) => {
 
   if (returnCategory.sentTo) {
     await returnCategory.populate({ path: 'user', select: 'username' }).execPopulate();
-    const username = returnCategory.user.username;
-    SSEUtils.reinitializeDisplay(username);
+    const owner = returnCategory.user.username;
+    const sentToUser =  await User.findById(returnCategory.sentTo);
+    SSEUtils.reinitializeDisplay(owner);
+    SSEUtils.reinitializeDisplay(sentToUser.username);
   }
 
   return res.json(returnTask);
