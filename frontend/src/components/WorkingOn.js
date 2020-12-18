@@ -56,20 +56,6 @@ const WorkingOn = ({ category, categoryList, viewOnly, deleteCategory, arrayInde
       <h2>Currently Working On:</h2>
       <ContentDiv>
         {category.taskWorkingOn ? <TaskName>{`Task -${category.taskWorkingOn.name}- from:`}</TaskName> : ""}
-        {/* <OptionCategoryDiv>
-          {category.extraInfo ? "" : <OptionBox />}
-          <div>
-            <CategoryName>{category.name}</CategoryName>
-            { category.tasks && category.tasks.length > 0
-              ? <DroppableTaskList
-                  category={category}
-                  makeTaskWorkingOn={() => ''}
-                />
-              : ""
-            }
-          </div>
-        </OptionCategoryDiv> */}
-        {/* { category.sentTo ? <SendToDiv>{`from: ${category.user.username === username ? 'me' : category.user.username}`}</SendToDiv> : ""} */}
         {category.extraInfo 
           ? <CategoryName>{category.name}</CategoryName> 
           : <CategorySide
