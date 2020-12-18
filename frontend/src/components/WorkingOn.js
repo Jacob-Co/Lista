@@ -56,7 +56,7 @@ const WorkingOn = ({ category, categoryList, viewOnly, deleteCategory, arrayInde
       <h2>Currently Working On:</h2>
       <ContentDiv>
         {category.taskWorkingOn ? <TaskName>{`Task -${category.taskWorkingOn.name}- from:`}</TaskName> : ""}
-        {category.extraInfo 
+        {category.extraInfo || viewOnly
           ? <CategoryName>{category.name}</CategoryName> 
           : <CategorySide
               category={category}
