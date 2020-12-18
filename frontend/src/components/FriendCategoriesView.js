@@ -59,7 +59,7 @@ const FriendCategoriesView = () => {
 
   return (
     <FriendCategories>
-      <h1>{friend ? capitalize(friend.username) : ""} Categories: </h1>
+      <h1>{friend ? capitalize(friend.username) : ""} Projects: </h1>
       { friendCategories.length > 0 
         ? <WorkingOn category={friendCategories[0]} viewOnly={true}/>
         : 'Loading'
